@@ -4,15 +4,15 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-public class MenuTurmas extends JFrame {
+public class MenuPrincipal extends JFrame {
 	
-	public MenuTurmas() {
+	public MenuPrincipal() {
 		super("Amigo do professor");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(1280,720));
 		this.setExtendedState(MAXIMIZED_BOTH);
 		
-		MenuAlunos mt = new MenuAlunos(this);
+		MenuTurma mt = new MenuTurma(this);
 	}
 }

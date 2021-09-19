@@ -3,7 +3,7 @@ package com.mvc.amigodoprof.principal;
 import javax.swing.SwingUtilities;
 
 import com.mvc.amigodoprof.gerente.GerenteBase;
-import com.mvc.amigodoprof.gui.MenuTurmas;
+import com.mvc.amigodoprof.gui.MenuPrincipal;
 
 
 
@@ -19,7 +19,7 @@ public class Teste {
 	SwingUtilities.invokeLater(new Runnable() { 
 		public void run() { 
 			//testeRuntime();
-			MenuTurmas menu = new MenuTurmas();
+			MenuPrincipal menu = new MenuPrincipal();
 		} 
 	});
 

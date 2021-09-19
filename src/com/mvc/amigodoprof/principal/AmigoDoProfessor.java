@@ -3,7 +3,7 @@ package com.mvc.amigodoprof.principal;
 import javax.swing.SwingUtilities;
 
 import com.mvc.amigodoprof.gerente.GerenteBase;
-import com.mvc.amigodoprof.gui.MenuTurmas;
+import com.mvc.amigodoprof.gui.MenuPrincipal;
 
 
 public class AmigoDoProfessor {
@@ -17,7 +17,7 @@ public class AmigoDoProfessor {
 
 			@Override
 			public void run() {
-				MenuTurmas menuPrincipal = new MenuTurmas();
+				MenuPrincipal menuPrincipal = new MenuPrincipal();
 				
 			}
 			

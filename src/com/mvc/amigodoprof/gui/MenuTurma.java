@@ -13,11 +13,11 @@ import javax.swing.JTable;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 
-public class MenuAlunos extends JFrame{
+public class MenuTurma extends JFrame{
 	
-	MenuTurmas menuPai;
+	MenuPrincipal menuPai;
 	
-	public MenuAlunos(MenuTurmas menuPai) {
+	public MenuTurma(MenuPrincipal menuPai) {
 		this.menuPai = menuPai;
 		
 		menuPai.setVisible(false);
@@ -60,7 +60,7 @@ public class MenuAlunos extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			menuPai.setVisible(true);
-			MenuAlunos.this.setVisible(false);
+			MenuTurma.this.setVisible(false);
 		}
 		
 	}
