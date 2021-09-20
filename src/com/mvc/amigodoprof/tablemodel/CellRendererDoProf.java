@@ -1,0 +1,119 @@
+package com.mvc.amigodoprof.tablemodel;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.DefaultCellEditor;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+
+
+
+/**
+ * @author Murilo Vieira
+ * Baseado nas funções encontradas em:
+ * https://www.guj.com.br/t/colorir-apenas-uma-celula-do-jtable/30998/9
+ * Criadas por: 
+ * @author fredferrao
+ *
+ */
+
+@SuppressWarnings("serial")
+public class CellRendererDoProf extends DefaultTableCellRenderer{
+    
+    private int tamanhoLetra;
+    private Color corTema;
+    
+	
+	public enum Alinhamento{
+		
+		ESQUERDA,
+		
+		CENTRO,
+		
+		DIREITA;
+		
+	}
+	
+	Alinhamento alinhamento;
+    
+    
+    public CellRendererDoProf(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
+        
+		super();
+        this.tamanhoLetra = tamanhoLetra;
+        this.corTema = corTema;
+        
+    	switch(alinhamento) {
+			
+    		case ESQUERDA:
+				this.setHorizontalAlignment(SwingConstants.LEFT);
+				break;
+		
+			case CENTRO:
+				this.setHorizontalAlignment(SwingConstants.CENTER);
+				break;
+			
+			case DIREITA:
+				this.setHorizontalAlignment(SwingConstants.RIGHT);
+				break;
+    	}
+    }    
+    
+    public Component getTableCellRendererComponent(JTable tabela, 
+            Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
+    	
+    	
+    	JLabel label = (JLabel)super.getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, 
+                linha, coluna);
+
+    	
+    	if(isSelected == true){
+            if(coluna != 0) {
+            	label.setForeground(Color.BLACK);
+                label.setBackground(corTema);
+                label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
+                
+                //Border b = new LineBorder(Color.BLACK, 3, false);
+                 
+                //label.setBorder(b);
+            }
+            else {
+            	this.setBorder(noFocusBorder);
+            }
+
+            
+        }else{
+        	/*TODO 
+        	 * colocar aqui alguma lógica de deixar em vermelho valores negativos*/
+        	label.setForeground(Color.BLACK);
+            label.setBackground(Color.WHITE);
+            label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
+            
+        }
+        
+        if(coluna == 0) {
+        	label.setFont(new Font("Consolas", Font.BOLD, tamanhoLetra));
+        	label.setBackground(new Color(150,150,150));
+        	//label.setEnabled(false);
+        }
+
+       //lembrando que vc pode obter o objeto da linhas correspondente assim
+       //Pessoa pessoa = ((PessoasTableModel)table.getModel()).getValoresPessoa(row);
+       //e fazer os if's direto nos valores do objeto, nesse caso para colorir a linha inteira!!
+        return label;       
+    } 
+	
+}

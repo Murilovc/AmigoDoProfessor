@@ -13,6 +13,10 @@ public class MenuPrincipal extends JFrame {
 		this.setSize(new Dimension(1280,720));
 		this.setExtendedState(MAXIMIZED_BOTH);
 		
+		
+		
+		
+		
 		MenuTurma mt = new MenuTurma(this);
 	}
 }
