@@ -35,6 +35,9 @@ public class Turma {
 	@Column
 	private String codigo;
 	
+	@Column
+	private String turno;
+	
 	/* Similar a uma descrição, porém com o 
 	 * intuito de ser frequentemente atualizado*/
 	@Column
