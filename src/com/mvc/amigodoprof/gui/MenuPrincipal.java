@@ -2,12 +2,14 @@ package com.mvc.amigodoprof.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MenuPrincipal extends JFrame {
 	
@@ -28,6 +30,14 @@ public class MenuPrincipal extends JFrame {
 		
 		JButton botaoNovaTurma = new JButton(new AcaoNovaTurma());
 		JButton botaoAulasConteudos = new JButton(new AcaoAbrirMenuAula());
+		
+		JPanel painelLateral = new JPanel(new FlowLayout());
+		painelLateral.setPreferredSize(new Dimension(150, 680));
+		
+		painelLateral.add(botaoNovaTurma);
+		painelLateral.add(botaoAulasConteudos);
+		
+		this.add(painelLateral, BorderLayout.EAST);
 	}
 	
 	
@@ -61,7 +71,7 @@ public class MenuPrincipal extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//MenuAula mn = new MenuAula();
-			
+			JanelaCadastroAluno ca = new JanelaCadastroAluno(MenuPrincipal.this);
 		}
 		
 	}

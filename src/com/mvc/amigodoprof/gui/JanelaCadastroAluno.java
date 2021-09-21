@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
-public class MenuCadastroAluno extends JFrame {
+public class JanelaCadastroAluno extends JFrame {
 	
 	MenuPrincipal menuPai;
 	private JTextField tfNome;
@@ -18,7 +18,7 @@ public class MenuCadastroAluno extends JFrame {
 	JButton btnSalvar = new JButton("Salvar");
 	JButton btnCancelar = new JButton("Cancelar");
 	
-	public MenuCadastroAluno(MenuPrincipal menuPai) {
+	public JanelaCadastroAluno(MenuPrincipal menuPai) {
 		super("Cadastrar aluno");
 		this.menuPai = menuPai;
 		
