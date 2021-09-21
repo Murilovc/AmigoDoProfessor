@@ -48,6 +48,9 @@ public class Turma {
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="idAluno", targetEntity=Aluno.class)
 	private List<Aluno> listaAlunos;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="idAula", targetEntity=Aula.class)
+	private List<Aula> listaAula;
 
 	
 	
