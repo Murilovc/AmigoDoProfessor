@@ -26,7 +26,8 @@ public class MenuPrincipal extends JFrame {
 	
 	private void adicionarComponentes() {
 		
-		JButton botaoNovaTurma = new JButton();
+		JButton botaoNovaTurma = new JButton(new AcaoNovaTurma());
+		JButton botaoAulasConteudos = new JButton(new AcaoAbrirMenuAula());
 	}
 	
 	
@@ -42,9 +43,39 @@ public class MenuPrincipal extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			//JanelaGerenciarTurma jgt = new JanelaGerenciarTurma();
 			
 		}
 		
+	}
+	
+	protected class AcaoAbrirMenuAula extends AbstractAction {
+
+		public AcaoAbrirMenuAula() {
+			super("Aulas e conteúdos");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_A);
+			putValue(SHORT_DESCRIPTION, "Visualizar menu de aulas");
+		}
+		
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//MenuAula mn = new MenuAula();
+			
+		}
+		
+	}
+	
+	protected class AcaoAbrirMenuNotas extends AbstractAction {
+		
+		public AcaoAbrirMenuNotas() {
+			super("Notas e atividades");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//MenuNota
+			
+		}
 	}
 }
