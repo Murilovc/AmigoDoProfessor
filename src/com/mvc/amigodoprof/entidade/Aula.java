@@ -28,6 +28,9 @@ public class Aula {
 	
 	@Column
 	private int quantidadeConteudos;
+	
+	@Column
+	private String planejamento;
 		
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="idAtividade", targetEntity=Atividade.class)
 	private List<Atividade> listaAtividades;
