@@ -2,71 +2,72 @@ package com.mvc.amigodoprof.gui;
 
 import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-public class JanelaCadastroAluno extends JFrame {
+public class JanelaCadastroAluno extends JFrame{
 	
 	MenuPrincipal menuPai;
 	private JTextField tfNome;
 	private JTextField tfNumeroNaChamada;
 	
+	JLabel lblNome = new JLabel("Nome:");
+	JLabel lblNumeroNaChamada = new JLabel("Número na chamada:");
+	JLabel lblAnotacoesAluno = new JLabel("Anotações sobre o aluno:");
+	
 	JButton btnSalvarECadastrarOutro = new JButton("Salvar e Cadastrar Outro");
 	JButton btnSalvar = new JButton("Salvar");
 	JButton btnCancelar = new JButton("Cancelar");
-	
+	JTextArea taAnotacoes = new JTextArea();
+	private JScrollPane scroll = new JScrollPane(taAnotacoes);
+		
 	public JanelaCadastroAluno(MenuPrincipal menuPai) {
-		super("Cadastrar aluno");
+		super();
 		this.menuPai = menuPai;
 		
 		menuPai.setVisible(false);
-		this.setSize(new Dimension(465, 250));
+		this.setTitle("Cadastrar aluno");
+		this.setSize(new Dimension(500, 300));
 		this.setVisible(true);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 30, 46, 14);
+		lblNome.setBounds(10, 30, 46, 17);
 		getContentPane().add(lblNome);
 		
 		tfNome = new JTextField();
-		tfNome.setBounds(45, 27, 390, 20);
+		tfNome.setBounds(52, 27, 420, 20);
 		getContentPane().add(tfNome);
 		tfNome.setColumns(10);
 		
-		JLabel lblNumeroNaChamada = new JLabel("Número na chamada:");
-		lblNumeroNaChamada.setBounds(10, 55, 102, 14);
+		lblNumeroNaChamada.setBounds(10, 55, 139, 20);
 		getContentPane().add(lblNumeroNaChamada);
 		
 		tfNumeroNaChamada = new JTextField();
-		tfNumeroNaChamada.setBounds(122, 55, 313, 20);
+		tfNumeroNaChamada.setBounds(140, 55, 330, 20);
 		getContentPane().add(tfNumeroNaChamada);
 		tfNumeroNaChamada.setColumns(10);
 		
-		JLabel lblAnotacoesAluno = new JLabel("Anotações sobre o aluno:");
-		lblAnotacoesAluno.setBounds(10, 80, 123, 14);
+		lblAnotacoesAluno.setBounds(10, 80, 223, 14);
 		getContentPane().add(lblAnotacoesAluno);
 		
-		btnSalvarECadastrarOutro.setBounds(10, 181, 179, 23);
+		btnSalvarECadastrarOutro.setBounds(10, 227, 179, 23);
 		getContentPane().add(btnSalvarECadastrarOutro);
 		
-		btnSalvar.setBounds(199, 181, 89, 23);
+		btnSalvar.setBounds(199, 227, 89, 23);
 		getContentPane().add(btnSalvar);
-		
-		btnCancelar.setBounds(300, 181, 89, 23);
+				
+		btnCancelar.setBounds(300, 227, 89, 23);
 		getContentPane().add(btnCancelar);
 		
-		JTextArea taAnotacoes = new JTextArea();
-		taAnotacoes.setBounds(10, 105, 428, 67);
-		getContentPane().add(taAnotacoes);
-				
-		
+		scroll.setBounds(10, 98, 460, 118);
+		getContentPane().add(scroll);
 		
 	}
-	
-	
 	
 }
