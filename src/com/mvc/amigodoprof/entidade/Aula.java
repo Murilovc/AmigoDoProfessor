@@ -70,12 +70,22 @@ public class Aula {
 	}
 
 	
+	public String getPlanejamento() {
+		return planejamento;
+	}
+	
 	/*
 	 * Setters
 	 */
 	
 	
 	
+
+
+	public void setPlanejamento(String planejamento) {
+		this.planejamento = planejamento;
+	}
+
 	public void setIdAula(long idAula) {
 		this.idAula = idAula;
 	}
