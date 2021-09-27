@@ -17,6 +17,9 @@ public class Resolucao {
 	@Column(name="id_resolucao")
 	private long idResolucao;
 	
+	@Column
+	private boolean entregue;
+	
 	@Column(name="valor_alcancado")
 	private double valorAlcancado;
 	
