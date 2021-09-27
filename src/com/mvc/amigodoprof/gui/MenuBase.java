@@ -10,6 +10,8 @@ public class MenuBase extends JFrame{
 	
 	private MenuBase menuPai;
 	
+	public MenuBase() {}
+	
 	public MenuBase(ModoDeAcesso modo, MenuBase pai) {
 		
 		MenuBase.modo = modo;

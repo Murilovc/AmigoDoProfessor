@@ -13,7 +13,7 @@ import javax.swing.JTable;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 
-public class MenuTurma extends JFrame{
+public class MenuTurma extends MenuBase{
 	
 	MenuPrincipal menuPai;
 	

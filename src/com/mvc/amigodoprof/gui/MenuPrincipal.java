@@ -11,10 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MenuPrincipal extends JFrame {
+public class MenuPrincipal extends MenuBase {
 	
 	public MenuPrincipal() {
-		super("Amigo do professor");
+		//super("Amigo do professor");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(1280,720));
