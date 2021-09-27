@@ -10,7 +10,7 @@ public class MenuBase extends JFrame{
 	
 	public enum ModoDeAcesso {
 		
-		/*Quando os campos de pesquisa
+		/* Quando os campos de pesquisa
 		 * ficam desligados, já que só
 		 * devem ser exibidos os itens
 		 * que pertencem a entidade
@@ -25,6 +25,9 @@ public class MenuBase extends JFrame{
 		 * precisar definir nada.*/
 		RESTRITO,
 		
+		
+		/* Abre o determinado menu 
+		 * de forma livre*/
 		GERAL;
 	}
 }

@@ -23,10 +23,9 @@ public class Bimestre {
 	@Column
 	private int ordemNoAnoLetivo;
 	
-	/* Peso que o bimestre/nota terá no cálculo
-	 * da média final do aluno */
-//	@Column
-//	private int pesoCalculoFinal;
+	/*Total de pontos no bimestre*/
+	@Column
+	private int pontuacaoTotal;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="idAtividade", targetEntity=Atividade.class)
 	private List<Atividade> listaAtividades;
