@@ -25,10 +25,6 @@ public class Atividade {
 	
 	//private Data dataEntrega;
 	
-	@ManyToOne
-	@JoinColumn(name="fk_bimestre")
-	private Bimestre bimestre;
-	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="idResolucao", targetEntity=Resolucao.class)
 	private List<Resolucao> resolucao;
 
@@ -46,10 +42,6 @@ public class Atividade {
 
 	public Aula getAula() {
 		return aula;
-	}
-
-	public Bimestre getBimestre() {
-		return bimestre;
 	}
 
 	public List<Resolucao> getResolucao() {
@@ -70,10 +62,6 @@ public class Atividade {
 
 	public void setAula(Aula aula) {
 		this.aula = aula;
-	}
-
-	public void setBimestre(Bimestre bimestre) {
-		this.bimestre = bimestre;
 	}
 
 	public void setResolucao(List<Resolucao> resolucao) {

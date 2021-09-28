@@ -30,6 +30,10 @@ public class Resolucao {
 	@ManyToOne
 	@JoinColumn(name="fk_aluno")
 	private Aluno aluno;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_nota")
+	private Nota nota;
 
 	
 	
