@@ -19,7 +19,7 @@ public class Frequencia {
 	private boolean presente;
 	
 	@Column
-	private String anotacao;
+	private String justificativa;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_aluno")
@@ -38,7 +38,7 @@ public class Frequencia {
 	}
 
 	public String getAnotacao() {
-		return anotacao;
+		return justificativa;
 	}
 
 	public Aluno getAluno() {
@@ -58,7 +58,7 @@ public class Frequencia {
 	}
 
 	public void setAnotacao(String anotacao) {
-		this.anotacao = anotacao;
+		this.justificativa = anotacao;
 	}
 
 	public void setAluno(Aluno aluno) {

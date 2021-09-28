@@ -3,6 +3,7 @@ package com.mvc.amigodoprof.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -29,7 +30,12 @@ public class MenuPrincipal extends MenuBase {
 	private void adicionarComponentes() {
 		
 		JButton botaoNovaTurma = new JButton(new AcaoNovaTurma());
+		botaoNovaTurma = UtilidadesGUI.
+				estilizarBotaoComBordaPadrao(botaoNovaTurma, "Arial", 14);
+		
 		JButton botaoAulasConteudos = new JButton(new AcaoAbrirMenuAula());
+		botaoAulasConteudos = UtilidadesGUI.
+				estilizarBotaoComBordaPadrao(botaoAulasConteudos, "Arial", 14);
 		
 		JPanel painelLateral = new JPanel(new FlowLayout());
 		painelLateral.setPreferredSize(new Dimension(150, 680));

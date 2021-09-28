@@ -13,11 +13,12 @@ public class UtilidadesGUI {
 		Font as = new Font(nomeFonte, Font.BOLD, tamanhoFonte);
 		botao.setFont(as);
 		
-		CompoundBorder cborder = new CompoundBorder(
-				new LineBorder(Color.ORANGE), new SoftBevelBorder(SoftBevelBorder.RAISED));
-		botao.setBorder(cborder);
+		//CompoundBorder cborder = new CompoundBorder(
+		//		new EtchedBorder(), new SoftBevelBorder(SoftBevelBorder.RAISED));
+		//botao.setBorder(cborder);
+		botao.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
 		
-		return null;
+		return botao;
 		
 	}
 }
