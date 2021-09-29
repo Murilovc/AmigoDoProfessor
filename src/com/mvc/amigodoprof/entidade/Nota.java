@@ -18,47 +18,41 @@ public class Nota {
 	private long idNota;
 	
 	@Column
-	private String nome;
+	private double notaLancada;
 	
+	/*B1, B2, B3, B4 e Final*/
 	@Column
-	private int ordemNoAnoLetivo;
+	private String bimestre;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_aluno")
+	private Aluno aluno;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="idResolucao", targetEntity=Resolucao.class)
 	private List<Resolucao> listaResolucoes;
 
-	public long getIdBimestre() {
+	public long getIdNota() {
 		return idNota;
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public int getOrdemNoAnoLetivo() {
-		return ordemNoAnoLetivo;
-	}
-
+	
 	public List<Resolucao> getListaResolucoes() {
 		return listaResolucoes;
 	}
 
-	public void setIdBimestre(long idNota) {
+	public void setIdNota(long idNota) {
 		this.idNota = idNota;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setOrdemNoAnoLetivo(int ordemNoAnoLetivo) {
-		this.ordemNoAnoLetivo = ordemNoAnoLetivo;
-	}
-
+	
 	public void setListaAtividades(List<Resolucao> listaAtividades) {
 		this.listaResolucoes = listaAtividades;
 	}
-	
-	
-	
+
+	public double getNotaLancada() {
+		return notaLancada;
+	}
+
+	public void setNotaLancada(double notaLancada) {
+		this.notaLancada = notaLancada;
+	}
 	
 }
