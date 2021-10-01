@@ -7,6 +7,8 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
@@ -23,21 +25,21 @@ import javax.swing.table.TableColumn;
 @SuppressWarnings("serial")
 public class ColumnModelDoProf extends DefaultTableColumnModel{
     
-    
     public ColumnModelDoProf(CellRendererDoProf.Alinhamento[] alinhamento, int quantidadeColunas,
-    		int tamanhoFonte, Color corCelulas) {
+    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
     		
-    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas);
+    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs);
     		
     		super.addColumn(tc);
+    		
     	}
     	
     }
     
     private TableColumn criaColuna(CellRendererDoProf.Alinhamento alinhamento, int indiceColuna,
-    		boolean resizeable, int tamanhoFonte, Color corCelulas){
+    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs){
     	
     	
     	TableColumn coluna = new TableColumn(indiceColuna);
@@ -51,7 +53,7 @@ public class ColumnModelDoProf extends DefaultTableColumnModel{
         coluna.setCellRenderer(acr);
         coluna.setCellEditor(new DefaultCellEditor(campoTexto));
     	coluna.setHeaderRenderer(new HeaderRendererDoProf());
-        //coluna.setHeaderValue(titulo);
+        coluna.setHeaderValue(abs.getColumnName(indiceColuna));
         
         coluna.setResizable(resizeable);
         return coluna;

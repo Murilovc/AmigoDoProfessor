@@ -103,12 +103,7 @@ public class CellRendererDoProf extends DefaultTableCellRenderer{
             label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
             
         }
-        
-        if(coluna == 0) {
-        	label.setFont(new Font("Consolas", Font.BOLD, tamanhoLetra));
-        	label.setBackground(new Color(150,150,150));
-        	//label.setEnabled(false);
-        }
+
 
        //lembrando que vc pode obter o objeto da linhas correspondente assim
        //Pessoa pessoa = ((PessoasTableModel)table.getModel()).getValoresPessoa(row);

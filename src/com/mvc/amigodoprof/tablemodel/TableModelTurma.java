@@ -3,6 +3,7 @@ package com.mvc.amigodoprof.tablemodel;
 import java.util.*;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 import com.mvc.amigodoprof.entidade.Turma;
 

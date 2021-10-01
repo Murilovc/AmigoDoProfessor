@@ -16,18 +16,16 @@ import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 public class MenuTurma extends MenuBase{
 	
 	MenuPrincipal menuPai;
+	ModoDeAcesso modo;
 	
 	public MenuTurma(MenuPrincipal menuPai) {
+		super(ModoDeAcesso.RESTRITO, menuPai);
+		
+		super.configuracaoInicial(this);
+		
 		this.menuPai = menuPai;
-		
-		menuPai.setVisible(false);
-		
-		this.setSize(new Dimension(1280,720));
-		this.setExtendedState(MAXIMIZED_BOTH);
-		this.setVisible(true);
-		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		
+		this.modo = super.modo;
+				
 		this.adicionarElementos();
 	}
 	
@@ -44,24 +42,5 @@ public class MenuTurma extends MenuBase{
 		this.add(tabela, BorderLayout.CENTER);
 		this.add(botaoExibirTurmas, BorderLayout.SOUTH);
 	}
-	
-	
-	
-	
-	
-	private class AcaoSair extends AbstractAction {
 
-		private AcaoSair() {
-			super("Se apertar explode!!!");
-			putValue(MNEMONIC_KEY, KeyEvent.VK_B);
-			putValue(SHORT_DESCRIPTION, "Sair zoeiro");
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			menuPai.setVisible(true);
-			MenuTurma.this.setVisible(false);
-		}
-		
-	}
 }

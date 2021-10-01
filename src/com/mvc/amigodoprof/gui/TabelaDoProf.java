@@ -4,7 +4,9 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+import com.mvc.amigodoprof.tablemodel.CellRendererDoProf;
 import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
+import com.mvc.amigodoprof.tablemodel.HeaderRendererDoProf;
 
 
 
@@ -17,15 +19,18 @@ public class TabelaDoProf extends JTable{
 	
 	public TabelaDoProf() {
 		super();
+		
+		this.setRowHeight(25);
+
 	}
 	
-	public TabelaDoProf(ColumnModelDoProf acm, AbstractTableModel tableModel) {
+	public TabelaDoProf(AbstractTableModel tableModel) {
 		super();
-		this.acm = acm;
-		this.setColumnModel(acm);
+		//this.acm = acm;
+		//this.setColumnModel(acm);
 		this.setModel(tableModel);
 		//this.setarLargura();
-
+		
 	}
 
 	
