@@ -9,7 +9,8 @@ import javax.persistence.*;
 	@NamedQuery(name="Turma.porPrefixo", query="SELECT t FROM Turma t WHERE t.prefixo LIKE :prefixo"),
 	@NamedQuery(name="Turma.porValor", query="SELECT t FROM Turma t WHERE t.valor LIKE :valor"),
 	@NamedQuery(name="Turma.porCodigo", query="SELECT t FROM Turma t WHERE t.codigo LIKE :codigo"),
-	@NamedQuery(name="Turma.porAnoLetivo", query="SELECT t FROM Turma t WHERE t.anoLetivo LIKE :ano_letivo")
+	@NamedQuery(name="Turma.porAnoLetivo", query="SELECT t FROM Turma t WHERE t.anoLetivo LIKE :ano_letivo"),
+	@NamedQuery(name="Turma.porTurno", query="SELECT t FROM Turma t WHERE t.turno LIKE :turno")
 
 })
 
@@ -110,6 +111,22 @@ public class Turma {
 
 	public void setListaAlunos(List<Aluno> listaAlunos) {
 		this.listaAlunos = listaAlunos;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public List<Aula> getListaAula() {
+		return listaAula;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+
+	public void setListaAula(List<Aula> listaAula) {
+		this.listaAula = listaAula;
 	}
 	
 	

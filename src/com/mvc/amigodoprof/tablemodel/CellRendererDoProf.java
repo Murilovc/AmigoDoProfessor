@@ -81,20 +81,16 @@ public class CellRendererDoProf extends DefaultTableCellRenderer{
 
     	
     	if(isSelected == true){
-            if(coluna != 0) {
-            	label.setForeground(Color.BLACK);
-                label.setBackground(corTema);
-                label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
-                
-                //Border b = new LineBorder(Color.BLACK, 3, false);
-                 
-                //label.setBorder(b);
-            }
-            else {
-            	this.setBorder(noFocusBorder);
-            }
-
             
+    		label.setForeground(Color.BLACK);
+            label.setBackground(corTema);
+            label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
+            this.setBorder(noFocusBorder);    
+            //Border b = new LineBorder(Color.BLACK, 3, false);
+                 
+            //label.setBorder(b);
+
+              
         }else{
         	/*TODO 
         	 * colocar aqui alguma lógica de deixar em vermelho valores negativos*/

@@ -43,4 +43,10 @@ public class MenuTurma extends MenuBase{
 		this.add(botaoExibirTurmas, BorderLayout.SOUTH);
 	}
 
+	@Override
+	protected void buscarPor() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

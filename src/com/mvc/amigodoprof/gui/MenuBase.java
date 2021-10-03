@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -16,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.SoftBevelBorder;
 
-public class MenuBase extends JFrame{
+public abstract class MenuBase extends JFrame{
 	
 	protected ModoDeAcesso modo;
 	
@@ -33,7 +34,7 @@ public class MenuBase extends JFrame{
 	protected JComboBox<String> boxSelecao;
 	protected JTextField campoPesquisa;
 	
-	protected JPanel painelNorte;
+	protected JPanel painelCanto;
 	
 	public MenuBase() {}
 	
@@ -55,11 +56,7 @@ public class MenuBase extends JFrame{
 	 *e 
 	 *Setters*/
 	
-	public void configuracaoInicial(MenuBase menu) {
-		criarFrame(menu);
-		adicionarElementosComuns(menu);
 
-	}
 	
 	public ModoDeAcesso getModoDeAcesso() {
 		return modo;
@@ -105,6 +102,12 @@ public class MenuBase extends JFrame{
 	 *Getters e
 	 *Setters*/
 	
+	public void configuracaoInicial(MenuBase menu) {
+		criarFrame(menu);
+		adicionarElementosComuns(menu);
+
+	}
+	
 	protected void criarFrame(MenuBase menu) {
 		
 		/*Características de todos os menus*/
@@ -128,15 +131,16 @@ public class MenuBase extends JFrame{
 		acaoSair = new AcaoSair();
 		campoPesquisa = new JTextField();
 		campoPesquisa.setPreferredSize(new Dimension(200,30));
+		campoPesquisa.addKeyListener(new AcaoPressionarEnterPesquisa());
 		boxSelecao = new JComboBox<String>();
 		boxSelecao.setPreferredSize(new Dimension(200,20));
 		botaoSair = new JButton(acaoSair);
 		botaoSair.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
 		botaoSair.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		painelNorte = new JPanel(new BorderLayout());
+		JPanel painelNorte = new JPanel(new BorderLayout());
 		
-		JPanel painelCanto = new JPanel(new BorderLayout());
+		painelCanto = new JPanel(new BorderLayout());
 		
 		JPanel painelPesquisa = new JPanel(new BorderLayout());
 		
@@ -153,6 +157,8 @@ public class MenuBase extends JFrame{
 		
 		menu.add(painelNorte, BorderLayout.NORTH);
 	}
+	
+	protected abstract void buscarPor();
 	
 	protected class AcaoSair extends AbstractAction {
 
@@ -176,5 +182,16 @@ public class MenuBase extends JFrame{
 			
 		}
 		
+	}
+	
+	protected class AcaoPressionarEnterPesquisa extends KeyAdapter {
+		
+		@Override
+		public void keyPressed(KeyEvent evento) {
+			int chave = evento.getKeyCode();
+			if(chave == KeyEvent.VK_ENTER) {
+				buscarPor();
+			}
+		}
 	}
 }

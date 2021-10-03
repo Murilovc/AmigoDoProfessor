@@ -35,14 +35,9 @@ public class HeaderRendererDoProf extends DefaultTableCellRenderer{
         JLabel label = (JLabel)super.getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, 
                 linha, coluna);
         
-        if(coluna == 0) {
-        	label.setBackground(new Color(150,150,150));
-        	label.setFont(new Font("Consolas", Font.BOLD, 20));
-        } 
-        else {
-        	label.setBackground(new Color(183,216,226));
-        	label.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        }
+        label.setBackground(new Color(183,216,226));
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        
         
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEtchedBorder());

@@ -42,6 +42,11 @@ public class GerenteTurma {
 		return gerente.createNamedQuery("Turma.todas").getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static List<Turma> pesquisarPorTurno(String turno) {
+		return gerente.createNamedQuery("Turma.porTurno").setParameter("turno", turno).getResultList();
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public static List<Turma> pesquisarPorPrefixo(String prefixo) {

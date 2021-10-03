@@ -25,7 +25,7 @@ public class TableModelTurma extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {		
-		return 6;	
+		return 4;	
 	}
 	
 	@Override	
@@ -41,18 +41,12 @@ public class TableModelTurma extends AbstractTableModel {
 				dado = turma.getIdTurma(); 
 				break;
 			case 1: 
-				dado = turma.getPrefixo();
-				break;		
-			case 2: 
-				dado = turma.getValor(); 
+				dado = turma.getPrefixo()+turma.getValor()+turma.getCodigo();
 				break;
-			case 3: 
-				dado = turma.getCodigo(); 
+			case 2:
+				dado = turma.getTurno();
 				break;
-			case 4:
-				dado = turma.getLembrete();
-				break;
-			case 5:
+			case 3:
 				dado = turma.getAnoLetivo();
 				break;
 
@@ -70,18 +64,12 @@ public class TableModelTurma extends AbstractTableModel {
 				nome = "Id da turma"; 
 				break;
 			case 1: 
-				nome = "Prefixo"; 
+				nome = "Nome"; 
 				break;		
 			case 2: 
-				nome = "Valor"; 
+				nome = "Turno"; 
 				break;
 			case 3: 
-				nome = "Código"; 
-				break;
-			case 4: 
-				nome = "Lembrete"; 
-				break;
-			case 5: 
 				nome = "Ano letivo"; 
 				break;
 
@@ -103,14 +91,8 @@ public class TableModelTurma extends AbstractTableModel {
 				break;
 			case 2: 
 				obj = String.class; 
-				break;		
-			case 3: 
-				obj = String.class; 
 				break;
-			case 4: 
-				obj = String.class; 
-				break;
-			case 5:
+			case 3:
 				obj = String.class;
 				break;
 			default: 
