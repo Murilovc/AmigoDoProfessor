@@ -25,9 +25,9 @@ import com.mvc.amigodoprof.gui.Alinhamento;
  */
 
 @SuppressWarnings("serial")
-public class ColumnModelDoProf extends DefaultTableColumnModel{
+public class ColumnModelParaAula extends DefaultTableColumnModel{
     
-    public ColumnModelDoProf(Alinhamento[] alinhamento, int quantidadeColunas,
+    public ColumnModelParaAula(Alinhamento[] alinhamento, int quantidadeColunas,
     		int tamanhoFonte, Color corCelulas, AbstractTableModel abs) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
@@ -47,7 +47,7 @@ public class ColumnModelDoProf extends DefaultTableColumnModel{
     	TableColumn coluna = new TableColumn(indiceColuna);
     	
     	
-    	CellRendererDoProf acr = new CellRendererDoProf(tamanhoFonte, corCelulas, alinhamento);
+    	CellRendererParaAulas acr = new CellRendererParaAulas(tamanhoFonte, corCelulas, alinhamento);
     	
         
     	JTextField campoTexto = new JTextField();
@@ -62,3 +62,4 @@ public class ColumnModelDoProf extends DefaultTableColumnModel{
     }
 
 }
+

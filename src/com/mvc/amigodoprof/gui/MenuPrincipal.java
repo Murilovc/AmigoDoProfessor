@@ -23,7 +23,6 @@ import javax.swing.JTextArea;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Turma;
 import com.mvc.amigodoprof.tablemodel.CellRendererDoProf;
-import com.mvc.amigodoprof.tablemodel.CellRendererDoProf.Alinhamento;
 import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
 import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 
@@ -61,6 +60,7 @@ public class MenuPrincipal extends MenuBase {
 		 * a JVM encerra o programa
 		 * */
 		this.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		this.adicionarComponentes();
 		
@@ -180,7 +180,7 @@ public class MenuPrincipal extends MenuBase {
 		
 		TableModelTurma tmt = new TableModelTurma(listaTurmas);
 		
-		CellRendererDoProf.Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
+		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
 				Alinhamento.CENTRO,Alinhamento.CENTRO};
 		ColumnModelDoProf cm = new ColumnModelDoProf(alinhamento, alinhamento.length,
 				20, new Color(122, 255, 135), tmt);
@@ -191,8 +191,6 @@ public class MenuPrincipal extends MenuBase {
 		tabela.setColumnModel(cm);
 		tabela.addMouseListener(new HabilitarEdicaoExclusao());
 		
-		//jcp = new JScrollPane(tabela);
-		//this.add(jcp, BorderLayout.CENTER);
 	}
 	
 	@Override
@@ -261,7 +259,9 @@ public class MenuPrincipal extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JanelaCadastroAluno ca = new JanelaCadastroAluno(MenuPrincipal.this);
+			MenuTurma mt = new MenuTurma(ModoDeAcesso.RESTRITO, MenuPrincipal.this);
+			mt.setVisible(true);
+			MenuPrincipal.this.setVisible(false);
 		}
 		
 	}

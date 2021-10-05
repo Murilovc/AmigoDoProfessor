@@ -42,7 +42,19 @@ public class GerenteAula {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Aula> pesquisarTodasPorData() {
-		return gerente.createNamedQuery("Aula.todasPorData").getResultList();
+	public static List<Aula> pesquisarPorData(String data) {
+		return gerente.createNamedQuery("Aula.todasPorData").setParameter("data", data).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Aula> pesquisarPorFrequenciaLancada() {
+		return gerente.createNamedQuery("Aula.porFrequenciaLancada").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Aula> pesquisarPorFrequenciaNaoLancada() {
+		return gerente.createNamedQuery("Aula.porFrequenciaNaoLancada").getResultList();
+	}
+	
+	
 }

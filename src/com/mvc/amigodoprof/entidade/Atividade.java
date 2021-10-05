@@ -67,9 +67,5 @@ public class Atividade {
 	public void setResolucao(List<Resolucao> resolucao) {
 		this.resolucao = resolucao;
 	}
-	
-	
-	
-	
 
 }

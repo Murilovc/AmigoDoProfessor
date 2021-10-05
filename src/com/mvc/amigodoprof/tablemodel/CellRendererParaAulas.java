@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -20,6 +22,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
+import com.mvc.amigodoprof.gui.MenuTurma;
 
 
 
@@ -33,16 +36,15 @@ import com.mvc.amigodoprof.gui.Alinhamento;
  */
 
 @SuppressWarnings("serial")
-public class CellRendererDoProf extends DefaultTableCellRenderer{
+public class CellRendererParaAulas extends DefaultTableCellRenderer{
     
     private int tamanhoLetra;
     private Color corTema;
-    
 	
 	Alinhamento alinhamento;
     
     
-    public CellRendererDoProf(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
+    public CellRendererParaAulas(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
         
 		super();
         this.tamanhoLetra = tamanhoLetra;
@@ -66,6 +68,16 @@ public class CellRendererDoProf extends DefaultTableCellRenderer{
     
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
+    	
+    	if(coluna == 3) {
+    		JButton botao = (JButton)valor;//new JButton(new MenuTurma.AcaoLancarFrequencia());//(JButton)super.
+    				//getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, linha, coluna);
+    		if(isSelected) {
+    			MenuTurma.abrirJanelaLancamentoFrequencia(linha);
+    		}
+    		return botao;
+    	}
+    	
     	
     	
     	JLabel label = (JLabel)super.getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, 

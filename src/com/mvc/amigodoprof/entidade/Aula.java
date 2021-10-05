@@ -7,7 +7,12 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name="Aula.todas", query="SELECT a FROM Aula a"),
-	@NamedQuery(name="Aula.todasPorData", query="SELECT a FROM Aula a ORDER BY a.data")
+	@NamedQuery(name="Aula.todasPorData", query="SELECT a FROM Aula a ORDER BY a.data"),
+	@NamedQuery(name="Aula.porData", query="SELECT a FROM Aula a WHERE a.data LIKE :data"),
+	@NamedQuery(name="Aula.porFrequenciaLancada",
+	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 1"),
+	@NamedQuery(name="Aula.porFrequenciaNaoLancada",
+	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 0")
 })
 
 
@@ -26,11 +31,19 @@ public class Aula {
 	@Column
 	private String conteudo;
 	
+	/*Inútil, provavelmente*/
 	@Column
 	private int quantidadeConteudos;
 	
 	@Column
 	private String planejamento;
+	
+	@Column
+	private boolean frequenciaLancada;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_turma")
+	private Turma turma;
 		
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="idAtividade", targetEntity=Atividade.class)
 	private List<Atividade> listaAtividades;
@@ -108,6 +121,22 @@ public class Aula {
 
 	public void setListaFrequencia(List<Frequencia> listaFrequencia) {
 		this.listaFrequencia = listaFrequencia;
+	}
+
+	public boolean isFrequenciaLancada() {
+		return frequenciaLancada;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setFrequenciaLancada(boolean frequenciaLancada) {
+		this.frequenciaLancada = frequenciaLancada;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 	
 	
