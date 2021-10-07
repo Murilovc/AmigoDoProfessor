@@ -259,7 +259,11 @@ public class MenuPrincipal extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			MenuTurma mt = new MenuTurma(ModoDeAcesso.RESTRITO, MenuPrincipal.this);
+			
+			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
+			Turma turma = ControleTurma.pesquisarTurmaPorId(valor);
+			
+			MenuTurma mt = new MenuTurma(ModoDeAcesso.RESTRITO, MenuPrincipal.this, turma.getIdTurma());
 			mt.setVisible(true);
 			MenuPrincipal.this.setVisible(false);
 		}

@@ -21,7 +21,9 @@ public abstract class MenuBase extends JFrame{
 	
 	protected ModoDeAcesso modo;
 	
-	protected String idEntidadePai, idEntidadeAtual;
+	protected long entidadePai;
+
+	protected static long entidadeAtual;
 	
 	protected MenuBase menuPai;
 	
@@ -46,7 +48,7 @@ public abstract class MenuBase extends JFrame{
 		
 		if(modo == ModoDeAcesso.RESTRITO) {
 			if(pai != null) {
-				idEntidadePai = pai.getIdEntidadeAtual();
+				entidadePai = pai.getIdEntidadeAtual();
 			}
 		}
 			
@@ -66,20 +68,20 @@ public abstract class MenuBase extends JFrame{
 		this.modo = modo;
 	}
 
-	public String getIdEntidadePai() {
-		return idEntidadePai;
+	public long getIdEntidadePai() {
+		return entidadePai;
 	}
 
-	public String getIdEntidadeAtual() {
-		return idEntidadeAtual;
+	public long getIdEntidadeAtual() {
+		return entidadeAtual;
 	}
 
 	public void setIdEntidadePai(String idEntidadePai) {
-		this.idEntidadePai = idEntidadePai;
+		this.entidadePai = Long.valueOf(idEntidadePai);
 	}
 
 	public void setIdEntidadeAtual(String idEntidadeAtual) {
-		this.idEntidadeAtual = idEntidadeAtual;
+		entidadeAtual = Long.valueOf(idEntidadeAtual);
 	}
 	
 	/*Getters e Setters de Components Swing*/

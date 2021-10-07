@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleTurma;
@@ -33,8 +34,6 @@ import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 
 public class MenuTurma extends MenuBase {
 	
-
-	
 	static TabelaDoProf tabela;
 	JTextArea areaLembrete;
 	
@@ -48,18 +47,22 @@ public class MenuTurma extends MenuBase {
 	
 	JScrollPane jcp;
 	
-	public MenuTurma(ModoDeAcesso modo, MenuBase menuPai) {
+	public long entidadeAtual, entidadePai;
+	public MenuBase menuPai;
+	
+	
+	public MenuTurma(ModoDeAcesso modo, MenuBase menuPai, long idTurma) {
 		
-		/* O modo de acesso não importa,
-		 * já que não se aplica ao MenuPrincipal*/
 		super(modo, menuPai);
 		super.configuracaoInicial(this);
+		entidadeAtual = idTurma;
+		this.menuPai = menuPai;
 		
 		this.adicionarComponentes();
 		
 	}
 	
-	private void adicionarComponentes() {
+	public void adicionarComponentes() {
 		
 		/*
 		 * Mexendo em componentes herdados de MenuBase
@@ -132,12 +135,21 @@ public class MenuTurma extends MenuBase {
 		
 		desativarBotoes();
 		
-		
+		Aula aula = new Aula();
+		aula.setIdAula(42315644L);
+		aula.setConteudo("Para debugar");
 		List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
+		listaAulas.add(aula);
+		List<JButton> listaBotoes = new ArrayList<JButton>();
+		
+		for(Aula a : listaAulas) {
+			listaBotoes.add(new JButton("Lançar"));//new MenuTurma.AcaoLancarFrequencia()));
+		}
 		
 		tabela = new TabelaDoProf();
+		//tabela.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		
-		carregarTabela(listaAulas);
+		carregarTabela(listaAulas, listaBotoes);
 		
 		jcp = new JScrollPane(tabela);
 		
@@ -170,14 +182,14 @@ public class MenuTurma extends MenuBase {
 		botaoVerFrequencias.setEnabled(true);
 	}
 	
-	private void carregarTabela(List<Aula> listaAulas) {
+	public void carregarTabela(List<Aula> listaAulas, List<JButton> listaBotoes) {
 		
-		TableModelAula tmt = new TableModelAula(listaAulas);
+		TableModelAula tmt = new TableModelAula(listaAulas, listaBotoes);
 		
 		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
 				Alinhamento.CENTRO,  Alinhamento.CENTRO, Alinhamento.CENTRO};
 		ColumnModelParaAula ca = new ColumnModelParaAula(alinhamento, alinhamento.length,
-				20, new Color(122, 255, 135), tmt);
+				20, new Color(122, 255, 135), tmt, this);
 		
 		
 		tabela.setEnabled(true);
@@ -185,15 +197,21 @@ public class MenuTurma extends MenuBase {
 		tabela.setColumnModel(ca);
 		tabela.addMouseListener(new HabilitarEdicaoExclusao());
 		
+		
 	}
 	
-	public static void abrirJanelaLancamentoFrequencia(int linha) {
+	public void abrirJanelaLancamentoFrequencia(int linha) {
+		
 		long id = Long.valueOf(String.valueOf(tabela.getValueAt(linha, 0)));
 		
 		Aula aula = ControleAula.pesquisarAulaPorId(id);
 		
-		System.out.println("Funcionou");
+		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
+		
+		JanelaLancamentoFrequencia jlf = new JanelaLancamentoFrequencia(this, aula, turma.getListaAlunos());
+		jlf.setVisible(true);
 	}
+	
 	
 	@Override
 	protected void buscarPor() {
@@ -203,11 +221,15 @@ public class MenuTurma extends MenuBase {
 		int tipoPesquisa = super.boxSelecao.getSelectedIndex();
 		
 		List<Aula> listaAulas = new ArrayList<Aula>();
+		List<JButton> listaBotoes = new ArrayList<JButton>();
 		Aula aula;
 		
 		if(stringPesquisada.equals("") && tipoPesquisa < 2) {
 			listaAulas = ControleAula.pegarTodasAsAulas();
-			carregarTabela(listaAulas);
+			for(Aula a : listaAulas) {
+				listaBotoes.add(new JButton("Lançar"));
+			}
+			carregarTabela(listaAulas, listaBotoes);
 			return;
 		}
 		
@@ -226,8 +248,11 @@ public class MenuTurma extends MenuBase {
 				listaAulas = ControleAula.pesquisarAulaPorFrequenciaNaoLancada();
 				break;
 		}
-		
-		carregarTabela(listaAulas);
+		listaBotoes = new ArrayList<JButton>();
+		for(Aula a : listaAulas) {
+			listaBotoes.add(new JButton("Lançar"));
+		}
+		carregarTabela(listaAulas, listaBotoes);
 		
 	}
 	
@@ -279,7 +304,13 @@ public class MenuTurma extends MenuBase {
 			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
 			Aula aula = ControleAula.pesquisarAulaPorId(valor);
 			ControleAula.atualizarAula(aula);
-			carregarTabela(ControleAula.pegarTodasAsAulas());
+			
+			List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
+			List<JButton> listaBotoes = new ArrayList<JButton>();
+			for(Aula a : listaAulas) {
+				listaBotoes.add(new JButton("Lançar"));
+			}
+			carregarTabela(listaAulas, listaBotoes);
 		}
 		
 	}
@@ -299,7 +330,13 @@ public class MenuTurma extends MenuBase {
 			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
 			Aula aula = ControleAula.pesquisarAulaPorId(valor);
 			ControleAula.apagarAula(aula);
-			carregarTabela(ControleAula.pegarTodasAsAulas());
+			
+			List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
+			List<JButton> listaBotoes = new ArrayList<JButton>();
+			for(Aula a : listaAulas) {
+				listaBotoes.add(new JButton("Lançar"));
+			}
+			carregarTabela(listaAulas, listaBotoes);
 		}
 		
 	}
@@ -354,23 +391,6 @@ public class MenuTurma extends MenuBase {
 		}
 		
 	}
-	
-	public static class AcaoLancarFrequencia extends AbstractAction {
-
-		public AcaoLancarFrequencia() {
-			super("Lançar");
-			//putValue(MNEMONIC_KEY, KeyEvent.VK_L);
-			putValue(SHORT_DESCRIPTION, "Lançar frequência");
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			//colocar a janela de lançamento de frequencia aqui
-			System.out.println("Apertado");
-		}
-		
-	}
-	
 
 }
 

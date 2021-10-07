@@ -16,17 +16,15 @@ public class TableModelAula extends AbstractTableModel {
 	List<Aula> listaAulas;
 	List<JButton> listaBotoes;
 	
-	public TableModelAula(List<Aula> aulas) {
+	public TableModelAula(List<Aula> aulas, List<JButton> listaBotoes) {
 		this.listaAulas = aulas;
-		Aula aula = new Aula();
-		aula.setIdAula(78964123L);
-		listaAulas.add(aula);
+		//Aula aula = new Aula();
+		//aula.setIdAula(78964123L);
+		//listaAulas.add(aula);
 		
-		listaBotoes = new ArrayList<JButton>();
+		this.listaBotoes = listaBotoes;
 		
-		for(Aula a : aulas) {
-			listaBotoes.add(new JButton(new MenuTurma.AcaoLancarFrequencia()));
-		}
+
 	}
 	
 	@Override
@@ -58,7 +56,7 @@ public class TableModelAula extends AbstractTableModel {
 				dado = aula.getConteudo();
 				break;
 			case 3:
-				dado = new JButton("Lançar");//listaBotoes.get(indiceLinha);
+				dado = listaBotoes.get(indiceLinha);//new JButton("Lançar");
 				break;
 			case 4:
 				if(aula.isFrequenciaLancada() == true) {

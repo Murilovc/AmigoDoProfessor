@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.DefaultCellEditor;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.event.TableColumnModelEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
@@ -26,14 +23,14 @@ import com.mvc.amigodoprof.gui.MenuTurma;
  */
 
 @SuppressWarnings("serial")
-public class ColumnModelParaAula extends DefaultTableColumnModel{
+public class ColumnModelParaLancamento extends DefaultTableColumnModel{
     
-    public ColumnModelParaAula(Alinhamento[] alinhamento, int quantidadeColunas,
-    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuTurma mt) {
+    public ColumnModelParaLancamento(Alinhamento[] alinhamento, int quantidadeColunas,
+    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
     		
-    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs, mt);
+    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs);
     		
     		super.addColumn(tc);
     		
@@ -42,13 +39,13 @@ public class ColumnModelParaAula extends DefaultTableColumnModel{
     }
     
     private TableColumn criaColuna(Alinhamento alinhamento, int indiceColuna,
-    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuTurma mt){
+    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs){
     	
     	
     	TableColumn coluna = new TableColumn(indiceColuna);
     	
     	
-    	CellRendererParaAulas acr = new CellRendererParaAulas(tamanhoFonte, corCelulas, alinhamento, mt);
+    	CellRendererParaLancamento acr = new CellRendererParaLancamento(tamanhoFonte, corCelulas, alinhamento);
     	
         
     	JTextField campoTexto = new JTextField();
