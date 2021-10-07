@@ -31,10 +31,6 @@ public class Aula {
 	@Column
 	private String conteudo;
 	
-	/*Inútil, provavelmente*/
-	@Column
-	private int quantidadeConteudos;
-	
 	@Column
 	private String planejamento;
 	
@@ -68,10 +64,6 @@ public class Aula {
 
 	public String getConteudo() {
 		return conteudo;
-	}
-
-	public int getQuantidadeConteudos() {
-		return quantidadeConteudos;
 	}
 
 	public List<Atividade> getListaAtividades() {
@@ -109,10 +101,6 @@ public class Aula {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
-	}
-
-	public void setQuantidadeConteudos(int quantidadeConteudos) {
-		this.quantidadeConteudos = quantidadeConteudos;
 	}
 
 	public void setListaAtividades(List<Atividade> listaAtividades) {

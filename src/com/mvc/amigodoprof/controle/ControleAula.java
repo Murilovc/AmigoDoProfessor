@@ -1,5 +1,9 @@
 package com.mvc.amigodoprof.controle;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mvc.amigodoprof.entidade.Aula;
@@ -48,6 +52,41 @@ public class ControleAula {
 	
 	public static List<Aula> pesquisarAulaPorFrequenciaNaoLancada(){
 		return GerenteAula.pesquisarPorFrequenciaNaoLancada();
+	}
+	
+	/* Métodos
+	 * úteis
+	 * */
+	
+	public static void cadastrarAula(String data, String conteudo,
+			String planejamento, String frequenciaLancada, Turma turma) {
+		
+		Aula aula = new Aula();
+		SimpleDateFormat a = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataConvertida = new Date();
+		try {
+			dataConvertida = a.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		aula.setData(dataConvertida);
+		aula.setConteudo(conteudo);
+		aula.setPlanejamento(planejamento);
+		
+		if(frequenciaLancada.equals("Não")) {
+			aula.setFrequenciaLancada(false);
+		} else {
+			aula.setFrequenciaLancada(true);
+		}
+		
+		List<Aula> listaAulasDaTurma = new ArrayList<Aula>();//turma.getListaAula();
+		listaAulasDaTurma.add(aula);
+		turma.setListaAula(listaAulasDaTurma);
+		GerenteTurma.atualizar(turma);
+		
+		aula.setTurma(turma);
+		
+		GerenteAula.adicionar(aula);
 	}
 	
 

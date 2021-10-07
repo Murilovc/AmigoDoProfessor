@@ -23,7 +23,7 @@ public abstract class MenuBase extends JFrame{
 	
 	protected long entidadePai;
 
-	protected static long entidadeAtual;
+	protected long entidadeAtual;
 	
 	protected MenuBase menuPai;
 	

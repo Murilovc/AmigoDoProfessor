@@ -34,18 +34,18 @@ import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 
 public class MenuTurma extends MenuBase {
 	
-	static TabelaDoProf tabela;
-	JTextArea areaLembrete;
+	private TabelaDoProf tabela;
+	private JTextArea areaPlanejamento;
 	
-	JButton botaoVerAlunos;
-	JButton botaoVerFrequencias;
-	JButton botaoVerAtividades;
-	JButton botaoAdicionarAula;
-	JButton botaoEditarAula;
-	JButton botaoApagarAula;
+	private JButton botaoVerAlunos;
+	private JButton botaoVerFrequencias;
+	private JButton botaoVerAtividades;
+	private JButton botaoAdicionarAula;
+	private JButton botaoEditarAula;
+	private JButton botaoApagarAula;
 
 	
-	JScrollPane jcp;
+	private JScrollPane jcp;
 	
 	public long entidadeAtual, entidadePai;
 	public MenuBase menuPai;
@@ -91,7 +91,7 @@ public class MenuTurma extends MenuBase {
 		 * */
 
 		
-		botaoAdicionarAula = new JButton();
+		botaoAdicionarAula = new JButton(new AcaoAdicionarAula());
 		botaoAdicionarAula = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoAdicionarAula, "Arial", 14);
 		
@@ -103,25 +103,39 @@ public class MenuTurma extends MenuBase {
 		botaoApagarAula = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoApagarAula, "Arial", 14);
 		
+		JLabel labelPlanejamento = new JLabel("Planejamento                                 ");
+		labelPlanejamento.setFont(new Font("Arial", Font.BOLD, 17));
+		
+		areaPlanejamento = new JTextArea();
+		areaPlanejamento.setPreferredSize(new Dimension(270,440));
+		areaPlanejamento.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
+		
+		JScrollPane scrollPlanejamento = new JScrollPane(areaPlanejamento);
+		scrollPlanejamento.setPreferredSize(new Dimension(280,440));
+		
+		
+		
 		JPanel painelLateralEsquerdo = new JPanel(new FlowLayout());
-		painelLateralEsquerdo.setPreferredSize(new Dimension(150, 680));
+		painelLateralEsquerdo.setPreferredSize(new Dimension(280, 680));
 		
 		painelLateralEsquerdo.add(botaoAdicionarAula);
 		painelLateralEsquerdo.add(botaoEditarAula);
 		painelLateralEsquerdo.add(botaoApagarAula);
+		painelLateralEsquerdo.add(labelPlanejamento);
+		painelLateralEsquerdo.add(scrollPlanejamento);
 		
 		
 		
 		
-		botaoVerAlunos = new JButton();
+		botaoVerAlunos = new JButton(new AcaoVerAlunos());
 		botaoVerAlunos = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoVerAlunos, "Arial", 14);
 		
-		botaoVerFrequencias = new JButton();
+		botaoVerFrequencias = new JButton("Ver lista frequência (n)");
 		botaoVerFrequencias = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoVerFrequencias,
 				"Arial", 14);
 		
-		botaoVerAtividades = new JButton();
+		botaoVerAtividades = new JButton("Ver atividades (n)");
 		botaoVerAtividades = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoVerAtividades, "Arial", 14);
 		
 		
@@ -156,14 +170,14 @@ public class MenuTurma extends MenuBase {
 		/*Quero pegar o Id (está na coluna 0) da linha selecionada*/
 
 		
-		areaLembrete = new JTextArea("Lembrete sobre a turma selecionada...");
-		areaLembrete.setPreferredSize(new Dimension(800, 60));
-		areaLembrete.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
+		areaPlanejamento = new JTextArea("Lembrete sobre a turma selecionada...");
+		areaPlanejamento.setPreferredSize(new Dimension(800, 60));
+		areaPlanejamento.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
 
 		this.add(painelLateralDireito, BorderLayout.EAST);
 		this.add(painelLateralEsquerdo, BorderLayout.WEST);
 		this.add(jcp, BorderLayout.CENTER);
-		this.add(areaLembrete, BorderLayout.SOUTH);
+		
 	}
 	
 	private void desativarBotoes() {
@@ -283,7 +297,8 @@ public class MenuTurma extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			JanelaCadastroAula jca = new JanelaCadastroAula(MenuTurma.this, entidadeAtual);
+			jca.setVisible(true);
 			
 
 		}
@@ -353,7 +368,9 @@ public class MenuTurma extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//JanelaCadastroAluno ca = new JanelaCadastroAluno(MenuTurma.this);
+			MenuAluno ma = new MenuAluno(ModoDeAcesso.RESTRITO, MenuTurma.this);
+			ma.setVisible(true);
+			
 		}
 		
 	}
@@ -369,7 +386,7 @@ public class MenuTurma extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			/* XXX */
 			
 		}
 		

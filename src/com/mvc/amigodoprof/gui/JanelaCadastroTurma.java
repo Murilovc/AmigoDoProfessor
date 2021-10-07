@@ -22,8 +22,8 @@ public class JanelaCadastroTurma extends JDialog{
 	private JTextField tfValor;
 	private JTextField tfCodigo;
 	private JTextArea taLembreteTurma;
-	JComboBox<String> cbPrefixo;
-	JComboBox<String> cbTurno;
+	private JComboBox<String> cbPrefixo;
+	private JComboBox<String> cbTurno;
 	private JTextField tfAnoLetivo;
 
 	public JanelaCadastroTurma(JFrame pai) {
@@ -122,8 +122,8 @@ public class JanelaCadastroTurma extends JDialog{
 											tfValor.getText(),
 											tfCodigo.getText(), 
 											(String)cbTurno.getSelectedItem(), 
-											taLembreteTurma.getText(), "2021" 
-											);
+											taLembreteTurma.getText(),
+											tfAnoLetivo.getText());
 			
 			JanelaCadastroTurma.this.dispose();
 		}
