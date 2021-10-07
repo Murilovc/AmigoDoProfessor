@@ -99,7 +99,7 @@ public class MenuTurma extends MenuBase {
 		botaoEditarAula = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoEditarAula, "Arial", 14);
 		
-		botaoApagarAula = new JButton();
+		botaoApagarAula = new JButton(new AcaoApagarAula());
 		botaoApagarAula = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoApagarAula, "Arial", 14);
 		

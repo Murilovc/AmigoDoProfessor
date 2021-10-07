@@ -299,7 +299,8 @@ public class MenuPrincipal extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//JanelaGerenciarTurma jgt = new JanelaGerenciarTurma();
+			JanelaCadastroTurma jt = new JanelaCadastroTurma(MenuPrincipal.this);
+			jt.setVisible(true);
 			
 		}
 		

@@ -25,6 +25,7 @@ public class JanelaCadastroTurma extends JDialog{
 	private JComboBox<String> cbPrefixo;
 	private JComboBox<String> cbTurno;
 	private JTextField tfAnoLetivo;
+	
 
 	public JanelaCadastroTurma(JFrame pai) {
 		super(pai, ModalityType.APPLICATION_MODAL);

@@ -41,7 +41,7 @@ public class TableModelTurma extends AbstractTableModel {
 				dado = turma.getIdTurma(); 
 				break;
 			case 1: 
-				dado = turma.getPrefixo()+turma.getValor()+turma.getCodigo();
+				dado = turma.getValor()+turma.getPrefixo()+turma.getCodigo();
 				break;
 			case 2:
 				dado = turma.getTurno();
