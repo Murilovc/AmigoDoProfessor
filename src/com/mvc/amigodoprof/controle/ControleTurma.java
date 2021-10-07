@@ -40,4 +40,18 @@ public class ControleTurma {
 	public static void apagarTurma(Turma turma) {
 		GerenteTurma.remover(turma);
 	}
+	
+	public static void cadastrarTurma(String prefixo, String valor, String codigo,
+			String turno, String lembrete, String anoLetivo) {
+		
+		Turma turma = new Turma();
+		turma.setPrefixo(prefixo);
+		turma.setValor(valor);
+		turma.setCodigo(codigo);
+		turma.setTurno(turno);
+		turma.setLembrete(lembrete);
+		turma.setAnoLetivo(anoLetivo);
+		
+		GerenteTurma.adicionar(turma);
+	}
 }
