@@ -24,6 +24,7 @@ public class JanelaCadastroTurma extends JDialog{
 	private JTextArea taLembreteTurma;
 	JComboBox<String> cbPrefixo;
 	JComboBox<String> cbTurno;
+	private JTextField tfAnoLetivo;
 
 	public JanelaCadastroTurma(JFrame pai) {
 		super(pai, ModalityType.APPLICATION_MODAL);
@@ -95,6 +96,15 @@ public class JanelaCadastroTurma extends JDialog{
 		JButton btnCancelar = new JButton(new AcaoCancelar());
 		btnCancelar.setBounds(345, 308, 113, 42);
 		panel.add(btnCancelar);
+		
+		JLabel lblAnoLetivo = new JLabel("Ano letivo:");
+		lblAnoLetivo.setBounds(236, 68, 123, 14);
+		panel.add(lblAnoLetivo);
+		
+		tfAnoLetivo = new JTextField();
+		tfAnoLetivo.setBounds(236, 94, 123, 20);
+		panel.add(tfAnoLetivo);
+		tfAnoLetivo.setColumns(10);
 	}
 	
 	protected class AcaoSalvar extends AbstractAction {
