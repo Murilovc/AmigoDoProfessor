@@ -186,7 +186,7 @@ public abstract class MenuBase extends JFrame{
 		
 	}
 	
-	protected class AcaoPressionarEnterPesquisa extends KeyAdapter {
+	public class AcaoPressionarEnterPesquisa extends KeyAdapter {
 		
 		@Override
 		public void keyPressed(KeyEvent evento) {

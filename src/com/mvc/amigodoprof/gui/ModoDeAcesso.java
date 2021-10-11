@@ -21,7 +21,18 @@ public enum ModoDeAcesso {
 	
 	/* Abre o determinado menu 
 	 * de forma livre*/
-	GERAL("Geral");
+	GERAL("Geral"),
+	
+	
+	
+	
+	/* Sobre o modo da janelas
+	 * modais (JDialog), podendo
+	 * ser para cadastro ou edição*/
+	
+	CADASTRO("Cadastro"),
+	
+	EDICAO("Edição");
 	
 	String descricao;
 	

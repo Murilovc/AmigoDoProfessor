@@ -260,6 +260,8 @@ public class MenuPrincipal extends MenuBase {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
+			desativarBotoes();
+			
 			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
 			Turma turma = ControleTurma.pesquisarTurmaPorId(valor);
 			
@@ -281,7 +283,8 @@ public class MenuPrincipal extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JanelaCadastroTurma jt = new JanelaCadastroTurma(MenuPrincipal.this);
+			JanelaCadastroTurma jt = new JanelaCadastroTurma(MenuPrincipal.this,
+					ModoDeAcesso.CADASTRO, null);
 			jt.setVisible(true);
 			
 		}
@@ -299,7 +302,13 @@ public class MenuPrincipal extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JanelaCadastroTurma jt = new JanelaCadastroTurma(MenuPrincipal.this);
+			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
+			Turma turmaParaEditar = ControleTurma.pesquisarTurmaPorId(valor);
+			
+			desativarBotoes();
+			
+			JanelaCadastroTurma jt = new JanelaCadastroTurma(MenuPrincipal.this,
+					ModoDeAcesso.EDICAO, turmaParaEditar);
 			jt.setVisible(true);
 			
 		}
@@ -317,6 +326,8 @@ public class MenuPrincipal extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			desativarBotoes();
 			
 			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
 			Turma turma = ControleTurma.pesquisarTurmaPorId(valor);

@@ -54,4 +54,18 @@ public class ControleTurma {
 		
 		GerenteTurma.adicionar(turma);
 	}
+	
+	public static void editarTurma(Turma turma,String prefixo, String valor, String codigo,
+			String turno, String lembrete, String anoLetivo) {
+		
+		
+		turma.setPrefixo(prefixo);
+		turma.setValor(valor);
+		turma.setCodigo(codigo);
+		turma.setTurno(turno);
+		turma.setLembrete(lembrete);
+		turma.setAnoLetivo(anoLetivo);
+		
+		GerenteTurma.atualizar(turma);
+	}
 }
