@@ -22,7 +22,13 @@ public class ControleAula {
 		
 	}
 	
-	public static void adicionarAula(Aula aula) {
+	/* Junto com a Aula, é passada também a Turma
+	 * a que a Aula pertence*/
+	public static void adicionarAula(Aula aula, Turma turma) {
+		List<Aula> listaAulas = turma.getListaAula();
+		listaAulas.add(aula);
+		turma.setListaAula(listaAulas);
+		GerenteTurma.atualizar(turma);
 		GerenteAula.adicionar(aula);
 	}
 	
@@ -79,14 +85,14 @@ public class ControleAula {
 			aula.setFrequenciaLancada(true);
 		}
 		
-		List<Aula> listaAulasDaTurma = new ArrayList<Aula>();//turma.getListaAula();
-		listaAulasDaTurma.add(aula);
-		turma.setListaAula(listaAulasDaTurma);
-		GerenteTurma.atualizar(turma);
+		//List<Aula> listaAulasDaTurma = new ArrayList<Aula>();//turma.getListaAula();
+		//listaAulasDaTurma.add(aula);
+		//turma.setListaAula(listaAulasDaTurma);
+		//GerenteTurma.atualizar(turma);
 		
 		aula.setTurma(turma);
 		
-		GerenteAula.adicionar(aula);
+		ControleAula.adicionarAula(aula, turma);
 	}
 	
 

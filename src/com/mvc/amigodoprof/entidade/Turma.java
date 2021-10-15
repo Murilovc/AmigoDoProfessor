@@ -47,10 +47,10 @@ public class Turma {
 	@Column(name="ano_letivo")
 	private String anoLetivo;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="idAluno", targetEntity=Aluno.class)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="turma", targetEntity=Aluno.class)
 	private List<Aluno> listaAlunos;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="idAula", targetEntity=Aula.class)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="turma", targetEntity=Aula.class)
 	private List<Aula> listaAula;
 
 	

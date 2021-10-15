@@ -25,7 +25,7 @@ public class Atividade {
 	
 	//private Data dataEntrega;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="idResolucao", targetEntity=Resolucao.class)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="atividade", targetEntity=Resolucao.class)
 	private List<Resolucao> resolucao;
 
 	public long getIdAtividade() {

@@ -28,7 +28,7 @@ public class Nota {
 	@JoinColumn(name="fk_aluno")
 	private Aluno aluno;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="idResolucao", targetEntity=Resolucao.class)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="nota", targetEntity=Resolucao.class)
 	private List<Resolucao> listaResolucoes;
 
 	public long getIdNota() {

@@ -38,10 +38,10 @@ public class Aluno {
 	@JoinColumn(name="fk_turma")
 	private Turma turma;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="idResolucao", targetEntity=Resolucao.class)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="aluno", targetEntity=Resolucao.class)
 	private List<Resolucao> listaResolucao;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="idFrequencia", targetEntity=Frequencia.class)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="aluno", targetEntity=Frequencia.class)
 	private List<Frequencia> listaFrequencia;
 
 	public long getIdAluno() {
