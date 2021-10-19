@@ -60,6 +60,10 @@ public class ControleAula {
 		return GerenteAula.pesquisarPorFrequenciaNaoLancada();
 	}
 	
+	public static List<Aula> pesquisarAulaPorTurma(Turma turma) {
+		return GerenteAula.pesquisarPorTurma(turma);
+	}
+	
 	/* Métodos
 	 * úteis
 	 * */

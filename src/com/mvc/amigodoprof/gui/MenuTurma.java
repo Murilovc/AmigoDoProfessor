@@ -171,7 +171,7 @@ public class MenuTurma extends MenuBase {
 		
 		desativarBotoes();
 		
-		List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
+		List<Aula> listaAulas = ControleAula.pesquisarAulaPorTurma(turma);
 		List<JButton> listaBotoes = new ArrayList<JButton>();
 		
 		for(Aula a : listaAulas) {
@@ -257,7 +257,8 @@ public class MenuTurma extends MenuBase {
 		Aula aula;
 		
 		if(stringPesquisada.equals("") && tipoPesquisa < 2) {
-			listaAulas = ControleAula.pegarTodasAsAulas();
+			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
+			listaAulas = ControleAula.pesquisarAulaPorTurma(turma);
 			for(Aula a : listaAulas) {
 				listaBotoes.add(new JButton("Lançar"));
 			}

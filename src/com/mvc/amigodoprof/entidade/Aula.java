@@ -12,7 +12,8 @@ import javax.persistence.*;
 	@NamedQuery(name="Aula.porFrequenciaLancada",
 	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 1"),
 	@NamedQuery(name="Aula.porFrequenciaNaoLancada",
-	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 0")
+	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 0"),
+	@NamedQuery(name="Aula.porTurma", query="SELECT a FROM Aula a WHERE a.turma LIKE :turma")
 })
 
 

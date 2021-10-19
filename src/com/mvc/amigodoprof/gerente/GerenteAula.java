@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.mvc.amigodoprof.entidade.Aula;
+import com.mvc.amigodoprof.entidade.Turma;
 
 
 public class GerenteAula {
@@ -54,6 +55,11 @@ public class GerenteAula {
 	@SuppressWarnings("unchecked")
 	public static List<Aula> pesquisarPorFrequenciaNaoLancada() {
 		return gerente.createNamedQuery("Aula.porFrequenciaNaoLancada").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Aula> pesquisarPorTurma(Turma turma) {
+		return gerente.createNamedQuery("Aula.porTurma").setParameter("turma", turma).getResultList();
 	}
 	
 	
