@@ -7,25 +7,18 @@ import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
-import com.mvc.amigodoprof.gui.MenuTurma.HabilitarEdicaoExclusao;
-import com.mvc.amigodoprof.tablemodel.ColumnModelParaAula;
 import com.mvc.amigodoprof.tablemodel.ColumnModelParaLancamento;
-import com.mvc.amigodoprof.tablemodel.TableModelAula;
 import com.mvc.amigodoprof.tablemodel.TableModelLancamentoFrequencia;
 
 

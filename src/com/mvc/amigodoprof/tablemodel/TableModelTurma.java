@@ -33,15 +33,23 @@ public class TableModelTurma extends AbstractTableModel {
 
 		Turma turma;
 		Object dado = null;
+		String sinalOrdinal;
 		
 		turma = listaTurmas.get(indiceLinha);
+		
+		if(turma.getPrefixo().equals("ano")) {
+			sinalOrdinal = "º";
+		} else {
+			sinalOrdinal = "ª";
+		}
 		
 		switch(indiceColuna) {
 			case 0: 
 				dado = turma.getIdTurma(); 
 				break;
 			case 1: 
-				dado = turma.getValor()+" "+turma.getPrefixo()+" "+turma.getCodigo();
+
+				dado = turma.getValor()+sinalOrdinal+" "+turma.getPrefixo()+" "+turma.getCodigo();
 				break;
 			case 2:
 				dado = turma.getTurno();

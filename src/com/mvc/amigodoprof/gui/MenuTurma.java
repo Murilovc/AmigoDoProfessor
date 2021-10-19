@@ -44,6 +44,8 @@ public class MenuTurma extends MenuBase {
 	private JButton botaoAdicionarAula;
 	private JButton botaoEditarAula;
 	private JButton botaoApagarAula;
+	private JButton botaoEditarPlanejamento;
+	private JButton botaoSalvarPlanejamento;
 
 	
 	private JScrollPane jcp;
@@ -133,8 +135,15 @@ public class MenuTurma extends MenuBase {
 		areaPlanejamento.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
 		
 		JScrollPane scrollPlanejamento = new JScrollPane(areaPlanejamento);
-		scrollPlanejamento.setPreferredSize(new Dimension(280,440));
+		scrollPlanejamento.setPreferredSize(new Dimension(280,410));
 		
+		botaoEditarPlanejamento = new JButton(new AcaoEditarPlanejamento());
+		botaoEditarPlanejamento = UtilidadesGUI.
+				estilizarBotaoPequenoComBordaPadrao(botaoEditarPlanejamento, "Arial", 16);
+		
+		botaoSalvarPlanejamento = new JButton(new AcaoSalvarPlanejamento());
+		botaoSalvarPlanejamento = UtilidadesGUI.
+				estilizarBotaoPequenoComBordaPadrao(botaoSalvarPlanejamento, "Arial", 16);
 		
 		
 		JPanel painelLateralEsquerdo = new JPanel(new FlowLayout());
@@ -145,6 +154,8 @@ public class MenuTurma extends MenuBase {
 		painelLateralEsquerdo.add(botaoApagarAula);
 		painelLateralEsquerdo.add(labelPlanejamento);
 		painelLateralEsquerdo.add(scrollPlanejamento);
+		painelLateralEsquerdo.add(botaoEditarPlanejamento);
+		painelLateralEsquerdo.add(botaoSalvarPlanejamento);
 		
 		
 		
@@ -179,18 +190,11 @@ public class MenuTurma extends MenuBase {
 		}
 		
 		tabela = new TabelaDoProf();
-		//tabela.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		
 		carregarTabela(listaAulas, listaBotoes);
 		
 		jcp = new JScrollPane(tabela);
-		
-		/*Quero pegar o Id (está na coluna 0) da linha selecionada*/
 
-		
-		areaPlanejamento = new JTextArea("Lembrete sobre a turma selecionada...");
-		areaPlanejamento.setPreferredSize(new Dimension(800, 60));
-		areaPlanejamento.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
 
 		this.add(painelLateralDireito, BorderLayout.EAST);
 		this.add(painelLateralEsquerdo, BorderLayout.WEST);
@@ -201,6 +205,8 @@ public class MenuTurma extends MenuBase {
 	private void desativarBotoes() {
 		botaoEditarAula.setEnabled(false);
 		botaoApagarAula.setEnabled(false);
+		botaoEditarPlanejamento.setEnabled(false);
+		botaoSalvarPlanejamento.setEnabled(false);
 		
 		botaoVerAtividades.setEnabled(false);
 		botaoVerFrequencias.setEnabled(false);
@@ -209,6 +215,7 @@ public class MenuTurma extends MenuBase {
 	private void ativarBotoes() {
 		botaoEditarAula.setEnabled(true);
 		botaoApagarAula.setEnabled(true);
+		botaoEditarPlanejamento.setEnabled(true);
 		
 		botaoVerAtividades.setEnabled(true);
 		botaoVerFrequencias.setEnabled(true);
@@ -298,7 +305,7 @@ public class MenuTurma extends MenuBase {
 				long idSelecionado = (long)tabela.getValueAt(tabela.getSelectedRow(), 0);
 				Aula aulaSelecionada = ControleAula.pesquisarAulaPorId(idSelecionado);
 				
-				//areaLembrete.setText(aulaSelecionada.getPlanejamento());
+				areaPlanejamento.setText(aulaSelecionada.getPlanejamento());
 				ativarBotoes();
 			}
 		}
@@ -370,7 +377,8 @@ public class MenuTurma extends MenuBase {
 			Aula aula = ControleAula.pesquisarAulaPorId(valor);
 			ControleAula.apagarAula(aula);
 			
-			List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
+			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
+			List<Aula> listaAulas = ControleAula.pesquisarAulaPorTurma(turma);
 			List<JButton> listaBotoes = new ArrayList<JButton>();
 			for(Aula a : listaAulas) {
 				listaBotoes.add(new JButton("Lançar"));
@@ -379,6 +387,53 @@ public class MenuTurma extends MenuBase {
 		}
 		
 	}
+	
+	protected class AcaoEditarPlanejamento extends AbstractAction {
+
+		
+		public AcaoEditarPlanejamento() {
+			super("EDITAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_H);
+			putValue(SHORT_DESCRIPTION, "Habilitar a edição do planejamento");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			botaoSalvarPlanejamento.setEnabled(true);
+	
+		}
+		
+	}
+	
+	protected class AcaoSalvarPlanejamento extends AbstractAction {
+
+		
+		public AcaoSalvarPlanejamento() {
+			super("SALVAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_P);
+			putValue(SHORT_DESCRIPTION, "Salvar as modificações no planejamento");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
+			Aula aula = ControleAula.pesquisarAulaPorId(valor);
+			
+			aula.setPlanejamento(areaPlanejamento.getText());
+			
+			ControleAula.atualizarAula(aula);
+			
+			botaoSalvarPlanejamento.setEnabled(false);
+	
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 
 	
 	protected class AcaoVerAlunos extends AbstractAction {

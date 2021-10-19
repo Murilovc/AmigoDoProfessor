@@ -50,13 +50,17 @@ public class TableModelAula extends AbstractTableModel {
 				dado = aula.getIdAula();
 				break;
 			case 1: 
-				dado = aula.getData();
+				String dataString = aula.getData().toString();
+				String dataDia = dataString.substring(8,10);
+				String dataMes = dataString.substring(5,7);
+				String dataAno = dataString.substring(0,4);
+				dado = dataDia+"/"+dataMes+"/"+dataAno;
 				break;
 			case 2:
 				dado = aula.getConteudo();
 				break;
 			case 3:
-				dado = listaBotoes.get(indiceLinha);//new JButton("Lançar");
+				dado = listaBotoes.get(indiceLinha);
 				break;
 			case 4:
 				if(aula.isFrequenciaLancada() == true) {
@@ -106,7 +110,7 @@ public class TableModelAula extends AbstractTableModel {
 				obj = Long.class; 
 				break;
 			case 1: 
-				obj = Date.class; 
+				obj = String.class; 
 				break;
 			case 2: 
 				obj = String.class; 

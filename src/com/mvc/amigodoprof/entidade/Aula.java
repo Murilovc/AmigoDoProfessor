@@ -53,8 +53,6 @@ public class Aula {
 	 * Getters
 	 */
 	
-	
-	
 	public long getIdAula() {
 		return idAula;
 	}
@@ -83,10 +81,6 @@ public class Aula {
 	/*
 	 * Setters
 	 */
-	
-	
-	
-
 
 	public void setPlanejamento(String planejamento) {
 		this.planejamento = planejamento;
