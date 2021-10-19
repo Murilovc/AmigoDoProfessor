@@ -85,14 +85,33 @@ public class ControleAula {
 			aula.setFrequenciaLancada(true);
 		}
 		
-		//List<Aula> listaAulasDaTurma = new ArrayList<Aula>();//turma.getListaAula();
-		//listaAulasDaTurma.add(aula);
-		//turma.setListaAula(listaAulasDaTurma);
-		//GerenteTurma.atualizar(turma);
-		
 		aula.setTurma(turma);
 		
 		ControleAula.adicionarAula(aula, turma);
+	}
+	
+	public static void editarAula(Aula aula, String data, String conteudo,
+			String planejamento, String frequenciaLancada) {
+		
+		
+		SimpleDateFormat a = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataConvertida = new Date();
+		try {
+			dataConvertida = a.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		aula.setData(dataConvertida);
+		aula.setConteudo(conteudo);
+		aula.setPlanejamento(planejamento);
+		
+		if(frequenciaLancada.equals("Não")) {
+			aula.setFrequenciaLancada(false);
+		} else {
+			aula.setFrequenciaLancada(true);
+		}
+		
+		ControleAula.atualizarAula(aula);
 	}
 	
 

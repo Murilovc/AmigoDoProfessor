@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 
 import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleTurma;
@@ -90,12 +91,33 @@ public class MenuTurma extends MenuBase {
 		 * Agora criando e adicionando componentes da própria classe
 		 * */
 
+		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
+		
+		JLabel labelNome = new JLabel(turma.getValor()+" "+turma.getPrefixo()+" "+turma.getCodigo());
+		labelNome = UtilidadesGUI.estilizarLabel(labelNome, "Arial", 20, new Dimension(120,30));
+		
+		JLabel labelTurno = new JLabel("Turno: "+turma.getTurno());
+		labelTurno = UtilidadesGUI.estilizarLabel(labelTurno, "Arial", 20, new Dimension(180,30));
+		
+		JLabel labelAnoLetivo = new JLabel("Ano letivo: "+turma.getAnoLetivo());
+		labelAnoLetivo = UtilidadesGUI.estilizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
+		
+		JPanel painelSuperiorProprio = new JPanel(new FlowLayout());
+		painelSuperiorProprio.setBorder(new TitledBorder(
+				null, "Informações da turma: ", TitledBorder.CENTER, TitledBorder.TOP,
+				new Font("Arial", Font.ITALIC+Font.BOLD, 12), Color.GREEN));
+		
+		painelSuperiorProprio.add(labelNome);
+		painelSuperiorProprio.add(labelTurno);
+		painelSuperiorProprio.add(labelAnoLetivo);
+		
+		super.painelNorte.add(painelSuperiorProprio, BorderLayout.WEST);
 		
 		botaoAdicionarAula = new JButton(new AcaoAdicionarAula());
 		botaoAdicionarAula = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoAdicionarAula, "Arial", 14);
 		
-		botaoEditarAula = new JButton();
+		botaoEditarAula = new JButton(new AcaoEditarAula());
 		botaoEditarAula = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoEditarAula, "Arial", 14);
 		
@@ -149,15 +171,11 @@ public class MenuTurma extends MenuBase {
 		
 		desativarBotoes();
 		
-		Aula aula = new Aula();
-		aula.setIdAula(42315644L);
-		aula.setConteudo("Para debugar");
 		List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
-		listaAulas.add(aula);
 		List<JButton> listaBotoes = new ArrayList<JButton>();
 		
 		for(Aula a : listaAulas) {
-			listaBotoes.add(new JButton("Lançar"));//new MenuTurma.AcaoLancarFrequencia()));
+			listaBotoes.add(new JButton("Lançar"));
 		}
 		
 		tabela = new TabelaDoProf();
@@ -297,10 +315,14 @@ public class MenuTurma extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JanelaCadastroAula jca = new JanelaCadastroAula(MenuTurma.this, entidadeAtual);
+			
+			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
+			
+			JanelaCadastroAula jca = new JanelaCadastroAula(MenuTurma.this,
+					ModoDeAcesso.CADASTRO, turma, null);
+			
 			jca.setVisible(true);
 			
-
 		}
 		
 	}
@@ -318,14 +340,15 @@ public class MenuTurma extends MenuBase {
 		public void actionPerformed(ActionEvent e) {
 			long valor = Long.valueOf(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 0)));
 			Aula aula = ControleAula.pesquisarAulaPorId(valor);
-			ControleAula.atualizarAula(aula);
 			
-			List<Aula> listaAulas = ControleAula.pegarTodasAsAulas();
-			List<JButton> listaBotoes = new ArrayList<JButton>();
-			for(Aula a : listaAulas) {
-				listaBotoes.add(new JButton("Lançar"));
-			}
-			carregarTabela(listaAulas, listaBotoes);
+			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
+			
+			JanelaCadastroAula jca = new JanelaCadastroAula(MenuTurma.this,
+					ModoDeAcesso.EDICAO, turma, aula);
+			
+			jca.setVisible(true);
+			
+			
 		}
 		
 	}

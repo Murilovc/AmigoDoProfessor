@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.border.*;
 
 public class UtilidadesGUI {
@@ -22,5 +23,16 @@ public class UtilidadesGUI {
 		
 		return botao;
 		
+	}
+	
+	public static JLabel estilizarLabel(JLabel label, String nomeFonte, int tamanhoFonte, Dimension margem) {
+		
+		Font fonte = new Font(nomeFonte, Font.BOLD, tamanhoFonte);
+		label.setPreferredSize(margem);
+		label.setFont(fonte);
+		
+		label.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+		
+		return label;
 	}
 }

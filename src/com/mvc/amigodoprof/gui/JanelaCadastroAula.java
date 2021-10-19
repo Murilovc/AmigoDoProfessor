@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 
 import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleTurma;
+import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
+import com.mvc.amigodoprof.gui.JanelaCadastroTurma.AcaoSalvarEdicao;
 
 public class JanelaCadastroAula extends JDialog{
 	
@@ -26,12 +28,12 @@ public class JanelaCadastroAula extends JDialog{
 	private JTextArea taPlanejamento;
 	private JComboBox<String> cbFrequenciaLancada;
 	
-	private long entidadePai;
+	//private long entidadePai;
 
-	public JanelaCadastroAula(MenuBase pai, long idTurma) {
+	public JanelaCadastroAula(MenuBase pai, ModoDeAcesso modo, Turma turma, Aula aula) {
 		super(pai, ModalityType.APPLICATION_MODAL);
 		
-		this.entidadePai = idTurma;
+		//this.entidadePai = idTurma;
 		
 		this.setTitle("Cadastro / Edição de turma");
 		this.setSize(new Dimension(500,400));
@@ -81,7 +83,7 @@ public class JanelaCadastroAula extends JDialog{
 		scroll.setBounds(10, 217, 464, 80);
 		panel.add(scroll);
 		
-		JButton btnSalvar = new JButton(new AcaoSalvar());
+		JButton btnSalvar = new JButton(new AcaoSalvar(pai, turma));
 		btnSalvar.setBounds(20, 308, 113, 42);
 		panel.add(btnSalvar);
 		
@@ -89,21 +91,38 @@ public class JanelaCadastroAula extends JDialog{
 		btnCancelar.setBounds(345, 308, 113, 42);
 		panel.add(btnCancelar);
 		
+		if(modo == ModoDeAcesso.CADASTRO) {
+			this.setTitle("Adição de aula");
+		}
+		else if(modo == ModoDeAcesso.EDICAO) {
+			this.setTitle("Edição de aula");
+			
+			cbFrequenciaLancada.setSelectedItem(aula.isFrequenciaLancada() == true ? "Sim" : "Não");
+			tfData.setText(aula.getData().toString());
+			tfConteudo.setText(aula.getConteudo());
+			taPlanejamento.setText(aula.getPlanejamento());
+			
+			btnSalvar.setAction(new AcaoSalvarEdicao(pai, turma, aula));
+		}
+		
 	}
 	
 	protected class AcaoSalvar extends AbstractAction {
 
+		private MenuBase pai;
+		private Turma turma;
 		
-		public AcaoSalvar() {
+		public AcaoSalvar(MenuBase pai, Turma turma) {
 			super("SALVAR");
 			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
-			putValue(SHORT_DESCRIPTION, "Cadastra a aula");
+			putValue(SHORT_DESCRIPTION, "Adiciona a aula");
+			
+			this.pai = pai;
+			this.turma = turma;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadePai);
 			
 			ControleAula.cadastrarAula( tfData.getText(),
 										tfConteudo.getText(),
@@ -111,7 +130,44 @@ public class JanelaCadastroAula extends JDialog{
 										(String)cbFrequenciaLancada.getSelectedItem(),
 										turma);
 			
+			pai.buscarPor();
+			
 			JanelaCadastroAula.this.dispose();
+		}
+		
+	}
+	
+	protected class AcaoSalvarEdicao extends AbstractAction {
+
+		private MenuBase pai;
+		private Turma turma;
+		private Aula aula;
+		
+		public AcaoSalvarEdicao(MenuBase pai, Turma turma, Aula aula) {
+			super("SALVAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue(SHORT_DESCRIPTION, "Salva a edição de aula");
+			
+			this.pai = pai;
+			this.turma = turma;
+			this.aula = aula;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAula.editarAula( 
+					aula,
+					tfData.getText(),
+					tfConteudo.getText(),
+					taPlanejamento.getText(),
+					(String)cbFrequenciaLancada.getSelectedItem()
+					);
+
+			
+			pai.buscarPor();
+
+			JanelaCadastroAula.this.dispose();
+			
 		}
 		
 	}

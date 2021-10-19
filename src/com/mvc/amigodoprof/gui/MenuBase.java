@@ -37,6 +37,7 @@ public abstract class MenuBase extends JFrame{
 	protected JTextField campoPesquisa;
 	
 	protected JPanel painelCanto;
+	protected JPanel painelNorte;
 	
 	public MenuBase() {}
 	
@@ -140,7 +141,7 @@ public abstract class MenuBase extends JFrame{
 		botaoSair.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
 		botaoSair.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		JPanel painelNorte = new JPanel(new BorderLayout());
+		painelNorte = new JPanel(new BorderLayout());
 		
 		painelCanto = new JPanel(new BorderLayout());
 		
