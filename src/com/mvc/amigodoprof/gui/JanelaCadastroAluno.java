@@ -1,7 +1,10 @@
 package com.mvc.amigodoprof.gui;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -10,11 +13,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.mvc.amigodoprof.controle.ControleAluno;
+import com.mvc.amigodoprof.controle.ControleTurma;
+import com.mvc.amigodoprof.entidade.Aluno;
+import com.mvc.amigodoprof.entidade.Turma;
+import com.mvc.amigodoprof.gui.JanelaCadastroTurma.AcaoSalvarEdicao;
+
 public class JanelaCadastroAluno extends JDialog{
 	
-	MenuPrincipal menuPai;
+	MenuBase menuPai;
 	private JTextField tfNome;
 	private JTextField tfNumeroNaChamada;
+
 	
 	JLabel lblNome = new JLabel("Nome:");
 	JLabel lblNumeroNaChamada = new JLabel("Número na chamada:");
@@ -27,16 +37,17 @@ public class JanelaCadastroAluno extends JDialog{
 	private JScrollPane scroll = new JScrollPane(taAnotacoes);
 	
 		
-	public JanelaCadastroAluno(MenuPrincipal menuPai) {
-		super();
-		this.menuPai = menuPai;
+	public JanelaCadastroAluno(MenuBase menuPai, ModoDeAcesso modo, Turma turma, Aluno aluno) {
+		super(menuPai, ModalityType.APPLICATION_MODAL);
 		
-//		menuPai.setVisible(false);
+		this.menuPai = (MenuAluno)menuPai;
+		
+		
 		this.setTitle("Cadastrar aluno");
 		this.setSize(new Dimension(500, 300));
-		this.setVisible(true);
+		
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -67,6 +78,7 @@ public class JanelaCadastroAluno extends JDialog{
 		panel.add(btnSalvarECadastrarOutro);
 		
 		btnSalvar.setBounds(199, 227, 89, 23);
+		btnSalvar.setAction(new AcaoSalvar(menuPai, turma));
 		panel.add(btnSalvar);
 				
 		btnCancelar.setBounds(300, 227, 89, 23);
@@ -75,8 +87,93 @@ public class JanelaCadastroAluno extends JDialog{
 		scroll.setBounds(10, 98, 460, 118);
 		panel.add(scroll);
 		
+		if(modo == ModoDeAcesso.CADASTRO) {
+			this.setTitle("Cadastro de aluno");
+		}
+		else if(modo == ModoDeAcesso.EDICAO) {
+			this.setTitle("Edição de aluno");
+			
+			tfNome.setText(aluno.getNome());
+			tfNumeroNaChamada.setText(String.valueOf(aluno.getNumeroChamada()));
+			taAnotacoes.setText(aluno.getAnotacao());
+			
+			
+			btnSalvar.setAction(new AcaoSalvarEdicao(menuPai, aluno));
+		}
 		
 		
+	}
+	
+	protected class AcaoSalvar extends AbstractAction {
+
+		MenuBase menuPai;
+		Turma turma;
+		
+		public AcaoSalvar(MenuBase menuPai, Turma turma) {
+			super("SALVAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue(SHORT_DESCRIPTION, "Cadastra a turma");
+			
+			this.menuPai = menuPai;
+			this.turma = turma;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAluno.cadastrarAluno(tfNome.getText(),
+										 tfNumeroNaChamada.getText(),
+										 taAnotacoes.getText(),
+										 turma);
+			
+			menuPai.buscarPor();
+			
+			JanelaCadastroAluno.this.dispose();
+		}
+		
+	}
+	
+	protected class AcaoSalvarEdicao extends AbstractAction {
+		
+		private MenuBase menuPai;
+		private Aluno aluno;
+		
+		public AcaoSalvarEdicao(MenuBase menuPai, Aluno aluno) {
+			super("SALVAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue(SHORT_DESCRIPTION, "Salva as edições na turma");
+			
+		
+			this.menuPai = menuPai;
+			this.aluno = aluno;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAluno.editarAluno(aluno,
+									  tfNome.getText(),
+									  tfNumeroNaChamada.getText(),
+									  taAnotacoes.getText());
+			
+			menuPai.buscarPor();
+			JanelaCadastroAluno.this.dispose();
+		}
+		
+	}
+	
+	protected class AcaoCancelar extends AbstractAction {
+
+		
+		public AcaoCancelar() {
+			super("CANCELAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue(SHORT_DESCRIPTION, "Cancelar cadastro");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JanelaCadastroAluno.this.dispose();
+			
+		}
 		
 	}
 	

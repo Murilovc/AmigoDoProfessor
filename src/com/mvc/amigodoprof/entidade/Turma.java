@@ -129,8 +129,20 @@ public class Turma {
 		this.listaAula = listaAula;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		
+		String sinalOrdinal;
+		
+		if(this.getPrefixo().equals("ano")) {
+			sinalOrdinal = "º";
+		} else {
+			sinalOrdinal = "ª";
+		}
+		
+		return this.getValor()+sinalOrdinal+" "+this.getPrefixo()+" "+this.getCodigo();
+		
+	}
 	
 	
 }
