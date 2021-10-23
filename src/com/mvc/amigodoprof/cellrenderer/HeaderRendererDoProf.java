@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.tablemodel;
+package com.mvc.amigodoprof.cellrenderer;
 
 import java.awt.Color;
 import java.awt.Component;

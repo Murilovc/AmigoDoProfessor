@@ -9,6 +9,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
+import com.mvc.amigodoprof.cellrenderer.CellRendererParaLancamento;
+import com.mvc.amigodoprof.cellrenderer.HeaderRendererDoProf;
 import com.mvc.amigodoprof.gui.Alinhamento;
 import com.mvc.amigodoprof.gui.MenuTurma;
 

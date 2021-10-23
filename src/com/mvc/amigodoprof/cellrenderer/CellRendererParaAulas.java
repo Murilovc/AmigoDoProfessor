@@ -1,16 +1,25 @@
-package com.mvc.amigodoprof.tablemodel;
+package com.mvc.amigodoprof.cellrenderer;
 
 import java.awt.Color;
 import java.awt.Component;
-
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
 import com.mvc.amigodoprof.gui.MenuTurma;
@@ -27,21 +36,21 @@ import com.mvc.amigodoprof.gui.MenuTurma;
  */
 
 @SuppressWarnings("serial")
-public class CellRendererParaLancamento extends DefaultTableCellRenderer{
+public class CellRendererParaAulas extends DefaultTableCellRenderer{
     
     private int tamanhoLetra;
     private Color corTema;
-   
+    private MenuTurma mt;
 	
 	Alinhamento alinhamento;
     
     
-    public CellRendererParaLancamento(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
+    public CellRendererParaAulas(int tamanhoLetra, Color corTema, Alinhamento alinhamento, MenuTurma mt) {
         
 		super();
         this.tamanhoLetra = tamanhoLetra;
         this.corTema = corTema;
-        
+        this.mt = mt;
         
     	switch(alinhamento) {
 			
@@ -62,19 +71,14 @@ public class CellRendererParaLancamento extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna != 0) {
-    		JRadioButton botao = (JRadioButton)valor;
+    	if(coluna == 3) {
+    		JButton botao = (JButton)valor;
     		
     		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
-    			
-    			if(botao.isSelected() == true) {
-    				botao.setSelected(false);
-    			} else {
-    				botao.setSelected(true);
-    			}
+    			botao.setBackground(Color.GREEN);
     			
     			tabela.clearSelection();
-    			
+    			mt.abrirJanelaLancamentoFrequencia(linha);
     		}
     		return botao;
     	}
@@ -113,4 +117,3 @@ public class CellRendererParaLancamento extends DefaultTableCellRenderer{
     } 
 	
 }
-

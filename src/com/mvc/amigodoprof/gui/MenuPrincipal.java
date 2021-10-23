@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.mvc.amigodoprof.cellrenderer.CellRendererDoProf;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Turma;
-import com.mvc.amigodoprof.tablemodel.CellRendererDoProf;
 import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
 import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 

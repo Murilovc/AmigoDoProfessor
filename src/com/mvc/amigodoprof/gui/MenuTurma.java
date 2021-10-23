@@ -22,12 +22,12 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
+import com.mvc.amigodoprof.cellrenderer.CellRendererDoProf;
+import com.mvc.amigodoprof.cellrenderer.CellRendererParaAulas;
 import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
-import com.mvc.amigodoprof.tablemodel.CellRendererDoProf;
-import com.mvc.amigodoprof.tablemodel.CellRendererParaAulas;
 import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
 import com.mvc.amigodoprof.tablemodel.ColumnModelParaAula;
 import com.mvc.amigodoprof.tablemodel.TableModelAula;
@@ -400,7 +400,8 @@ public class MenuTurma extends MenuBase {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			botaoSalvarPlanejamento.setEnabled(true);
-	
+			
+		
 		}
 		
 	}
