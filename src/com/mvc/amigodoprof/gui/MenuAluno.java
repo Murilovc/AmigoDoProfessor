@@ -49,7 +49,8 @@ public class MenuAluno extends MenuBase {
 		 * pode ter sido chamado a partir do menu de uma Turma*/
 		
 		this.menuPai = (MenuTurma)menuPai;
-		entidadePai = menuPai.entidadeAtual;
+		MenuTurma mnt = (MenuTurma)menuPai;
+		entidadePai = mnt.entidadeAtual;
 		menuPai.setVisible(false);
 		
 		this.adicionarComponentes();
@@ -82,15 +83,15 @@ public class MenuAluno extends MenuBase {
 		 * Agora criando e adicionando componentes da própria classe
 		 * */
 
-		JButton botaoAdicionarAluno = new JButton(new AcaoAdicionarAluno());
+		botaoAdicionarAluno = new JButton(new AcaoAdicionarAluno());
 		botaoAdicionarAluno = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoAdicionarAluno, "Arial", 14);
 		
-		JButton botaoEditarAluno = new JButton(new AcaoEditarAluno());
+		botaoEditarAluno = new JButton(new AcaoEditarAluno());
 		botaoEditarAluno = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoEditarAluno, "Arial", 14);
 		
-		JButton botaoApagarAluno = new JButton(new AcaoApagarAluno());
+		botaoApagarAluno = new JButton(new AcaoApagarAluno());
 		botaoApagarAluno = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoApagarAluno, "Arial", 14);
 		
@@ -131,6 +132,7 @@ public class MenuAluno extends MenuBase {
 		tabela.setEnabled(true);
 		tabela.setModel(tmt);
 		tabela.setColumnModel(ca);
+		//tabela.setarLargura();
 		tabela.addMouseListener(new HabilitarEdicaoExclusao());
 		
 		
@@ -164,8 +166,8 @@ public class MenuAluno extends MenuBase {
 		public void mousePressed(MouseEvent e) {
 			if (tabela.getSelectedRow() >= 0) {
 				
-				/*Quero pegar o Id (está na coluna 0) da linha selecionada*/				
-				long idSelecionado = (long)tabela.getValueAt(tabela.getSelectedRow(), 0);
+				/*Quero pegar o Id (está na coluna 5) da linha selecionada*/				
+				long idSelecionado = (long)tabela.getValueAt(tabela.getSelectedRow(), 5);
 				Aluno alunoSelecionado = ControleAluno.pesquisarAlunoPorId(idSelecionado);
 				
 				//areaLembrete.setText(aulaSelecionada.getPlanejamento());
@@ -185,6 +187,7 @@ public class MenuAluno extends MenuBase {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
+			System.out.println(entidadePai);
 			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadePai);
 			
 			JanelaCadastroAluno jca = new JanelaCadastroAluno(MenuAluno.this,

@@ -81,10 +81,10 @@ public class TableModelAluno extends AbstractTableModel {
 		
 		switch (indice_coluna) {
 			case 0: 
-				nome = "Nº chamada"; 
+				nome = "Nº"; 
 				break;
 			case 1: 
-				nome = "Nome"; 
+				nome = "Nome do aluno"; 
 				break;		
 			case 2: 
 				nome = "Turma"; 

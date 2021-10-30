@@ -1,5 +1,6 @@
 package com.mvc.amigodoprof.gui;
 
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
@@ -21,6 +22,8 @@ public class TabelaDoProf extends JTable{
 		super();
 		
 		this.setRowHeight(25);
+		this.setAutoResizeMode(AUTO_RESIZE_OFF);
+		
 
 	}
 	
@@ -44,6 +47,7 @@ public class TabelaDoProf extends JTable{
     		
     	
     		largura = calcularLargura(this, (String)colunaAtual.getHeaderValue(), i);
+    		colunaAtual.setMinWidth(0);
     		colunaAtual.setPreferredWidth(largura);
     		
     	}
@@ -54,10 +58,14 @@ public class TabelaDoProf extends JTable{
     private int calcularLargura(JTable tabela, String titulo, int indiceColuna) {
     	
     	int a,b;
-			
-		/*Se não for a coluna usada para numeração*/
     	
-    	b = ((String) tabela.getValueAt(0,indiceColuna)).length()*18;
+    	if(tabela.getValueAt(0,indiceColuna).getClass() == JButton.class) {
+    		a = titulo.length()*15;
+    		
+    		return 80 > a ? 80 : a;
+    	}	
+    	
+    	b = (String.valueOf(tabela.getValueAt(0,indiceColuna)).length()*15);
 		a = titulo.length()*15;
 		
 		int largura;	
@@ -66,9 +74,9 @@ public class TabelaDoProf extends JTable{
 		else 
 			largura = b;
 			
-		/*Para previnir que colunas com títulos de apenas 1 caractere fiquem muito pequenas*/
-		if(largura < 90)
-			return 90;
+//		/*Para previnir que colunas com títulos de apenas 1 caractere fiquem muito pequenas*/
+//		if(largura < 90)
+//			return 30;
 		
 		
 		return largura;

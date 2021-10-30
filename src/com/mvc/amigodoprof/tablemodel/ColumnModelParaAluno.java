@@ -36,6 +36,27 @@ public class ColumnModelParaAluno extends DefaultTableColumnModel{
     		
     		super.addColumn(tc);
     		
+            switch(i) {
+        		case 0:
+        			tc.setPreferredWidth(35);
+        			break;
+        		case 1:
+        			tc.setPreferredWidth(605);
+        			break;
+        		case 2:
+        			tc.setPreferredWidth(160);
+        			break;
+        		case 3:
+        			tc.setPreferredWidth(150);
+        			break;
+        		case 4:
+        			tc.setPreferredWidth(150);
+        			break;
+        		case 5:
+        			tc.setPreferredWidth(107);
+        			break;
+        }
+    		
     	}
     	
     }
@@ -56,6 +77,8 @@ public class ColumnModelParaAluno extends DefaultTableColumnModel{
         coluna.setCellEditor(new DefaultCellEditor(campoTexto));
     	coluna.setHeaderRenderer(new HeaderRendererDoProf());
         coluna.setHeaderValue(abs.getColumnName(indiceColuna));
+        
+
         
         coluna.setResizable(resizeable);
         return coluna;

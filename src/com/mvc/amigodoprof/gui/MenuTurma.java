@@ -135,6 +135,7 @@ public class MenuTurma extends MenuBase {
 		areaPlanejamento.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
 		
 		JScrollPane scrollPlanejamento = new JScrollPane(areaPlanejamento);
+		scrollPlanejamento.setViewportView(areaPlanejamento);
 		scrollPlanejamento.setPreferredSize(new Dimension(280,410));
 		
 		botaoEditarPlanejamento = new JButton(new AcaoEditarPlanejamento());
