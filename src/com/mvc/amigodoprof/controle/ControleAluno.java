@@ -36,8 +36,8 @@ public class ControleAluno {
 		return GerenteAluno.pesquisarTodos();
 	}
 	
-	public static List<Aluno> pesquisarAlunoPorTurma(long idTurma){
-		return GerenteAluno.pesquisarPorTurma(idTurma);
+	public static List<Aluno> pesquisarAlunoPorTurma(Turma turma){
+		return GerenteAluno.pesquisarPorTurma(turma);
 	}
 	
 	public static List<Aluno> pesquisarAlunoPorNumeroChamada(int numeroChamada){

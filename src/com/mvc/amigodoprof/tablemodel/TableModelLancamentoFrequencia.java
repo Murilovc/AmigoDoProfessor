@@ -7,6 +7,7 @@ import javax.swing.JRadioButton;
 import javax.swing.table.AbstractTableModel;
 
 import com.mvc.amigodoprof.entidade.Aluno;
+import com.mvc.amigodoprof.gui.Alinhamento;
 
 
 
@@ -18,6 +19,9 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 	List<JRadioButton> listaBotoesPresente;
 	List<JRadioButton> listaBotoesFalta;
 	List<JRadioButton> listaBotoesJustificado;
+	
+	private Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
+			 					 		 Alinhamento.CENTRO,  Alinhamento.CENTRO};
 	
 	public TableModelLancamentoFrequencia(List<Aluno> alunos, List<JRadioButton> listaBotoesPresente,
 			List<JRadioButton> listaBotoesFalta, List<JRadioButton> listaBotoesJustificado) {
@@ -112,6 +116,10 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 		}		
 
 		return obj.getClass();
+	}
+	
+	public Alinhamento[] getAlinhamento() {
+		return alinhamento;
 	}
 }
 

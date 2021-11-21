@@ -1,7 +1,9 @@
 package com.mvc.amigodoprof.tablemodel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTextField;
@@ -12,7 +14,6 @@ import javax.swing.table.TableColumn;
 import com.mvc.amigodoprof.cellrenderer.CellRendererParaAlunos;
 import com.mvc.amigodoprof.cellrenderer.HeaderRendererDoProf;
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuAluno;
 
 
 /**
@@ -28,47 +29,63 @@ import com.mvc.amigodoprof.gui.MenuAluno;
 public class ColumnModelParaAluno extends DefaultTableColumnModel{
     
     public ColumnModelParaAluno(Alinhamento[] alinhamento, int quantidadeColunas,
-    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuAluno mt) {
+    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, int larguraParaDescontar) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
     		
-    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs, mt);
+    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs);
     		
     		super.addColumn(tc);
     		
-            switch(i) {
+
+    		
+            /* Solução para que as colunas ocupem o espaço disponível da tabela
+             * independentemente do tamanho da tela do usuário e permitindo a divisão do espaço
+             * de acordo com a necessidade de espaço de cada coluna.
+             * 
+             * Valores do tipo float foram encontrados usando regra de três desta forma:
+             * 
+             * larguraAproximadaTabela --------> 100
+             * larguraAbsolutaDesejada -------->  x
+             * */
+    		
+    		Dimension tamanho = Toolkit.getDefaultToolkit().getScreenSize();
+    		int larguraTabela = (int) (tamanho.getWidth() - larguraParaDescontar);
+    		float pontoLargura = (float)larguraTabela / 100;
+    		
+    		switch(i) {
         		case 0:
-        			tc.setPreferredWidth(35);
+        			tc.setPreferredWidth((int) (pontoLargura*2.90f));
         			break;
         		case 1:
-        			tc.setPreferredWidth(605);
+        			tc.setPreferredWidth((int) (pontoLargura*50));
         			break;
         		case 2:
-        			tc.setPreferredWidth(160);
+        			tc.setPreferredWidth((int) (pontoLargura*13.26f));
         			break;
         		case 3:
-        			tc.setPreferredWidth(150);
+        			tc.setPreferredWidth((int) (pontoLargura*12.42f));
         			break;
         		case 4:
-        			tc.setPreferredWidth(150);
+        			tc.setPreferredWidth((int) (pontoLargura*12.42f));
         			break;
         		case 5:
-        			tc.setPreferredWidth(107);
+        			tc.setPreferredWidth((int) (pontoLargura*8.86f));
         			break;
-        }
+            }
     		
     	}
     	
     }
     
     private TableColumn criaColuna(Alinhamento alinhamento, int indiceColuna,
-    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuAluno mt){
+    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs){
     	
     	
     	TableColumn coluna = new TableColumn(indiceColuna);
     	
     	
-    	CellRendererParaAlunos acr = new CellRendererParaAlunos(tamanhoFonte, corCelulas, alinhamento, mt);
+    	CellRendererParaAlunos acr = new CellRendererParaAlunos(tamanhoFonte, corCelulas, alinhamento);
     	
         
     	JTextField campoTexto = new JTextField();

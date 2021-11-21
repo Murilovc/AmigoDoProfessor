@@ -79,8 +79,8 @@ public class MenuTurma extends MenuBase {
 		super.boxSelecao.addItem("Frequência não lançada");
 		
 		
-		JPanel painelSuperior = new JPanel(new FlowLayout());
-		painelSuperior.setPreferredSize(new Dimension(270, 40));
+		JPanel painelSuperior = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(270,40), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelSuperior.add(labelPesquisarPor);
 		painelSuperior.add(labelDigiteAqui);
@@ -95,7 +95,7 @@ public class MenuTurma extends MenuBase {
 
 		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
 		
-		JLabel labelNome = new JLabel(turma.getValor()+" "+turma.getPrefixo()+" "+turma.getCodigo());
+		JLabel labelNome = new JLabel(turma.toString());
 		labelNome = UtilidadesGUI.estilizarLabel(labelNome, "Arial", 20, new Dimension(120,30));
 		
 		JLabel labelTurno = new JLabel("Turno: "+turma.getTurno());
@@ -104,7 +104,8 @@ public class MenuTurma extends MenuBase {
 		JLabel labelAnoLetivo = new JLabel("Ano letivo: "+turma.getAnoLetivo());
 		labelAnoLetivo = UtilidadesGUI.estilizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
 		
-		JPanel painelSuperiorProprio = new JPanel(new FlowLayout());
+		JPanel painelSuperiorProprio = UtilidadesGUI.
+				criarJPanelSemBorda(null, new FlowLayout(), UtilidadesGUI.getCorTema1());
 		painelSuperiorProprio.setBorder(new TitledBorder(
 				null, "Informações da turma: ", TitledBorder.CENTER, TitledBorder.TOP,
 				new Font("Arial", Font.ITALIC+Font.BOLD, 12), Color.GREEN));
@@ -147,8 +148,8 @@ public class MenuTurma extends MenuBase {
 				estilizarBotaoPequenoComBordaPadrao(botaoSalvarPlanejamento, "Arial", 16);
 		
 		
-		JPanel painelLateralEsquerdo = new JPanel(new FlowLayout());
-		painelLateralEsquerdo.setPreferredSize(new Dimension(280, 680));
+		JPanel painelLateralEsquerdo = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(280,680), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelLateralEsquerdo.add(botaoAdicionarAula);
 		painelLateralEsquerdo.add(botaoEditarAula);
@@ -159,6 +160,11 @@ public class MenuTurma extends MenuBase {
 		painelLateralEsquerdo.add(botaoSalvarPlanejamento);
 		
 		
+		
+		JLabel label = new JLabel("Opções da turma");
+		label.setFont(new Font("Arial", Font.BOLD, 14));
+		label.setOpaque(true);
+		label.setBackground(UtilidadesGUI.getCorTema1());
 		
 		
 		botaoVerAlunos = new JButton(new AcaoVerAlunos());
@@ -173,9 +179,10 @@ public class MenuTurma extends MenuBase {
 		botaoVerAtividades = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoVerAtividades, "Arial", 14);
 		
 		
-		JPanel painelLateralDireito = new JPanel(new FlowLayout());
-		painelLateralDireito.setPreferredSize(new Dimension(150,680));
+		JPanel painelLateralDireito = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(150,680), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
+		painelLateralDireito.add(label);
 		painelLateralDireito.add(botaoVerAlunos);
 		painelLateralDireito.add(botaoVerFrequencias);
 		painelLateralDireito.add(botaoVerAtividades);
@@ -227,9 +234,9 @@ public class MenuTurma extends MenuBase {
 		TableModelAula tmt = new TableModelAula(listaAulas, listaBotoes);
 		
 		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
-				Alinhamento.CENTRO,  Alinhamento.CENTRO, Alinhamento.CENTRO};
+									 Alinhamento.CENTRO,  Alinhamento.CENTRO, Alinhamento.CENTRO};
 		ColumnModelParaAula ca = new ColumnModelParaAula(alinhamento, alinhamento.length,
-				20, new Color(122, 255, 135), tmt, this);
+				20, new Color(122, 255, 135), tmt, this, 340);
 		
 		
 		tabela.setEnabled(true);

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.mvc.amigodoprof.entidade.Aluno;
+import com.mvc.amigodoprof.entidade.Turma;
 
 
 
@@ -48,8 +49,8 @@ public class GerenteAluno {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Aluno> pesquisarPorTurma(long idTurma) {
-		return gerente.createNamedQuery("Aluno.porTurma").setParameter("turma", idTurma).getResultList();
+	public static List<Aluno> pesquisarPorTurma(Turma turma) {
+		return gerente.createNamedQuery("Aluno.porTurma").setParameter("turma", turma).getResultList();
 	}
 }
 

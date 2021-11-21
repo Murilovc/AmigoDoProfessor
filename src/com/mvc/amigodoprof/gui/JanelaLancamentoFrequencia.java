@@ -3,6 +3,7 @@ package com.mvc.amigodoprof.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -30,23 +32,32 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	
 	private TabelaDoProf tabela;
 	
+	String data;		
+
+	
+	
 	
 	public JanelaLancamentoFrequencia(MenuTurma mt, Aula aula, List<Aluno> listaAlunos) {
-		super(mt, "titulo", ModalityType.APPLICATION_MODAL);
+		super(mt, "Lançamento de frequência", ModalityType.APPLICATION_MODAL);
 		
 		this.mt = mt;
 		
 		this.aula = aula;
 		this.listaAlunos = listaAlunos;
 		
+		String dataString = aula.getData().toString();
+		String dataDia = dataString.substring(8,10);
+		String dataMes = dataString.substring(5,7);
+		String dataAno = dataString.substring(0,4);
+		data = dataDia+"/"+dataMes+"/"+dataAno;	
 		
 		configurarJanela();
 		adicionarComponentes();
 	}
 	
 	private void configurarJanela() {
-		//this.setModalityType(ModalityType.APPLICATION_MODAL);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setPreferredSize(new Dimension(800,600));
 		
 		this.setLayout(new BorderLayout());
@@ -55,17 +66,14 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	}
 	
 	private void adicionarComponentes() {
-		//Date data = aula.getData();
-		//JLabel labelAula;
-		//if(data != null)
-		//	labelAula = new JLabel(aula.getData().toString());
 		
-		JButton botaoLancar = new JButton("Lancar");
+		JButton botaoLancar = new JButton("Lançar");
 		botaoLancar = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoLancar, "Arial", 14);
 		JButton botaoCancelar = new JButton(new AcaoCancelar());
 		botaoCancelar = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoCancelar, "Arial", 14);
 		
-		JPanel painelInferior = new JPanel(new BorderLayout());
+		JPanel painelInferior = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());;
 		painelInferior.add(botaoLancar, BorderLayout.EAST);
 		painelInferior.add(botaoCancelar, BorderLayout.WEST);
 		
@@ -76,6 +84,10 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		JScrollPane scroll = new JScrollPane(tabela);
 		
 	
+		JLabel label = new JLabel(data);
+		label.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		this.add(label, BorderLayout.NORTH);
 		this.add(painelInferior, BorderLayout.SOUTH);
 		this.add(scroll, BorderLayout.CENTER);
 	}
@@ -84,12 +96,6 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		List<JRadioButton> listaBotoesPresente = new ArrayList<JRadioButton>();
 		List<JRadioButton> listaBotoesFalta = new ArrayList<JRadioButton>();
 		List<JRadioButton> listaBotoesJustificado = new ArrayList<JRadioButton>();
-		
-		Aluno aluno = new Aluno();
-		aluno.setIdAluno(5621455L);
-		aluno.setNome("Murilo");
-		aluno.setNumeroChamada(21);
-		listaAlunos.add(aluno);
 		
 		for(Aluno a : listaAlunos) {
 			
@@ -102,10 +108,9 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		TableModelLancamentoFrequencia tmt = new TableModelLancamentoFrequencia(listaAlunos, 
 				listaBotoesPresente, listaBotoesFalta, listaBotoesJustificado);
 		
-		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
-				Alinhamento.CENTRO,  Alinhamento.CENTRO};
-		ColumnModelParaLancamento ca = new ColumnModelParaLancamento(alinhamento, alinhamento.length,
-				20, new Color(122, 255, 135), tmt);
+
+		ColumnModelParaLancamento ca = new ColumnModelParaLancamento(tmt.getAlinhamento(),
+				tmt.getAlinhamento().length, 20, new Color(122, 255, 135), tmt, this.getWidth());
 		
 		
 		

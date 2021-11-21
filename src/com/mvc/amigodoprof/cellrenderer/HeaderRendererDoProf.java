@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
+import com.mvc.amigodoprof.gui.UtilidadesGUI;
+
 /**
  * @author Murilo Vieira
  * 
@@ -35,7 +37,7 @@ public class HeaderRendererDoProf extends DefaultTableCellRenderer{
         JLabel label = (JLabel)super.getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, 
                 linha, coluna);
         
-        label.setBackground(new Color(183,216,226));
+        label.setBackground(UtilidadesGUI.getCorTema2());
         label.setFont(new Font("Arial", Font.BOLD, 20));
         
         

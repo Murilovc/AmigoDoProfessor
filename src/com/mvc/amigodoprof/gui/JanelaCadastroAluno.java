@@ -21,7 +21,7 @@ import com.mvc.amigodoprof.gui.JanelaCadastroTurma.AcaoSalvarEdicao;
 
 public class JanelaCadastroAluno extends JDialog{
 	
-	MenuBase menuPai;
+	private MenuBase menuPai;
 	private JTextField tfNome;
 	private JTextField tfNumeroNaChamada;
 
@@ -30,15 +30,21 @@ public class JanelaCadastroAluno extends JDialog{
 	JLabel lblNumeroNaChamada = new JLabel("Número na chamada:");
 	JLabel lblAnotacoesAluno = new JLabel("Anotações sobre o aluno:");
 	
-	JButton btnSalvarECadastrarOutro = new JButton("Salvar e Cadastrar Outro");
-	JButton btnSalvar = new JButton("Salvar");
-	JButton btnCancelar = new JButton("Cancelar");
+	JButton btnSalvarECadastrarOutro = new JButton();
+	JButton btnSalvar = new JButton();
+	JButton btnCancelar = new JButton();
 	JTextArea taAnotacoes = new JTextArea();
 	private JScrollPane scroll = new JScrollPane(taAnotacoes);
 	
 		
 	public JanelaCadastroAluno(MenuBase menuPai, ModoDeAcesso modo, Turma turma, Aluno aluno) {
 		super(menuPai, ModalityType.APPLICATION_MODAL);
+		
+		criarJanela(menuPai, modo, turma, aluno);
+	}
+	
+	public void criarJanela(MenuBase menuPai, ModoDeAcesso modo, Turma turma, Aluno aluno) {
+		
 		
 		this.menuPai = (MenuAluno)menuPai;
 		
@@ -74,14 +80,16 @@ public class JanelaCadastroAluno extends JDialog{
 		lblAnotacoesAluno.setBounds(10, 80, 223, 14);
 		panel.add(lblAnotacoesAluno);
 		
-		btnSalvarECadastrarOutro.setBounds(10, 227, 179, 23);
+		btnSalvarECadastrarOutro.setBounds(10, 227, 219, 23);
+		btnSalvarECadastrarOutro.setAction(new AcaoSalvarECadastrarOutro(menuPai, turma, modo, aluno));
 		panel.add(btnSalvarECadastrarOutro);
 		
-		btnSalvar.setBounds(199, 227, 89, 23);
+		btnSalvar.setBounds(239, 227, 100, 23);
 		btnSalvar.setAction(new AcaoSalvar(menuPai, turma));
 		panel.add(btnSalvar);
 				
-		btnCancelar.setBounds(300, 227, 89, 23);
+		btnCancelar.setBounds(355, 227, 100, 23);
+		btnCancelar.setAction(new AcaoCancelar());
 		panel.add(btnCancelar);
 		
 		scroll.setBounds(10, 98, 460, 118);
@@ -99,9 +107,15 @@ public class JanelaCadastroAluno extends JDialog{
 			
 			
 			btnSalvar.setAction(new AcaoSalvarEdicao(menuPai, aluno));
+			btnSalvarECadastrarOutro.setEnabled(false);
+			btnSalvarECadastrarOutro.setVisible(false);
 		}
-		
-		
+	}
+	
+	protected void limparCampos() {
+		tfNome.setText("");
+		tfNumeroNaChamada.setText("");
+		taAnotacoes.setText("");
 	}
 	
 	protected class AcaoSalvar extends AbstractAction {
@@ -128,6 +142,40 @@ public class JanelaCadastroAluno extends JDialog{
 			menuPai.buscarPor();
 			
 			JanelaCadastroAluno.this.dispose();
+		}
+		
+	}
+	
+	protected class AcaoSalvarECadastrarOutro extends AbstractAction {
+
+		MenuBase menuPai;
+		Turma turma;
+		ModoDeAcesso modo;
+		Aluno aluno;
+		
+		
+		public AcaoSalvarECadastrarOutro(MenuBase menuPai, Turma turma, ModoDeAcesso modo, Aluno aluno) {
+			super("SALVAR E CADASTRAR OUTRO");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue(SHORT_DESCRIPTION, "Cadastra aluno e abre novamente a janela");
+			
+			this.menuPai = menuPai;
+			this.turma = turma;
+			this.modo = modo;
+			this.aluno = aluno;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAluno.cadastrarAluno(tfNome.getText(),
+										 tfNumeroNaChamada.getText(),
+										 taAnotacoes.getText(),
+										 turma);
+			
+			limparCampos();
+			
+			menuPai.buscarPor();
+			
 		}
 		
 	}

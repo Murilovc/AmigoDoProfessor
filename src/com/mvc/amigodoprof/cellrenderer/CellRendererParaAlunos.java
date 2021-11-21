@@ -41,17 +41,16 @@ public class CellRendererParaAlunos extends DefaultTableCellRenderer{
     
     private int tamanhoLetra;
     private Color corTema;
-    private MenuAluno mt;
+    
 	
 	Alinhamento alinhamento;
     
     
-    public CellRendererParaAlunos(int tamanhoLetra, Color corTema, Alinhamento alinhamento, MenuAluno mt) {
+    public CellRendererParaAlunos(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
         
 		super();
         this.tamanhoLetra = tamanhoLetra;
         this.corTema = corTema;
-        this.mt = mt;
         
     	switch(alinhamento) {
 			

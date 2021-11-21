@@ -2,24 +2,13 @@ package com.mvc.amigodoprof.cellrenderer;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
 import com.mvc.amigodoprof.gui.MenuTurma;
@@ -101,18 +90,13 @@ public class CellRendererParaAulas extends DefaultTableCellRenderer{
 
               
         }else{
-        	/*TODO 
-        	 * colocar aqui alguma lógica de deixar em vermelho valores negativos*/
+
         	label.setForeground(Color.BLACK);
             label.setBackground(Color.WHITE);
             label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
             
         }
 
-
-       //lembrando que vc pode obter o objeto da linhas correspondente assim
-       //Pessoa pessoa = ((PessoasTableModel)table.getModel()).getValoresPessoa(row);
-       //e fazer os if's direto nos valores do objeto, nesse caso para colorir a linha inteira!!
         return label;       
     } 
 	

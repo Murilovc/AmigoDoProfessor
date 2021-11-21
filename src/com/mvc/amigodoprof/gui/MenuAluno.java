@@ -4,15 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import com.mvc.amigodoprof.controle.ControleAluno;
 import com.mvc.amigodoprof.controle.ControleAula;
@@ -32,7 +37,7 @@ import javax.swing.JButton;
 public class MenuAluno extends MenuBase {
 
 	
-	public long entidadeAtual, entidadePai;
+	public long entidadePai;
 	public MenuBase menuPai;
 	
 	private TabelaDoProf tabela;
@@ -40,6 +45,12 @@ public class MenuAluno extends MenuBase {
 	private JButton botaoAdicionarAluno;
 	private JButton botaoEditarAluno;
 	private JButton botaoApagarAluno;
+	
+	private JTextArea areaAnotacao;
+	
+	private JButton botaoSalvarAnotacao;
+	private JButton botaoEditarAnotacao;
+
 	
 	public MenuAluno(ModoDeAcesso modo, MenuBase menuPai) {
 		
@@ -69,8 +80,9 @@ public class MenuAluno extends MenuBase {
 
 		
 		
-		JPanel painelSuperior = new JPanel(new FlowLayout());
-		painelSuperior.setPreferredSize(new Dimension(270, 40));
+		JPanel painelSuperior = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(270,40), new FlowLayout(), UtilidadesGUI.getCorTema1());
+		
 		
 		painelSuperior.add(labelPesquisarPor);
 		painelSuperior.add(labelDigiteAqui);
@@ -97,8 +109,8 @@ public class MenuAluno extends MenuBase {
 		
 		
 		
-		JPanel painelLateral = new JPanel(new FlowLayout());
-		painelLateral.setPreferredSize(new Dimension(150, 600));
+		JPanel painelLateral = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(150,600), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelLateral.add(botaoAdicionarAluno);
 		painelLateral.add(botaoEditarAluno);
@@ -107,7 +119,35 @@ public class MenuAluno extends MenuBase {
 		
 		
 		
-		List<Aluno> listaAlunos = ControleAluno.pegarTodosOsAlunos();//pesquisarAlunoPorTurma(1L);
+		
+		areaAnotacao = new JTextArea("Anotação sobre o aluno selecionando...");
+		areaAnotacao.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 18));
+		areaAnotacao.setPreferredSize(new Dimension(0,100));
+		
+		botaoSalvarAnotacao = new JButton(new AcaoSalvarAnotacao());
+		botaoSalvarAnotacao = UtilidadesGUI.
+				estilizarBotaoPequenoComBordaPadrao(botaoSalvarAnotacao, "Arial", 14);
+		botaoSalvarAnotacao.setEnabled(false);
+		
+		botaoEditarAnotacao = new JButton(new AcaoEditarAnotacao());
+		botaoEditarAnotacao = UtilidadesGUI.
+				estilizarBotaoPequenoComBordaPadrao(botaoEditarAnotacao, "Arial", 14);
+		
+		JPanel painelInferiorBotoes = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(180,30), new FlowLayout(), UtilidadesGUI.getCorTema1());
+		
+		painelInferiorBotoes.add(botaoEditarAnotacao);
+		painelInferiorBotoes.add(botaoSalvarAnotacao);
+		
+		JPanel painelInferior = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(180,30), new BorderLayout(), UtilidadesGUI.getCorTema1());
+		painelInferior.add(areaAnotacao, BorderLayout.CENTER);
+		painelInferior.add(painelInferiorBotoes, BorderLayout.SOUTH);
+		painelInferior.setBorder(new TitledBorder("Anotação:"));
+		
+		
+		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadePai);
+		List<Aluno> listaAlunos = ControleAluno.pesquisarAlunoPorTurma(turma);//pesquisarAlunoPorTurma(1L);
 		
 		tabela = new TabelaDoProf();
 		carregarTabela(listaAlunos);
@@ -115,7 +155,8 @@ public class MenuAluno extends MenuBase {
 		JScrollPane jp = new JScrollPane(tabela);
 
 		this.add(jp, BorderLayout.CENTER);
-		this.add(painelLateral, BorderLayout.WEST);		
+		this.add(painelLateral, BorderLayout.WEST);
+		this.add(painelInferior, BorderLayout.SOUTH);
 		
 	}
 	
@@ -126,13 +167,12 @@ public class MenuAluno extends MenuBase {
 		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO, Alinhamento.CENTRO,
 										Alinhamento.CENTRO, Alinhamento.CENTRO, Alinhamento.CENTRO};
 		ColumnModelParaAluno ca = new ColumnModelParaAluno(alinhamento, alinhamento.length,
-				20, new Color(122, 255, 135), tmt, this);
+				20, new Color(122, 255, 135), tmt, 150);
 		
 		
 		tabela.setEnabled(true);
 		tabela.setModel(tmt);
 		tabela.setColumnModel(ca);
-		//tabela.setarLargura();
 		tabela.addMouseListener(new HabilitarEdicaoExclusao());
 		
 		
@@ -142,19 +182,50 @@ public class MenuAluno extends MenuBase {
 	@Override
 	protected void buscarPor() {
 		/*XXX
-		 * Testar como fica com essa variável sendo global (um campo)*/
-		List<Aluno> listaAlunos = ControleAluno.pegarTodosOsAlunos();
+		 * Testar como fica com essa variável sendo global (um campo)
+		 * List<Aluno> listaAlunos = ControleAluno.pegarTodosOsAlunos();*/
+		
+		String stringPesquisada = super.campoPesquisa.getText();
+		
+		int tipoPesquisa = super.boxSelecao.getSelectedIndex();
+		
+		List<Aluno> listaAlunos = new ArrayList<Aluno>();
+		Aluno aluno;
+		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadePai);
+		System.out.println(entidadePai);
+		
+//		if(stringPesquisada.equals("")) {
+//			
+//			listaAlunos = ControleAluno.pesquisarAlunoPorTurma(turma);
+//			carregarTabela(listaAlunos);
+//			return;
+//		}
+		
+		switch(tipoPesquisa) {
+			case 0:
+				listaAlunos = ControleAluno.pesquisarAlunoPorTurma(turma);
+				break;
+			case 1:
+				aluno = ControleAluno.pesquisarAlunoPorId(Long.valueOf(stringPesquisada));
+				listaAlunos.add(aluno);
+				break;
+
+		}
 		carregarTabela(listaAlunos);
 	}
 	
 	private void desativarBotoes() {
 		botaoEditarAluno.setEnabled(false);
 		botaoApagarAluno.setEnabled(false);
+		
+		botaoEditarAnotacao.setEnabled(false);
 	}
 	
 	private void ativarBotoes() {
 		botaoEditarAluno.setEnabled(true);
 		botaoApagarAluno.setEnabled(true);
+		
+		botaoEditarAnotacao.setEnabled(true);
 	}
 	
 	/* Classes internas
@@ -170,13 +241,13 @@ public class MenuAluno extends MenuBase {
 				long idSelecionado = (long)tabela.getValueAt(tabela.getSelectedRow(), 5);
 				Aluno alunoSelecionado = ControleAluno.pesquisarAlunoPorId(idSelecionado);
 				
-				//areaLembrete.setText(aulaSelecionada.getPlanejamento());
+				areaAnotacao.setText(alunoSelecionado.getAnotacao());
 				ativarBotoes();
 			}
 		}
 	}
 	
-	protected class AcaoAdicionarAluno extends AbstractAction {
+	public class AcaoAdicionarAluno extends AbstractAction {
 
 		protected AcaoAdicionarAluno() {
 			super("Adicionar aluno");
@@ -209,7 +280,16 @@ public class MenuAluno extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println(entidadePai);
+			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadePai);
 			
+			long idAluno = (long) tabela.getValueAt(tabela.getSelectedRow(), 5);
+			Aluno aluno = ControleAluno.pesquisarAlunoPorId(idAluno);
+			
+			JanelaCadastroAluno jca = new JanelaCadastroAluno(MenuAluno.this,
+					ModoDeAcesso.EDICAO, turma, aluno);
+			
+			jca.setVisible(true);
 			
 		}
 		
@@ -225,8 +305,52 @@ public class MenuAluno extends MenuBase {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			long idAluno = (long) tabela.getValueAt(tabela.getSelectedRow(), 5);
+			Aluno aluno = ControleAluno.pesquisarAlunoPorId(idAluno);
 			
+			ControleAluno.apagarAluno(aluno);
 			
+			MenuAluno.this.buscarPor();
+			
+		}
+		
+	}
+	
+	protected class AcaoSalvarAnotacao extends AbstractAction {
+
+		protected AcaoSalvarAnotacao() {
+			super("SALVAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_A);
+			putValue(SHORT_DESCRIPTION, "Salva as mudanças na anotação");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			long idAluno = (long) tabela.getValueAt(tabela.getSelectedRow(), 5);
+			Aluno aluno = ControleAluno.pesquisarAlunoPorId(idAluno);
+			
+			ControleAluno.editarAluno(aluno, aluno.getNome(),
+					String.valueOf(aluno.getNumeroChamada()), areaAnotacao.getText());
+			
+			botaoSalvarAnotacao.setEnabled(false);
+			botaoEditarAnotacao.setEnabled(true);
+		}
+		
+	}
+	
+	protected class AcaoEditarAnotacao extends AbstractAction {
+
+		protected AcaoEditarAnotacao() {
+			super("EDITAR");
+			putValue(MNEMONIC_KEY, KeyEvent.VK_A);
+			putValue(SHORT_DESCRIPTION, "Habilita a edição");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			botaoSalvarAnotacao.setEnabled(true);
+			botaoEditarAnotacao.setEnabled(false);
 		}
 		
 	}

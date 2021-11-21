@@ -1,7 +1,9 @@
 package com.mvc.amigodoprof.tablemodel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
@@ -31,13 +33,50 @@ import com.mvc.amigodoprof.gui.MenuTurma;
 public class ColumnModelParaAula extends DefaultTableColumnModel{
     
     public ColumnModelParaAula(Alinhamento[] alinhamento, int quantidadeColunas,
-    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuTurma mt) {
+    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuTurma mt,
+    		int larguraParaDescontar) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
     		
     		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs, mt);
     		
     		super.addColumn(tc);
+    		
+    		
+            /* Solução para que as colunas ocupem o espaço disponível da tabela
+             * independentemente do tamanho da tela do usuário e permitindo a divisão do espaço
+             * de acordo com a necessidade de espaço de cada coluna.
+             * 
+             * Valores do tipo float foram encontrados usando regra de três desta forma:
+             * 
+             * larguraAproximadaTabela --------> 100
+             * larguraAbsolutaDesejada -------->  x
+             * */
+    		
+    		Dimension tamanho = Toolkit.getDefaultToolkit().getScreenSize();
+    		int larguraTabela = (int) (tamanho.getWidth() - larguraParaDescontar);
+    		float pontoLargura = (float)larguraTabela / 100;
+    		
+    		switch(i) {
+        		case 0:
+        			tc.setPreferredWidth((int) (pontoLargura*2.90f));
+        			break;
+        		case 1:
+        			tc.setPreferredWidth((int) (pontoLargura*13.26f));
+        			break;
+        		case 2:
+        			tc.setPreferredWidth((int) (pontoLargura*45));
+        			break;
+        		case 3:
+        			tc.setPreferredWidth((int) (pontoLargura*17.42f));
+        			break;
+        		case 4:
+        			tc.setPreferredWidth((int) (pontoLargura*12.42f));
+        			break;
+        		case 5:
+        			tc.setPreferredWidth((int) (pontoLargura*9f));
+        			break;
+            }
     		
     	}
     	

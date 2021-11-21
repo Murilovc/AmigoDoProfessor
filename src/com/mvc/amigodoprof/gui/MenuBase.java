@@ -1,7 +1,9 @@
 package com.mvc.amigodoprof.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -21,9 +23,7 @@ public abstract class MenuBase extends JFrame{
 	
 	protected ModoDeAcesso modo;
 	
-	protected long entidadePai;
 
-	protected long entidadeAtual;
 	
 	protected MenuBase menuPai;
 	
@@ -47,11 +47,11 @@ public abstract class MenuBase extends JFrame{
 		
 		this.menuPai = pai;
 		
-		if(modo == ModoDeAcesso.RESTRITO) {
-			if(pai != null) {
-				entidadePai = pai.getIdEntidadeAtual();
-			}
-		}
+//		if(modo == ModoDeAcesso.RESTRITO) {
+//			if(pai != null) {
+//				entidadePai = pai.getIdEntidadeAtual();
+//			}
+//		}
 			
 	}
 	
@@ -69,21 +69,21 @@ public abstract class MenuBase extends JFrame{
 		this.modo = modo;
 	}
 
-	public long getIdEntidadePai() {
-		return entidadePai;
-	}
-
-	public long getIdEntidadeAtual() {
-		return entidadeAtual;
-	}
-
-	public void setIdEntidadePai(String idEntidadePai) {
-		this.entidadePai = Long.valueOf(idEntidadePai);
-	}
-
-	public void setIdEntidadeAtual(String idEntidadeAtual) {
-		entidadeAtual = Long.valueOf(idEntidadeAtual);
-	}
+//	public long getIdEntidadePai() {
+//		return entidadePai;
+//	}
+//
+//	public long getIdEntidadeAtual() {
+//		return entidadeAtual;
+//	}
+//
+//	public void setIdEntidadePai(String idEntidadePai) {
+//		this.entidadePai = Long.valueOf(idEntidadePai);
+//	}
+//
+//	public void setIdEntidadeAtual(String idEntidadeAtual) {
+//		entidadeAtual = Long.valueOf(idEntidadeAtual);
+//	}
 	
 	/*Getters e Setters de Components Swing*/
 	public JTextField getCampoPesquisa() {
@@ -116,7 +116,7 @@ public abstract class MenuBase extends JFrame{
 		/*Características de todos os menus*/
 		menu.setVisible(false);
 		menu.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		menu.setSize(new Dimension(1280,720));
+		menu.setPreferredSize(new Dimension(1280,720));
 		menu.setExtendedState(MAXIMIZED_BOTH);
 		menu.setLayout(new BorderLayout());
 		menu.pack();
@@ -141,11 +141,14 @@ public abstract class MenuBase extends JFrame{
 		botaoSair.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
 		botaoSair.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		painelNorte = new JPanel(new BorderLayout());
+		painelNorte = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
 		
-		painelCanto = new JPanel(new BorderLayout());
+		painelCanto = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
 		
-		JPanel painelPesquisa = new JPanel(new BorderLayout());
+		JPanel painelPesquisa = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
 		
 		
 		

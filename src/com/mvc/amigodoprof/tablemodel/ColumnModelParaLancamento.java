@@ -1,7 +1,9 @@
 package com.mvc.amigodoprof.tablemodel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTextField;
@@ -28,7 +30,7 @@ import com.mvc.amigodoprof.gui.MenuTurma;
 public class ColumnModelParaLancamento extends DefaultTableColumnModel{
     
     public ColumnModelParaLancamento(Alinhamento[] alinhamento, int quantidadeColunas,
-    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs) {
+    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, int tamanhoJanela) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
     		
@@ -36,6 +38,32 @@ public class ColumnModelParaLancamento extends DefaultTableColumnModel{
     		
     		super.addColumn(tc);
     		
+            /* Solução para que as colunas ocupem o espaço disponível da tabela
+             * independentemente do tamanho da tela do usuário e permitindo a divisão do espaço
+             * de acordo com a necessidade de espaço de cada coluna.
+             * 
+             * Valores do tipo float foram encontrados usando regra de três desta forma:
+             * 
+             * larguraAproximadaTabela --------> 100
+             * larguraAbsolutaDesejada -------->  x
+             * */
+    		
+    		float pontoLargura = (float)tamanhoJanela / 100;
+    		
+    		switch(i) {
+        		case 0:
+        			tc.setPreferredWidth((int) (pontoLargura*59f));
+        			break;
+        		case 1:
+        			tc.setPreferredWidth((int) (pontoLargura*11f));
+        			break;
+        		case 2:
+        			tc.setPreferredWidth((int) (pontoLargura*7f));
+        			break;
+        		case 3:
+        			tc.setPreferredWidth((int) (pontoLargura*20f));
+        			break;
+            }
     	}
     	
     }

@@ -64,9 +64,9 @@ public class TableModelAula extends AbstractTableModel {
 				break;
 			case 4:
 				if(aula.isFrequenciaLancada() == true) {
-					dado = "Frequência lançada";
+					dado = "Lançada";
 				} else {
-					dado = "Frequência pendente";
+					dado = "Pendente";
 				}
 				break;
 
@@ -90,7 +90,7 @@ public class TableModelAula extends AbstractTableModel {
 				nome = "Conteúdo"; 
 				break;
 			case 3: 
-				nome = "Presença"; 
+				nome = "Lista frequência"; 
 				break;
 			case 4:
 				nome = "Status";

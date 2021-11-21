@@ -28,20 +28,18 @@ import com.mvc.amigodoprof.tablemodel.TableModelTurma;
 
 public class MenuPrincipal extends MenuBase {
 	
-
+	private TabelaDoProf tabela;
+	private JTextArea areaLembrete;
 	
-	TabelaDoProf tabela;
-	JTextArea areaLembrete;
+	private JButton botaoVerTurma;
+	private JButton botaoNovaTurma;
+	private JButton botaoEditarTurma;
+	private JButton botaoApagarTurma;
+	private JButton botaoMenuAtividades;
+	private JButton botaoMenuAlunos;
+	private JButton botaoMenuFrequencias;
 	
-	JButton botaoVerTurma;
-	JButton botaoNovaTurma;
-	JButton botaoEditarTurma;
-	JButton botaoApagarTurma;
-	JButton botaoMenuAtividades;
-	JButton botaoMenuAlunos;
-	JButton botaoMenuFrequencias;
-	
-	JScrollPane jcp;
+	private JScrollPane jcp;
 	
 	public MenuPrincipal() {
 		
@@ -81,8 +79,8 @@ public class MenuPrincipal extends MenuBase {
 		super.boxSelecao.addItem("Nome");
 		
 		
-		JPanel painelSuperior = new JPanel(new FlowLayout());
-		painelSuperior.setPreferredSize(new Dimension(270, 40));
+		JPanel painelSuperior = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(270,40), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelSuperior.add(labelPesquisarPor);
 		painelSuperior.add(labelDigiteAqui);
@@ -110,8 +108,8 @@ public class MenuPrincipal extends MenuBase {
 		botaoApagarTurma = UtilidadesGUI.
 				estilizarBotaoComBordaPadrao(botaoApagarTurma, "Arial", 14);
 		
-		JPanel painelLateralEsquerdo = new JPanel(new FlowLayout());
-		painelLateralEsquerdo.setPreferredSize(new Dimension(150, 680));
+		JPanel painelLateralEsquerdo = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(150,680), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelLateralEsquerdo.add(botaoVerTurma);
 		painelLateralEsquerdo.add(botaoNovaTurma);
@@ -133,8 +131,8 @@ public class MenuPrincipal extends MenuBase {
 				"Arial", 14);
 		
 		
-		JPanel painelLateralDireito = new JPanel(new FlowLayout());
-		painelLateralDireito.setPreferredSize(new Dimension(150,680));
+		JPanel painelLateralDireito = UtilidadesGUI.
+				criarJPanelSemBorda(new Dimension(150,680), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelLateralDireito.add(botaoMenuAtividades);
 		painelLateralDireito.add(botaoMenuAlunos);
@@ -180,10 +178,9 @@ public class MenuPrincipal extends MenuBase {
 		
 		TableModelTurma tmt = new TableModelTurma(listaTurmas);
 		
-		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
-				Alinhamento.CENTRO,Alinhamento.CENTRO};
-		ColumnModelDoProf cm = new ColumnModelDoProf(alinhamento, alinhamento.length,
-				20, new Color(122, 255, 135), tmt);
+
+		ColumnModelDoProf cm = new ColumnModelDoProf(tmt.getAlinhamento(), tmt.getAlinhamento().length,
+				20, new Color(122, 255, 135), tmt, 195);
 		
 		
 		tabela.setEnabled(true);
@@ -240,6 +237,7 @@ public class MenuPrincipal extends MenuBase {
 				Turma turmaSelecionada = ControleTurma.pesquisarTurmaPorId(idSelecionado);
 				
 				areaLembrete.setText(turmaSelecionada.getLembrete());
+				
 				ativarBotoes();
 			
 			}
