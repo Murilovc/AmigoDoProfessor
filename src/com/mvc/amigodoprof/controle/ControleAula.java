@@ -48,7 +48,7 @@ public class ControleAula {
 		return GerenteAula.pesquisarTodas();
 	}
 	
-	public static List<Aula> pesquisarAulaPorData(String data){
+	public static List<Aula> pesquisarAulaPorData(Date data){
 		return GerenteAula.pesquisarPorData(data);
 	}
 	

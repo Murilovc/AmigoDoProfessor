@@ -77,4 +77,5 @@ public final class UtilidadesGUI {
 		painel.setPreferredSize(tamanho);
 		return painel;
 	}
+	
 }

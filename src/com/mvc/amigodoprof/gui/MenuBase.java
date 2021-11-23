@@ -23,8 +23,6 @@ public abstract class MenuBase extends JFrame{
 	
 	protected ModoDeAcesso modo;
 	
-
-	
 	protected MenuBase menuPai;
 	
 	protected AcaoSair acaoSair;
@@ -140,6 +138,7 @@ public abstract class MenuBase extends JFrame{
 		botaoSair = new JButton(acaoSair);
 		botaoSair.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
 		botaoSair.setFont(new Font("Arial", Font.BOLD, 14));
+		botaoSair.setBackground(UtilidadesGUI.getCorTema2());
 		
 		painelNorte = UtilidadesGUI.
 				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());

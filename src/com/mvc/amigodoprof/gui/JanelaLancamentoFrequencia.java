@@ -67,7 +67,7 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	
 	private void adicionarComponentes() {
 		
-		JButton botaoLancar = new JButton("Lançar");
+		JButton botaoLancar = new JButton(new AcaoLancarFrequencia());
 		botaoLancar = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoLancar, "Arial", 14);
 		JButton botaoCancelar = new JButton(new AcaoCancelar());
 		botaoCancelar = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoCancelar, "Arial", 14);
@@ -123,7 +123,7 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	private class AcaoLancarFrequencia extends AbstractAction {
 
 		public AcaoLancarFrequencia() {
-			super("Lançar frequência");
+			super("Lançar");
 			putValue(MNEMONIC_KEY, KeyEvent.VK_B);
 			putValue(SHORT_DESCRIPTION, "Lançar a frequência para esta aula");
 			
@@ -131,7 +131,7 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			JanelaLancamentoFrequencia.this.dispose();
 			
 		}
 		
@@ -143,25 +143,11 @@ public class JanelaLancamentoFrequencia extends JDialog {
 			super("Cancelar");
 		}
 		
-		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			long idTurma = mt.entidadeAtual;
-			MenuBase pai = mt.menuPai;
-			
-			//JanelaLancamentoFrequencia.this.setVisible(false);
-			//JanelaLancamentoFrequencia.this.setModalityType(ModalityType.MODELESS);
-			
-			mt.dispose();
-			
 			JanelaLancamentoFrequencia.this.dispose();
-			
-			criarTabela();
-			mt = new MenuTurma(ModoDeAcesso.RESTRITO, pai, idTurma);
-			mt.setVisible(true);
-			
-			
+	
 		}
 	}
 }

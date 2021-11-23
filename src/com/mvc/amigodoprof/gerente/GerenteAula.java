@@ -1,5 +1,6 @@
 package com.mvc.amigodoprof.gerente;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,8 +44,8 @@ public class GerenteAula {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Aula> pesquisarPorData(String data) {
-		return gerente.createNamedQuery("Aula.todasPorData").setParameter("data", data).getResultList();
+	public static List<Aula> pesquisarPorData(Date data) {
+		return gerente.createNamedQuery("Aula.porData").setParameter("data", data).getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")

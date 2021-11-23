@@ -6,14 +6,27 @@ import java.util.List;
 import javax.persistence.*;
 
 @NamedQueries({
+	/*Esta será a única consulta que retornará todas as aulas
+	 * independente de qual turma ela pertença. Ainda não está
+	 * claro se essa query estará disponível na versão final do
+	 * programa.*/
 	@NamedQuery(name="Aula.todas", query="SELECT a FROM Aula a"),
-	@NamedQuery(name="Aula.todasPorData", query="SELECT a FROM Aula a ORDER BY a.data"),
-	@NamedQuery(name="Aula.porData", query="SELECT a FROM Aula a WHERE a.data LIKE :data"),
+	
+	
+	/*Todas a consultas abaixo retornam as aulas de acordo com a turma
+	 * que elas pertencem*/
+	@NamedQuery(name="Aula.porTurma",
+	query="SELECT a FROM Aula a WHERE a.turma LIKE :turma ORDER BY a.data"),
+	//@NamedQuery(name="Aula.todasPorData", query="SELECT a FROM Aula a ORDER BY a.data"),
+	
+	/*Para pesquisar por uma data específica*/
+	@NamedQuery(name="Aula.porData", 
+	query="SELECT a FROM Aula a RIGHT JOIN Turma b ON b.idTurma = a.turma WHERE a.data LIKE :data"),
+	
 	@NamedQuery(name="Aula.porFrequenciaLancada",
 	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 1"),
 	@NamedQuery(name="Aula.porFrequenciaNaoLancada",
-	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 0"),
-	@NamedQuery(name="Aula.porTurma", query="SELECT a FROM Aula a WHERE a.turma LIKE :turma")
+	query="SELECT a FROM Aula a WHERE a.frequenciaLancada LIKE 0")
 })
 
 

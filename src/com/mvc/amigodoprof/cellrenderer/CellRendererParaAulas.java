@@ -63,12 +63,13 @@ public class CellRendererParaAulas extends DefaultTableCellRenderer{
     	if(coluna == 3) {
     		JButton botao = (JButton)valor;
     		
-    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
-    			botao.setBackground(Color.GREEN);
-    			
-    			tabela.clearSelection();
-    			mt.abrirJanelaLancamentoFrequencia(linha);
-    		}
+//    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
+//    			botao.setBackground(Color.GREEN);
+//    			
+//    			tabela.clearSelection();
+//				tabela.validate();
+//    			mt.abrirJanelaLancamentoFrequencia(linha);
+//    		}
     		return botao;
     	}
     	

@@ -9,12 +9,16 @@ import javax.swing.table.AbstractTableModel;
 
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
+import com.mvc.amigodoprof.gui.Alinhamento;
 import com.mvc.amigodoprof.gui.MenuTurma;
 
 public class TableModelAula extends AbstractTableModel {
 
 	List<Aula> listaAulas;
 	List<JButton> listaBotoes;
+	
+	private Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
+			 					 		 Alinhamento.CENTRO,  Alinhamento.CENTRO, Alinhamento.CENTRO};
 	
 	public TableModelAula(List<Aula> aulas, List<JButton> listaBotoes) {
 		this.listaAulas = aulas;
@@ -127,6 +131,10 @@ public class TableModelAula extends AbstractTableModel {
 		}		
 
 		return obj.getClass();
+	}
+	
+	public Alinhamento[] getAlinhamento() {
+		return this.alinhamento;
 	}
 	
 	public boolean isCellEditable(int linha, int coluna) {
