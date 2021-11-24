@@ -1,17 +1,25 @@
-package com.mvc.amigodoprof.cellrenderer;
+package com.mvc.amigodoprof.model.cellrenderer;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.JButton;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuTurma;
 
 
 
@@ -25,21 +33,20 @@ import com.mvc.amigodoprof.gui.MenuTurma;
  */
 
 @SuppressWarnings("serial")
-public class CellRendererParaAulas extends DefaultTableCellRenderer{
+public class CellRendererDoProf extends DefaultTableCellRenderer{
     
     private int tamanhoLetra;
     private Color corTema;
-    private MenuTurma mt;
+    
 	
 	Alinhamento alinhamento;
     
     
-    public CellRendererParaAulas(int tamanhoLetra, Color corTema, Alinhamento alinhamento, MenuTurma mt) {
+    public CellRendererDoProf(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
         
 		super();
         this.tamanhoLetra = tamanhoLetra;
         this.corTema = corTema;
-        this.mt = mt;
         
     	switch(alinhamento) {
 			
@@ -60,20 +67,6 @@ public class CellRendererParaAulas extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna == 3) {
-    		JButton botao = (JButton)valor;
-    		
-//    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
-//    			botao.setBackground(Color.GREEN);
-//    			
-//    			tabela.clearSelection();
-//				tabela.validate();
-//    			mt.abrirJanelaLancamentoFrequencia(linha);
-//    		}
-    		return botao;
-    	}
-    	
-    	
     	
     	JLabel label = (JLabel)super.getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, 
                 linha, coluna);
@@ -91,13 +84,18 @@ public class CellRendererParaAulas extends DefaultTableCellRenderer{
 
               
         }else{
-
+        	/*TODO 
+        	 * colocar aqui alguma lógica de deixar em vermelho valores negativos*/
         	label.setForeground(Color.BLACK);
             label.setBackground(Color.WHITE);
             label.setFont(new Font("Arial", Font.BOLD, tamanhoLetra));
             
         }
 
+
+       //lembrando que vc pode obter o objeto da linhas correspondente assim
+       //Pessoa pessoa = ((PessoasTableModel)table.getModel()).getValoresPessoa(row);
+       //e fazer os if's direto nos valores do objeto, nesse caso para colorir a linha inteira!!
         return label;       
     } 
 	

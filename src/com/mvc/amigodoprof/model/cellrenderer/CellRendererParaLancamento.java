@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.cellrenderer;
+package com.mvc.amigodoprof.model.cellrenderer;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -62,20 +62,20 @@ public class CellRendererParaLancamento extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna != 0) {
+    	if(coluna > 1) {
     		JRadioButton botao = (JRadioButton)valor;
     		
-    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
-    			
-    			if(botao.isSelected() == true) {
-    				botao.setSelected(false);
-    			} else {
-    				botao.setSelected(true);
-    			}
-    			
-    			tabela.clearSelection();
-    			
-    		}
+//    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
+//    			
+//    			if(botao.isSelected() == true) {
+//    				botao.setSelected(false);
+//    			} else {
+//    				botao.setSelected(true);
+//    			}
+//    			
+//    			tabela.clearSelection();
+//    			
+//    		}
     		return botao;
     	}
     	

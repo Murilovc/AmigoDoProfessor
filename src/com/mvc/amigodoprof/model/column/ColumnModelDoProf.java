@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.tablemodel;
+package com.mvc.amigodoprof.model.column;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,10 +14,9 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
-import com.mvc.amigodoprof.cellrenderer.CellRendererParaAulas;
-import com.mvc.amigodoprof.cellrenderer.HeaderRendererDoProf;
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuTurma;
+import com.mvc.amigodoprof.model.cellrenderer.CellRendererDoProf;
+import com.mvc.amigodoprof.model.cellrenderer.HeaderRendererDoProf;
 
 
 /**
@@ -30,18 +29,16 @@ import com.mvc.amigodoprof.gui.MenuTurma;
  */
 
 @SuppressWarnings("serial")
-public class ColumnModelParaAula extends DefaultTableColumnModel{
+public class ColumnModelDoProf extends DefaultTableColumnModel{
     
-    public ColumnModelParaAula(Alinhamento[] alinhamento, int quantidadeColunas,
-    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuTurma mt,
-    		int larguraParaDescontar) {
+    public ColumnModelDoProf(Alinhamento[] alinhamento, int quantidadeColunas,
+    		int tamanhoFonte, Color corCelulas, AbstractTableModel abs, int larguraParaDescontar) {
     	
     	for(int i = 0; i < quantidadeColunas; i++) {
     		
-    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs, mt);
+    		TableColumn tc = criaColuna(alinhamento[i], i,  true, tamanhoFonte, corCelulas, abs);
     		
     		super.addColumn(tc);
-    		
     		
             /* Solução para que as colunas ocupem o espaço disponível da tabela
              * independentemente do tamanho da tela do usuário e permitindo a divisão do espaço
@@ -62,13 +59,13 @@ public class ColumnModelParaAula extends DefaultTableColumnModel{
         			tc.setPreferredWidth((int) (pontoLargura*2.90f));
         			break;
         		case 1:
-        			tc.setPreferredWidth((int) (pontoLargura*13.26f));
+        			tc.setPreferredWidth((int) (pontoLargura*50));
         			break;
         		case 2:
-        			tc.setPreferredWidth((int) (pontoLargura*45));
+        			tc.setPreferredWidth((int) (pontoLargura*13.26f));
         			break;
         		case 3:
-        			tc.setPreferredWidth((int) (pontoLargura*17.42f));
+        			tc.setPreferredWidth((int) (pontoLargura*12.42f));
         			break;
         		case 4:
         			tc.setPreferredWidth((int) (pontoLargura*12.42f));
@@ -83,13 +80,13 @@ public class ColumnModelParaAula extends DefaultTableColumnModel{
     }
     
     private TableColumn criaColuna(Alinhamento alinhamento, int indiceColuna,
-    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs, MenuTurma mt){
+    		boolean resizeable, int tamanhoFonte, Color corCelulas, AbstractTableModel abs){
     	
     	
     	TableColumn coluna = new TableColumn(indiceColuna);
     	
     	
-    	CellRendererParaAulas acr = new CellRendererParaAulas(tamanhoFonte, corCelulas, alinhamento, mt);
+    	CellRendererDoProf acr = new CellRendererDoProf(tamanhoFonte, corCelulas, alinhamento);
     	
         
     	JTextField campoTexto = new JTextField();
@@ -104,4 +101,3 @@ public class ColumnModelParaAula extends DefaultTableColumnModel{
     }
 
 }
-

@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.tablemodel;
+package com.mvc.amigodoprof.model.table;
 
 import java.util.ArrayList;
 import java.util.Date;

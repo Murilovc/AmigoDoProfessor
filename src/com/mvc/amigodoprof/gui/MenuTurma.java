@@ -26,16 +26,16 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
-import com.mvc.amigodoprof.cellrenderer.CellRendererDoProf;
-import com.mvc.amigodoprof.cellrenderer.CellRendererParaAulas;
 import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
-import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
-import com.mvc.amigodoprof.tablemodel.ColumnModelParaAula;
-import com.mvc.amigodoprof.tablemodel.TableModelAula;
-import com.mvc.amigodoprof.tablemodel.TableModelTurma;
+import com.mvc.amigodoprof.model.cellrenderer.CellRendererDoProf;
+import com.mvc.amigodoprof.model.cellrenderer.CellRendererParaAulas;
+import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
+import com.mvc.amigodoprof.model.column.ColumnModelParaAula;
+import com.mvc.amigodoprof.model.table.TableModelAula;
+import com.mvc.amigodoprof.model.table.TableModelTurma;
 
 public class MenuTurma extends MenuBase {
 	
@@ -333,7 +333,8 @@ public class MenuTurma extends MenuBase {
 				if(coluna == 3) {
 					JButton botao = listaBotoes.get(linha);
 					((AcaoLancarNaTabela) botao.getAction()).abrirJanela(linha);
-						
+					tabela.clearSelection();
+					desativarBotoes();
 				}
 			}
 		}

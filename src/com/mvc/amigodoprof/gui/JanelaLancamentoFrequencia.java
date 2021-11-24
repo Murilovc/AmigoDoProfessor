@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
+import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
-import com.mvc.amigodoprof.tablemodel.ColumnModelParaLancamento;
-import com.mvc.amigodoprof.tablemodel.TableModelLancamentoFrequencia;
+import com.mvc.amigodoprof.gui.MenuTurma.AcaoLancarNaTabela;
+import com.mvc.amigodoprof.model.column.ColumnModelParaLancamento;
+import com.mvc.amigodoprof.model.table.TableModelLancamentoFrequencia;
 
 
 public class JanelaLancamentoFrequencia extends JDialog {
@@ -32,9 +36,11 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	
 	private TabelaDoProf tabela;
 	
-	String data;		
-
+	String data;	
 	
+	List<JRadioButton> listaBotoesPresente;
+	List<JRadioButton> listaBotoesFalta;
+	List<JRadioButton> listaBotoesJustificado;
 	
 	
 	public JanelaLancamentoFrequencia(MenuTurma mt, Aula aula, List<Aluno> listaAlunos) {
@@ -93,11 +99,12 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	}
 	
 	private void criarTabela() {
-		List<JRadioButton> listaBotoesPresente = new ArrayList<JRadioButton>();
-		List<JRadioButton> listaBotoesFalta = new ArrayList<JRadioButton>();
-		List<JRadioButton> listaBotoesJustificado = new ArrayList<JRadioButton>();
 		
-		for(Aluno a : listaAlunos) {
+		listaBotoesPresente = new ArrayList<JRadioButton>();
+		listaBotoesFalta = new ArrayList<JRadioButton>();
+		listaBotoesJustificado = new ArrayList<JRadioButton>();
+		
+		for(int i = 0; i < listaAlunos.size(); i++) {
 			
 			listaBotoesPresente.add(new JRadioButton());
 			listaBotoesFalta.add(new JRadioButton());
@@ -117,6 +124,33 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		tabela.setEnabled(true);
 		tabela.setModel(tmt);
 		tabela.setColumnModel(ca);
+		tabela.addMouseListener(new HabilitarEdicaoExclusao());
+	}
+	
+	protected class HabilitarEdicaoExclusao extends MouseAdapter{
+		
+		public void mousePressed(MouseEvent e) {
+			if (tabela.getSelectedRow() >= 0) {
+				
+				int coluna = tabela.getSelectedColumn();
+				int linha = tabela.getSelectedRow();
+				
+				if(coluna == 2) {
+					listaBotoesPresente.get(linha).setSelected(true);
+					listaBotoesFalta.get(linha).setSelected(false);
+					listaBotoesJustificado.get(linha).setSelected(false);
+				} 
+				else if(coluna == 3){
+					listaBotoesPresente.get(linha).setSelected(false);
+					listaBotoesFalta.get(linha).setSelected(true);
+					listaBotoesJustificado.get(linha).setSelected(false);
+				} else if(coluna == 4){
+					listaBotoesPresente.get(linha).setSelected(false);
+					listaBotoesFalta.get(linha).setSelected(false);
+					listaBotoesJustificado.get(linha).setSelected(true);
+				}
+			}
+		}
 	}
 	
 	
@@ -131,8 +165,13 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			
 			JanelaLancamentoFrequencia.this.dispose();
 			
+			for(int i = 0; i < listaAlunos.size(); i++) {
+				//pegar os valores das listas para lançar a frequência
+			}
 		}
 		
 	}

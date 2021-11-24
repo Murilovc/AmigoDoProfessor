@@ -26,10 +26,10 @@ import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
 import com.mvc.amigodoprof.gui.MenuTurma.HabilitarEdicaoExclusao;
-import com.mvc.amigodoprof.tablemodel.ColumnModelParaAluno;
-import com.mvc.amigodoprof.tablemodel.ColumnModelParaAula;
-import com.mvc.amigodoprof.tablemodel.TableModelAluno;
-import com.mvc.amigodoprof.tablemodel.TableModelAula;
+import com.mvc.amigodoprof.model.column.ColumnModelParaAluno;
+import com.mvc.amigodoprof.model.column.ColumnModelParaAula;
+import com.mvc.amigodoprof.model.table.TableModelAluno;
+import com.mvc.amigodoprof.model.table.TableModelAula;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;

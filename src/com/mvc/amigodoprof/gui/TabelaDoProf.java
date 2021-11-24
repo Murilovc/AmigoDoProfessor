@@ -5,9 +5,9 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
-import com.mvc.amigodoprof.cellrenderer.CellRendererDoProf;
-import com.mvc.amigodoprof.cellrenderer.HeaderRendererDoProf;
-import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
+import com.mvc.amigodoprof.model.cellrenderer.CellRendererDoProf;
+import com.mvc.amigodoprof.model.cellrenderer.HeaderRendererDoProf;
+import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
 
 
 

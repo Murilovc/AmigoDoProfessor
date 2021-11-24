@@ -20,11 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.mvc.amigodoprof.cellrenderer.CellRendererDoProf;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Turma;
-import com.mvc.amigodoprof.tablemodel.ColumnModelDoProf;
-import com.mvc.amigodoprof.tablemodel.TableModelTurma;
+import com.mvc.amigodoprof.model.cellrenderer.CellRendererDoProf;
+import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
+import com.mvc.amigodoprof.model.table.TableModelTurma;
 
 public class MenuPrincipal extends MenuBase {
 	

@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.tablemodel;
+package com.mvc.amigodoprof.model.table;
 
 import java.util.*;
 
@@ -20,8 +20,9 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 	List<JRadioButton> listaBotoesFalta;
 	List<JRadioButton> listaBotoesJustificado;
 	
-	private Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
-			 					 		 Alinhamento.CENTRO,  Alinhamento.CENTRO};
+	private Alinhamento[] alinhamento = {Alinhamento.ESQUERDA, Alinhamento.ESQUERDA,
+										 Alinhamento.CENTRO, Alinhamento.CENTRO,
+										 Alinhamento.CENTRO};
 	
 	public TableModelLancamentoFrequencia(List<Aluno> alunos, List<JRadioButton> listaBotoesPresente,
 			List<JRadioButton> listaBotoesFalta, List<JRadioButton> listaBotoesJustificado) {
@@ -40,7 +41,7 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {		
-		return 4;	
+		return 5;	
 	}
 	
 	@Override	
@@ -52,16 +53,20 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 		aluno = listaAlunos.get(indiceLinha);
 		
 		switch(indiceColuna) {
+			
 			case 0: 
-				dado = aluno.getNome();
+				dado = aluno.getIdAluno();
 				break;
 			case 1: 
+				dado = aluno.getNome();
+				break;
+			case 2: 
 				dado = listaBotoesPresente.get(indiceLinha);
 				break;
-			case 2:
+			case 3:
 				dado = listaBotoesFalta.get(indiceLinha);
 				break;
-			case 3:
+			case 4:
 				dado = listaBotoesJustificado.get(indiceLinha);
 				break;
 
@@ -76,15 +81,18 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 		
 		switch (indice_coluna) {
 			case 0: 
+				nome = "Id"; 
+			break;
+			case 1: 
 				nome = "Nome"; 
 				break;
-			case 1: 
+			case 2: 
 				nome = "Presente"; 
 				break;		
-			case 2: 
+			case 3: 
 				nome = "Falta"; 
 				break;
-			case 3: 
+			case 4: 
 				nome = "Falta justificada"; 
 				break;
 
@@ -99,15 +107,18 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 		
 		switch (indice_coluna) {
 			case 0: 
-				obj = String.class; 
+				obj = Long.class; 
 				break;
 			case 1: 
-				obj = JRadioButton.class; 
+				obj = String.class; 
 				break;
 			case 2: 
 				obj = JRadioButton.class; 
 				break;
-			case 3:
+			case 3: 
+				obj = JRadioButton.class; 
+				break;
+			case 4:
 				obj = JRadioButton.class;
 				break;
 			default: 
@@ -118,9 +129,18 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 		return obj.getClass();
 	}
 	
+//	public boolean isCellEditable(int linha, int coluna) {
+//		if(coluna > 0)
+//			return true;
+//		else
+//			return false;
+//	}
+	
 	public Alinhamento[] getAlinhamento() {
 		return alinhamento;
 	}
+	
+	
 }
 
 
