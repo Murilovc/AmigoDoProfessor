@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -62,7 +63,7 @@ public class CellRendererParaLancamento extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna > 1) {
+    	if(coluna > 1 && coluna < 4) {
     		JRadioButton botao = (JRadioButton)valor;
     		
 //    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {

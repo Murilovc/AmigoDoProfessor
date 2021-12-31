@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -19,8 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import com.mvc.amigodoprof.controle.ControleAula;
+import com.mvc.amigodoprof.controle.ControleFrequencia;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.gui.MenuTurma.AcaoLancarNaTabela;
@@ -40,7 +43,7 @@ public class JanelaLancamentoFrequencia extends JDialog {
 	
 	List<JRadioButton> listaBotoesPresente;
 	List<JRadioButton> listaBotoesFalta;
-	List<JRadioButton> listaBotoesJustificado;
+	List<String> listaCamposJustificativa;
 	
 	
 	public JanelaLancamentoFrequencia(MenuTurma mt, Aula aula, List<Aluno> listaAlunos) {
@@ -102,18 +105,18 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		
 		listaBotoesPresente = new ArrayList<JRadioButton>();
 		listaBotoesFalta = new ArrayList<JRadioButton>();
-		listaBotoesJustificado = new ArrayList<JRadioButton>();
+		listaCamposJustificativa = new ArrayList<String>();
 		
 		for(int i = 0; i < listaAlunos.size(); i++) {
 			
 			listaBotoesPresente.add(new JRadioButton());
 			listaBotoesFalta.add(new JRadioButton());
-			listaBotoesJustificado.add(new JRadioButton());
+			listaCamposJustificativa.add(new String());
 			
 		}
 		
 		TableModelLancamentoFrequencia tmt = new TableModelLancamentoFrequencia(listaAlunos, 
-				listaBotoesPresente, listaBotoesFalta, listaBotoesJustificado);
+				listaBotoesPresente, listaBotoesFalta, listaCamposJustificativa);
 		
 
 		ColumnModelParaLancamento ca = new ColumnModelParaLancamento(tmt.getAlinhamento(),
@@ -138,16 +141,10 @@ public class JanelaLancamentoFrequencia extends JDialog {
 				if(coluna == 2) {
 					listaBotoesPresente.get(linha).setSelected(true);
 					listaBotoesFalta.get(linha).setSelected(false);
-					listaBotoesJustificado.get(linha).setSelected(false);
 				} 
 				else if(coluna == 3){
 					listaBotoesPresente.get(linha).setSelected(false);
 					listaBotoesFalta.get(linha).setSelected(true);
-					listaBotoesJustificado.get(linha).setSelected(false);
-				} else if(coluna == 4){
-					listaBotoesPresente.get(linha).setSelected(false);
-					listaBotoesFalta.get(linha).setSelected(false);
-					listaBotoesJustificado.get(linha).setSelected(true);
 				}
 			}
 		}
@@ -167,11 +164,33 @@ public class JanelaLancamentoFrequencia extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 			
 			
+			for(int i = 0; i < listaAlunos.size(); i++) {
+				
+				//pegar os valores das listas para lançar a frequência
+				Aluno aluno = listaAlunos.get(i);
+				//a Aula já está definida como campo da classe JanelaLancamentoFrequencia
+				boolean presente;
+				if(listaBotoesFalta.get(i).isSelected()) {
+					presente = false;
+				} else if(listaBotoesPresente.get(i).isSelected()) {
+					presente = true;
+				} else {
+					continue;
+				}
+				String justificativa = listaCamposJustificativa.get(i);
+				
+				
+				ControleFrequencia.cadastrarFrequencia(presente, justificativa, aluno, aula);
+				
+				aula.setFrequenciaLancada(true);
+				ControleAula.atualizarAula(aula);
+				
+			}
+			
+			
 			JanelaLancamentoFrequencia.this.dispose();
 			
-			for(int i = 0; i < listaAlunos.size(); i++) {
-				//pegar os valores das listas para lançar a frequência
-			}
+
 		}
 		
 	}

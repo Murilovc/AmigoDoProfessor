@@ -37,7 +37,7 @@ public class Frequencia {
 		return presente;
 	}
 
-	public String getAnotacao() {
+	public String getJustificativa() {
 		return justificativa;
 	}
 
@@ -57,7 +57,7 @@ public class Frequencia {
 		this.presente = presente;
 	}
 
-	public void setAnotacao(String anotacao) {
+	public void setJustificativa(String anotacao) {
 		this.justificativa = anotacao;
 	}
 

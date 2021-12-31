@@ -4,6 +4,7 @@ import java.util.*;
 
 
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import com.mvc.amigodoprof.entidade.Aluno;
@@ -18,19 +19,19 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 	List<Aluno> listaAlunos;
 	List<JRadioButton> listaBotoesPresente;
 	List<JRadioButton> listaBotoesFalta;
-	List<JRadioButton> listaBotoesJustificado;
+	List<String> listaCampoJustificativa;
 	
 	private Alinhamento[] alinhamento = {Alinhamento.ESQUERDA, Alinhamento.ESQUERDA,
 										 Alinhamento.CENTRO, Alinhamento.CENTRO,
 										 Alinhamento.CENTRO};
 	
 	public TableModelLancamentoFrequencia(List<Aluno> alunos, List<JRadioButton> listaBotoesPresente,
-			List<JRadioButton> listaBotoesFalta, List<JRadioButton> listaBotoesJustificado) {
+			List<JRadioButton> listaBotoesFalta, List<String> listaCampoJustificativa) {
 		
 		this.listaAlunos = alunos;
 		this.listaBotoesPresente = listaBotoesPresente;
 		this.listaBotoesFalta = listaBotoesFalta;
-		this.listaBotoesJustificado = listaBotoesJustificado;
+		this.listaCampoJustificativa = listaCampoJustificativa;
 		
 	}
 	
@@ -67,11 +68,19 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 				dado = listaBotoesFalta.get(indiceLinha);
 				break;
 			case 4:
-				dado = listaBotoesJustificado.get(indiceLinha);
+				dado = listaCampoJustificativa.get(indiceLinha);
 				break;
 
 		}
 		return dado;		
+	}
+	
+	public void setValueAt(Object valor, int linha, int coluna) {
+		if(coluna == 4) {
+			String s = listaCampoJustificativa.get(linha);
+			s = (String)valor;
+			listaCampoJustificativa.set(linha, s);
+		}
 	}
 
 	@Override
@@ -93,7 +102,7 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 				nome = "Falta"; 
 				break;
 			case 4: 
-				nome = "Falta justificada"; 
+				nome = "Justificativa"; 
 				break;
 
 		}		
@@ -119,7 +128,7 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 				obj = JRadioButton.class; 
 				break;
 			case 4:
-				obj = JRadioButton.class;
+				obj = String.class;
 				break;
 			default: 
 				obj = null; 
@@ -129,12 +138,12 @@ public class TableModelLancamentoFrequencia extends AbstractTableModel {
 		return obj.getClass();
 	}
 	
-//	public boolean isCellEditable(int linha, int coluna) {
-//		if(coluna > 0)
-//			return true;
-//		else
-//			return false;
-//	}
+	public boolean isCellEditable(int linha, int coluna) {
+		if(coluna == 4)
+			return true;
+		else
+			return false;
+	}
 	
 	public Alinhamento[] getAlinhamento() {
 		return alinhamento;

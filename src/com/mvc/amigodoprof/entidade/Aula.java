@@ -58,7 +58,7 @@ public class Aula {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="aula", targetEntity=Atividade.class)
 	private List<Atividade> listaAtividades;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="aula", targetEntity=Frequencia.class)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="aula", cascade=CascadeType.ALL, targetEntity=Frequencia.class)
 	private List<Frequencia> listaFrequencia;
 
 	

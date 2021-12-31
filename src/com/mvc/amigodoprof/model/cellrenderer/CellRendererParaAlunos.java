@@ -71,30 +71,11 @@ public class CellRendererParaAlunos extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna == 3) {
+    	if(coluna > 2 && coluna < 5) {
     		JButton botao = (JButton)valor;
     		
-    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
-    			botao.setBackground(Color.GREEN);
-    			
-    			tabela.clearSelection();
-    			//mt.abrirJanelaVerResolucoes(linha);
-    		}
     		return botao;
     	}
-    	
-    	if(coluna == 4) {
-    		JButton botao = (JButton)valor;
-    		
-    		if(tabela.getSelectedRow() == linha && tabela.getSelectedColumn() == coluna) {
-    			botao.setBackground(Color.GREEN);
-    			
-    			tabela.clearSelection();
-    			//mt.abrirJanelaVerFrequencias(linha);
-    		}
-    		return botao;
-    	}
-    	
     	
     	
     	JLabel label = (JLabel)super.getTableCellRendererComponent(tabela, valor, isSelected, hasFocus, 

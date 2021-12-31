@@ -16,20 +16,14 @@ public class TableModelAluno extends AbstractTableModel {
 	List<JButton> listaBotoesResolucao;
 	List<JButton> listaBotoesFrequencia;
 	
-	public TableModelAluno(List<Aluno> aulas) {
+	public TableModelAluno(List<Aluno> aulas, List<JButton> listaBotoesFreq,
+			List<JButton> listaBotoesResolucao) {
 		
 		this.listaAlunos = aulas;
-		
-		List<JButton> listaBotoesResolucao = new ArrayList<JButton>();
-		List<JButton> listaBotoesFrequencia = new ArrayList<JButton>();
-		
-		for(Aluno aluno : listaAlunos) {
-			listaBotoesResolucao.add(new JButton("Ver"));
-			listaBotoesFrequencia.add(new JButton("Ver"));
-		}
+
 		
 		this.listaBotoesResolucao = listaBotoesResolucao;
-		this.listaBotoesFrequencia = listaBotoesFrequencia;
+		this.listaBotoesFrequencia = listaBotoesFreq;
 	}
 	
 	@Override
@@ -135,13 +129,13 @@ public class TableModelAluno extends AbstractTableModel {
 		return obj.getClass();
 	}
 	
-	public boolean isCellEditable(int linha, int coluna) {
-		if(coluna == 3 || coluna == 4) {
-			return true;
-		}
-		else
-			return false;
-	}
+//	public boolean isCellEditable(int linha, int coluna) {
+//		if(coluna == 3 || coluna == 4) {
+//			return true;
+//		}
+//		else
+//			return false;
+//	}
 
 }
 

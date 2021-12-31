@@ -25,6 +25,7 @@ import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
+import com.mvc.amigodoprof.gui.MenuTurma.AcaoLancarNaTabela;
 import com.mvc.amigodoprof.gui.MenuTurma.HabilitarEdicaoExclusao;
 import com.mvc.amigodoprof.model.column.ColumnModelParaAluno;
 import com.mvc.amigodoprof.model.column.ColumnModelParaAula;
@@ -50,6 +51,10 @@ public class MenuAluno extends MenuBase {
 	
 	private JButton botaoSalvarAnotacao;
 	private JButton botaoEditarAnotacao;
+	
+	private List<Aluno> listaAlunos;
+	private List<JButton> listaBotaoFreq;
+	private List<JButton> listaBotaoResolucao;
 
 	
 	public MenuAluno(ModoDeAcesso modo, MenuBase menuPai) {
@@ -147,7 +152,7 @@ public class MenuAluno extends MenuBase {
 		
 		
 		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadePai);
-		List<Aluno> listaAlunos = ControleAluno.pesquisarAlunoPorTurma(turma);//pesquisarAlunoPorTurma(1L);
+		listaAlunos = ControleAluno.pesquisarAlunoPorTurma(turma);//pesquisarAlunoPorTurma(1L);
 		
 		tabela = new TabelaDoProf();
 		carregarTabela(listaAlunos);
@@ -160,9 +165,29 @@ public class MenuAluno extends MenuBase {
 		
 	}
 	
-	public void carregarTabela(List<Aluno> listaAulas) {
+	public void carregarTabela(List<Aluno> listaAlunos) {
 		
-		TableModelAluno tmt = new TableModelAluno(listaAulas);
+		listaBotaoFreq  = new ArrayList<JButton>();
+		listaBotaoResolucao = new ArrayList<JButton>();
+		
+		for(int i = 0; i < listaAlunos.size(); i++) {
+			listaBotaoFreq.add(UtilidadesGUI.
+					estilizarBotaoComBordaPadrao(
+							new JButton(new AcaoVerHistoricoFrequencia(i)),
+							"Arial", 
+							14)
+					);
+			listaBotaoResolucao.add(UtilidadesGUI.
+					estilizarBotaoComBordaPadrao(
+							new JButton(new AcaoVerResolucoes(i)),
+							"Arial",
+							14)
+					);
+		}
+		
+		
+		
+		TableModelAluno tmt = new TableModelAluno(listaAlunos, listaBotaoFreq, listaBotaoResolucao);
 		
 		Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO, Alinhamento.CENTRO,
 										Alinhamento.CENTRO, Alinhamento.CENTRO, Alinhamento.CENTRO};
@@ -228,6 +253,30 @@ public class MenuAluno extends MenuBase {
 		botaoEditarAnotacao.setEnabled(true);
 	}
 	
+	public void abrirMenuFrequencia(int linha) {
+		
+		long id = Long.valueOf(String.valueOf(tabela.getValueAt(linha, 5)));
+		
+		Aluno aluno = ControleAluno.pesquisarAlunoPorId(id);
+		
+		MenuFrequencia mt = new MenuFrequencia(MenuAluno.this, aluno);
+		mt.setVisible(true);
+		MenuAluno.this.setVisible(false);
+		
+	}
+	
+	public void abrirMenuResolucao(int linha) {
+		
+		long id = Long.valueOf(String.valueOf(tabela.getValueAt(linha, 5)));
+		
+		Aluno aluno = ControleAluno.pesquisarAlunoPorId(id);
+		
+		//MenuAtividade mt = new MenuAtividade(MenuAluno.this, aluno);
+		//mt.setVisible(true);
+		MenuAluno.this.setVisible(false);
+		
+	}
+	
 	/* Classes internas
 	 * de ações
 	 * */
@@ -243,6 +292,17 @@ public class MenuAluno extends MenuBase {
 				
 				areaAnotacao.setText(alunoSelecionado.getAnotacao());
 				ativarBotoes();
+				
+				int coluna = tabela.getSelectedColumn();
+				int linha = tabela.getSelectedRow();
+				if(coluna == 3 || coluna == 4) {
+					JButton botaoFreq = listaBotaoFreq.get(linha);
+					JButton botaoAtividade = listaBotaoResolucao.get(linha);
+					((AcaoVerHistoricoFrequencia) botaoFreq.getAction()).abrirJanela(linha);
+					((AcaoVerResolucoes) botaoAtividade.getAction()).abrirJanela(linha);
+					tabela.clearSelection();
+					desativarBotoes();
+				}
 			}
 		}
 	}
@@ -312,6 +372,48 @@ public class MenuAluno extends MenuBase {
 			
 			MenuAluno.this.buscarPor();
 			
+		}
+		
+	}
+	
+	protected class AcaoVerHistoricoFrequencia extends AbstractAction {
+
+		private int linha;
+		
+		protected AcaoVerHistoricoFrequencia(int linha) {
+			super("lista");
+			this.linha = linha;
+		}
+		
+		public void abrirJanela(int linha) {
+			abrirMenuFrequencia(linha);
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			abrirMenuFrequencia(linha);
+	
+		}
+		
+	}
+	
+	protected class AcaoVerResolucoes extends AbstractAction {
+
+		private int linha;
+		
+		protected AcaoVerResolucoes(int linha) {
+			super("atribuidas");
+			this.linha = linha;
+		}
+		
+		public void abrirJanela(int linha) {
+			abrirMenuResolucao(linha);		
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			abrirMenuResolucao(linha);			
 		}
 		
 	}
