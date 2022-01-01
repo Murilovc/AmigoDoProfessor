@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
@@ -67,6 +68,7 @@ public class MenuTurma extends MenuBase {
 		entidadeAtual = idTurma;
 		this.menuPai = menuPai;
 		
+		this.setTitle("Menu turma");
 		this.adicionarComponentes();
 		
 	}
@@ -94,6 +96,18 @@ public class MenuTurma extends MenuBase {
 		/*Adicionando ao painel herdado de MenuBase*/
 		super.painelCanto.add(painelSuperior, BorderLayout.WEST);
 		
+		JPanel painelSuperiorProprio = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
+		
+		JLabel labelInfo = new JLabel("Aulas da turma");
+		labelInfo = UtilidadesGUI.estilizarLabel(labelInfo, "Arial", 14, new Dimension(400,40));
+		labelInfo.setHorizontalAlignment(SwingConstants.CENTER);
+
+		
+		painelSuperiorProprio.add(labelInfo, BorderLayout.CENTER);
+		
+		super.painelNorte.add(painelSuperiorProprio, BorderLayout.SOUTH);
+		
 		
 		/*
 		 * Agora criando e adicionando componentes da própria classe
@@ -110,17 +124,18 @@ public class MenuTurma extends MenuBase {
 		JLabel labelAnoLetivo = new JLabel("Ano letivo: "+turma.getAnoLetivo());
 		labelAnoLetivo = UtilidadesGUI.estilizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
 		
-		JPanel painelSuperiorProprio = UtilidadesGUI.
-				criarJPanelSemBorda(null, new FlowLayout(), UtilidadesGUI.getCorTema1());
-		painelSuperiorProprio.setBorder(new TitledBorder(
-				null, "Informações da turma: ", TitledBorder.CENTER, TitledBorder.TOP,
-				new Font("Arial", Font.ITALIC+Font.BOLD, 12), Color.GREEN));
+		JPanel painelSuperiorProprio2 = UtilidadesGUI.
+				criarJPanelSemBorda(null, new FlowLayout(), Color.WHITE);
+		painelSuperiorProprio2.setBorder(new TitledBorder(
+				null, "Informações da turma: ", TitledBorder.LEFT, TitledBorder.LEFT,
+				new Font("Arial", Font.BOLD, 12), Color.GREEN));
 		
-		painelSuperiorProprio.add(labelNome);
-		painelSuperiorProprio.add(labelTurno);
-		painelSuperiorProprio.add(labelAnoLetivo);
 		
-		super.painelNorte.add(painelSuperiorProprio, BorderLayout.WEST);
+		painelSuperiorProprio2.add(labelNome);
+		painelSuperiorProprio2.add(labelTurno);
+		painelSuperiorProprio2.add(labelAnoLetivo);
+		
+		super.painelNorte.add(painelSuperiorProprio2, BorderLayout.WEST);
 		
 		botaoAdicionarAula = new JButton(new AcaoAdicionarAula());
 		botaoAdicionarAula = UtilidadesGUI.
@@ -500,6 +515,7 @@ public class MenuTurma extends MenuBase {
 		public void actionPerformed(ActionEvent e) {
 			MenuAluno ma = new MenuAluno(ModoDeAcesso.RESTRITO, MenuTurma.this);
 			ma.setVisible(true);
+			MenuTurma.this.setVisible(false);
 			
 		}
 		

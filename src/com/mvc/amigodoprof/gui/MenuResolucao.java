@@ -14,15 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.mvc.amigodoprof.controle.ControleFrequencia;
 import com.mvc.amigodoprof.entidade.Aluno;
-import com.mvc.amigodoprof.entidade.Frequencia;
-import com.mvc.amigodoprof.gui.MenuTurma.HabilitarEdicaoExclusao;
-import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
-import com.mvc.amigodoprof.model.table.TableModelFrequencia;
+import com.mvc.amigodoprof.entidade.Resolucao;
 
-public class MenuFrequencia extends MenuBase{
-
+public class MenuResolucao extends MenuBase{
 	
 	private TabelaDoProf tabela;
 	
@@ -31,7 +26,7 @@ public class MenuFrequencia extends MenuBase{
 	private JScrollPane jcp;
 	
 	
-	public MenuFrequencia(MenuBase menuPai, Aluno aluno) {
+	public MenuResolucao (MenuBase menuPai, Aluno aluno) {
 		super(ModoDeAcesso.RESTRITO, menuPai);
 		super.configuracaoInicial(this);
 		
@@ -50,7 +45,7 @@ public class MenuFrequencia extends MenuBase{
 		/*
 		 * Mexendo em componentes herdados de MenuBase
 		 * */
-		JLabel labelPesquisarPor = new JLabel("                         Pesquisar frequência por:");
+		JLabel labelPesquisarPor = new JLabel("                    Pesquisar resolução por:");
 		JLabel labelDigiteAqui =   new JLabel("Digite na caixa ao lado e pressione Enter...");
 		
 		super.boxSelecao.addItem("Id");	
@@ -67,7 +62,7 @@ public class MenuFrequencia extends MenuBase{
 		JPanel painelSuperiorProprio = UtilidadesGUI.
 				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
 		
-		JLabel labelInfo = new JLabel("Histórico de frequência do aluno");
+		JLabel labelInfo = new JLabel("Lista de atividades entregues pelo aluno");
 		labelInfo = UtilidadesGUI.estilizarLabel(labelInfo, "Arial", 14, new Dimension(400,40));
 		labelInfo.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -111,11 +106,11 @@ public class MenuFrequencia extends MenuBase{
 		
 
 		
-		List<Frequencia> listaFrequencias = aluno.getListaFrequencia();
+		List<Resolucao> listaResolucoes = aluno.getListaResolucao();
 		
 		tabela = new TabelaDoProf();
 		
-		carregarTabela(listaFrequencias);
+		carregarTabela(listaResolucoes);
 		
 		jcp = new JScrollPane(tabela);
 		
@@ -124,20 +119,20 @@ public class MenuFrequencia extends MenuBase{
 		
 	}
 	
-	private void carregarTabela(List<Frequencia> listaFrequencias) {
-		TableModelFrequencia tmf = new TableModelFrequencia(listaFrequencias);
+	private void carregarTabela(List<Resolucao> listaResolucoes) {
+		//TableModelResolucao tmf = new TableModelResolucao(listaResolucoes);
 		
-		ColumnModelDoProf cm = new ColumnModelDoProf(
-				tmf.getAlinhamento(),
-				tmf.getAlinhamento().length,
-				20,
-				new Color(122, 255, 135),
-				tmf,
-				200);
-		
-		tabela.setEnabled(true);
-		tabela.setModel(tmf);
-		tabela.setColumnModel(cm);
+//		ColumnModelDoProf cm = new ColumnModelDoProf(
+//				tmf.getAlinhamento(),
+//				tmf.getAlinhamento().length,
+//				20,
+//				new Color(122, 255, 135),
+//				tmf,
+//				200);
+//		
+//		tabela.setEnabled(true);
+//		tabela.setModel(tmf);
+//		tabela.setColumnModel(cm);
 		tabela.addMouseListener(new HabilitarEdicaoExclusao());
 	}
 	
@@ -158,5 +153,4 @@ public class MenuFrequencia extends MenuBase{
 		
 		
 	}
-
 }

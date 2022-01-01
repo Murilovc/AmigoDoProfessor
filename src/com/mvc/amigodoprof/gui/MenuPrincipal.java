@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Turma;
@@ -87,6 +88,18 @@ public class MenuPrincipal extends MenuBase {
 		
 		/*Adicionando ao painel herdado de MenuBase*/
 		super.painelCanto.add(painelSuperior, BorderLayout.WEST);
+		
+		JPanel painelSuperiorProprio = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
+		
+		JLabel labelInfo = new JLabel("Selecione uma turma");
+		labelInfo = UtilidadesGUI.estilizarLabel(labelInfo, "Arial", 14, new Dimension(400,40));
+		labelInfo.setHorizontalAlignment(SwingConstants.CENTER);
+
+		
+		painelSuperiorProprio.add(labelInfo, BorderLayout.CENTER);
+		
+		super.painelNorte.add(painelSuperiorProprio, BorderLayout.SOUTH);
 		
 		
 		/*

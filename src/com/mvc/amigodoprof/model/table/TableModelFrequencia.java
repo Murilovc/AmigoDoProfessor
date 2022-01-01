@@ -16,7 +16,7 @@ public class TableModelFrequencia extends AbstractTableModel {
 	List<Frequencia> listaFrequencias;
 	
 	private Alinhamento[] alinhamento = { Alinhamento.CENTRO, Alinhamento.CENTRO,
-										  Alinhamento.CENTRO};
+										  Alinhamento.CENTRO, Alinhamento.CENTRO};
 	
 	public TableModelFrequencia(List<Frequencia> frequencias) {
 		
@@ -31,7 +31,7 @@ public class TableModelFrequencia extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {		
-		return 3;	
+		return 4;	
 	}
 	
 	@Override	
@@ -61,6 +61,8 @@ public class TableModelFrequencia extends AbstractTableModel {
 					dado = "Ausente";
 				}
 				break;
+			case 3:
+				dado = frequencia.getJustificativa();
 
 		}
 		return dado;		
@@ -88,7 +90,9 @@ public class TableModelFrequencia extends AbstractTableModel {
 				break;
 			case 2: 
 				nome = "Presente"; 
-				break;		
+				break;
+			case 3:
+				nome = "Justificativa";
 
 		}		
 		return nome; 	
@@ -109,6 +113,8 @@ public class TableModelFrequencia extends AbstractTableModel {
 			case 2: 
 				obj = String.class; 
 				break;
+			case 3:
+				obj = String.class;
 			default: 
 				obj = null; 
 				break;

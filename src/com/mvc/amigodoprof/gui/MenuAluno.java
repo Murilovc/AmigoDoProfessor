@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -67,8 +68,8 @@ public class MenuAluno extends MenuBase {
 		this.menuPai = (MenuTurma)menuPai;
 		MenuTurma mnt = (MenuTurma)menuPai;
 		entidadePai = mnt.entidadeAtual;
-		menuPai.setVisible(false);
 		
+		this.setTitle("Menu aluno");
 		this.adicionarComponentes();
 	}
 	
@@ -94,6 +95,18 @@ public class MenuAluno extends MenuBase {
 		
 		/*Adicionando ao painel herdado de MenuBase*/
 		super.painelCanto.add(painelSuperior, BorderLayout.WEST);
+		
+		JPanel painelSuperiorProprio = UtilidadesGUI.
+				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
+		
+		JLabel labelInfo = new JLabel("Lista de alunos da turma:");
+		labelInfo = UtilidadesGUI.estilizarLabel(labelInfo, "Arial", 14, new Dimension(400,40));
+		labelInfo.setHorizontalAlignment(SwingConstants.CENTER);
+
+		
+		painelSuperiorProprio.add(labelInfo, BorderLayout.CENTER);
+		
+		super.painelNorte.add(painelSuperiorProprio, BorderLayout.SOUTH);
 		
 		
 		/*
