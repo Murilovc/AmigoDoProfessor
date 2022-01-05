@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.gui;
+package com.mvc.amigodoprof.gui.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,8 +17,12 @@ import javax.swing.SwingConstants;
 import com.mvc.amigodoprof.controle.ControleFrequencia;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Frequencia;
-import com.mvc.amigodoprof.gui.MenuTurma.HabilitarEdicaoExclusao;
+import com.mvc.amigodoprof.gui.ModoDeAcesso;
+import com.mvc.amigodoprof.gui.TabelaDoProf;
+import com.mvc.amigodoprof.gui.UtilidadesGUI;
+import com.mvc.amigodoprof.gui.menu.MenuTurma.HabilitarEdicaoExclusao;
 import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
+import com.mvc.amigodoprof.model.column.ColumnModelParaFrequencia;
 import com.mvc.amigodoprof.model.table.TableModelFrequencia;
 
 public class MenuFrequencia extends MenuBase{
@@ -127,7 +131,7 @@ public class MenuFrequencia extends MenuBase{
 	private void carregarTabela(List<Frequencia> listaFrequencias) {
 		TableModelFrequencia tmf = new TableModelFrequencia(listaFrequencias);
 		
-		ColumnModelDoProf cm = new ColumnModelDoProf(
+		ColumnModelParaFrequencia cm = new ColumnModelParaFrequencia(
 				tmf.getAlinhamento(),
 				tmf.getAlinhamento().length,
 				20,
@@ -154,7 +158,7 @@ public class MenuFrequencia extends MenuBase{
 	}
 	
 	@Override
-	protected void buscarPor() {
+	public void buscarPor() {
 		
 		
 	}

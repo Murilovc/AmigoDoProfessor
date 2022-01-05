@@ -2,67 +2,77 @@ package com.mvc.amigodoprof.model.table;
 
 import java.util.*;
 
+import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
-import com.mvc.amigodoprof.entidade.Frequencia;
+import com.mvc.amigodoprof.entidade.Atividade;
 import com.mvc.amigodoprof.gui.Alinhamento;
 
 
-
-
 @SuppressWarnings("serial")
-public class TableModelFrequencia extends AbstractTableModel {
+public class TableModelAtividade extends AbstractTableModel {
 	
-	List<Frequencia> listaFrequencias;
+	List<Atividade> listaAtividades;
+	List<JButton> listaBotoesResolucoes;
+	List<JButton> listaBotoesVerArquivo;
 	
 	private Alinhamento[] alinhamento = { Alinhamento.CENTRO, Alinhamento.CENTRO,
+										  Alinhamento.CENTRO, Alinhamento.CENTRO,
 										  Alinhamento.CENTRO, Alinhamento.CENTRO};
 	
-	public TableModelFrequencia(List<Frequencia> frequencias) {
+	public TableModelAtividade(List<Atividade> atividades,
+			List<JButton> botoesResolucao, List<JButton> botoesVerArquivo) {
 		
-		this.listaFrequencias = frequencias;
+		this.listaAtividades = atividades;
+		
+		this.listaBotoesResolucoes = botoesResolucao;
+		
+		this.listaBotoesVerArquivo = botoesVerArquivo;
 		
 	}
 	
 	@Override
 	public int getRowCount() {
-		return listaFrequencias.size();
+		return listaAtividades.size();
 	}
 
 	@Override
 	public int getColumnCount() {		
-		return 4;	
+		return 6;	
 	}
 	
 	@Override	
 	public Object getValueAt(int indiceLinha, int indiceColuna) {		
 
-		Frequencia frequencia;
+		Atividade atividade;
 		Object dado = null;
 		
-		frequencia = listaFrequencias.get(indiceLinha);
+		atividade = listaAtividades.get(indiceLinha);
 		
 		switch(indiceColuna) {
 			
 			case 0: 
-				dado = frequencia.getIdFrequencia();
+				dado = atividade.getIdAtividade();
 				break;
 			case 1:  
-				String dataString = frequencia.getAula().getData().toString();
+				String dataString = atividade.getAula().getData().toString();
 				String dataDia = dataString.substring(8,10);
 				String dataMes = dataString.substring(5,7);
 				String dataAno = dataString.substring(0,4);
 				dado = dataDia+"/"+dataMes+"/"+dataAno;
 				break;
 			case 2: 
-				if(frequencia.isPresente() == true) {
-					dado = "Presente";
-				} else {
-					dado = "Ausente";
-				}
+				dado = atividade.getValorMaximo();
 				break;
 			case 3:
-				dado = frequencia.getJustificativa();
+				dado = atividade.getDescricao();
+				break;
+			case 4: 
+				dado = listaBotoesResolucoes.get(indiceLinha);
+				break;
+			case 5: 
+				dado = atividade.getArquivo();
+				break;
 
 		}
 		return dado;		
@@ -89,10 +99,17 @@ public class TableModelFrequencia extends AbstractTableModel {
 				nome = "Aula";//vai ser exibida a data da aula 
 				break;
 			case 2: 
-				nome = "Presença"; 
+				nome = "Valor"; 
 				break;
 			case 3:
-				nome = "Justificativa";
+				nome = "Descrição";
+				break;
+			case 4:
+				nome = "Entregas";
+				break;
+			case 5:
+				nome = "Arquivo";
+				break;
 
 		}		
 		return nome; 	
@@ -115,6 +132,13 @@ public class TableModelFrequencia extends AbstractTableModel {
 				break;
 			case 3:
 				obj = String.class;
+				break;
+			case 4:
+				obj = JButton.class;
+				break;
+			case 5:
+				obj = String.class;
+				break;
 			default: 
 				obj = null; 
 				break;
@@ -133,5 +157,6 @@ public class TableModelFrequencia extends AbstractTableModel {
 	
 	
 }
+
 
 

@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.gui;
+package com.mvc.amigodoprof.gui.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +18,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.SoftBevelBorder;
+
+import com.mvc.amigodoprof.gui.ModoDeAcesso;
+import com.mvc.amigodoprof.gui.UtilidadesGUI;
 
 public abstract class MenuBase extends JFrame{
 	
@@ -163,7 +166,7 @@ public abstract class MenuBase extends JFrame{
 		menu.add(painelNorte, BorderLayout.NORTH);
 	}
 	
-	protected abstract void buscarPor();
+	public abstract void buscarPor();
 	
 	protected class AcaoSair extends AbstractAction {
 

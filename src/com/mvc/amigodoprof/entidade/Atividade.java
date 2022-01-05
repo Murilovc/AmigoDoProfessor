@@ -4,6 +4,13 @@ import java.util.List;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name="Atividade.porTurma",
+			query="SELECT atv FROM Atividade atv WHERE atv.aula.turma LIKE :turma")
+})
+		
+		
+
 @Entity
 @Table(name="atividades")
 public class Atividade {
@@ -19,11 +26,12 @@ public class Atividade {
 	@Column
 	private String descricao;
 	
+	@Column(nullable=true)
+	private String arquivo;
+	
 	@ManyToOne
 	@JoinColumn(name="fk_aula")
 	private Aula aula;
-	
-	//private Data dataEntrega;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="atividade", targetEntity=Resolucao.class)
 	private List<Resolucao> resolucao;
@@ -38,6 +46,10 @@ public class Atividade {
 
 	public String getDescricao() {
 		return descricao;
+	}
+	
+	public String getArquivo() {
+		return arquivo;
 	}
 
 	public Aula getAula() {
@@ -58,6 +70,10 @@ public class Atividade {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public void setArquivo(String arquivo) {
+		this.arquivo = arquivo;
 	}
 
 	public void setAula(Aula aula) {

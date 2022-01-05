@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuTurma;
+import com.mvc.amigodoprof.gui.menu.MenuTurma;
 
 
 

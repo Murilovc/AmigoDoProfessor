@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Turma;
+import com.mvc.amigodoprof.gui.menu.MenuBase;
 
 public class JanelaCadastroTurma extends JDialog{
 	

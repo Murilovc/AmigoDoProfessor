@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuTurma;
+import com.mvc.amigodoprof.gui.menu.MenuTurma;
 
 public class TableModelAula extends AbstractTableModel {
 

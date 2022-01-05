@@ -26,7 +26,7 @@ import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleFrequencia;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
-import com.mvc.amigodoprof.gui.MenuTurma.AcaoLancarNaTabela;
+import com.mvc.amigodoprof.gui.menu.MenuTurma;
 import com.mvc.amigodoprof.model.column.ColumnModelParaLancamento;
 import com.mvc.amigodoprof.model.table.TableModelLancamentoFrequencia;
 

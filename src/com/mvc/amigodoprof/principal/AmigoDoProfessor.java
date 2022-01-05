@@ -3,7 +3,7 @@ package com.mvc.amigodoprof.principal;
 import javax.swing.SwingUtilities;
 
 import com.mvc.amigodoprof.gerente.GerenteBase;
-import com.mvc.amigodoprof.gui.MenuPrincipal;
+import com.mvc.amigodoprof.gui.menu.MenuPrincipal;
 
 
 public class AmigoDoProfessor {

@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.gui;
+package com.mvc.amigodoprof.gui.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,8 +26,13 @@ import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
-import com.mvc.amigodoprof.gui.MenuTurma.AcaoLancarNaTabela;
-import com.mvc.amigodoprof.gui.MenuTurma.HabilitarEdicaoExclusao;
+import com.mvc.amigodoprof.gui.Alinhamento;
+import com.mvc.amigodoprof.gui.JanelaCadastroAluno;
+import com.mvc.amigodoprof.gui.ModoDeAcesso;
+import com.mvc.amigodoprof.gui.TabelaDoProf;
+import com.mvc.amigodoprof.gui.UtilidadesGUI;
+import com.mvc.amigodoprof.gui.menu.MenuTurma.AcaoLancarNaTabela;
+import com.mvc.amigodoprof.gui.menu.MenuTurma.HabilitarEdicaoExclusao;
 import com.mvc.amigodoprof.model.column.ColumnModelParaAluno;
 import com.mvc.amigodoprof.model.column.ColumnModelParaAula;
 import com.mvc.amigodoprof.model.table.TableModelAluno;
@@ -218,7 +223,7 @@ public class MenuAluno extends MenuBase {
 
 
 	@Override
-	protected void buscarPor() {
+	public void buscarPor() {
 		/*XXX
 		 * Testar como fica com essa variável sendo global (um campo)
 		 * List<Aluno> listaAlunos = ControleAluno.pegarTodosOsAlunos();*/

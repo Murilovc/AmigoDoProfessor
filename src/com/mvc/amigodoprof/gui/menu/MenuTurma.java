@@ -1,4 +1,4 @@
-package com.mvc.amigodoprof.gui;
+package com.mvc.amigodoprof.gui.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,6 +31,11 @@ import com.mvc.amigodoprof.controle.ControleAula;
 import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.entidade.Turma;
+import com.mvc.amigodoprof.gui.JanelaCadastroAula;
+import com.mvc.amigodoprof.gui.JanelaLancamentoFrequencia;
+import com.mvc.amigodoprof.gui.ModoDeAcesso;
+import com.mvc.amigodoprof.gui.TabelaDoProf;
+import com.mvc.amigodoprof.gui.UtilidadesGUI;
 import com.mvc.amigodoprof.model.cellrenderer.CellRendererDoProf;
 import com.mvc.amigodoprof.model.cellrenderer.CellRendererParaAulas;
 import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
@@ -281,7 +286,7 @@ public class MenuTurma extends MenuBase {
 	
 	
 	@Override
-	protected void buscarPor() {
+	public void buscarPor() {
 		
 		String stringPesquisada = super.campoPesquisa.getText();
 			

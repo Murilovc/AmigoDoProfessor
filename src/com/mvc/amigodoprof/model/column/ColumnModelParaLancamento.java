@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuTurma;
+import com.mvc.amigodoprof.gui.menu.MenuTurma;
 import com.mvc.amigodoprof.model.cellrenderer.CellRendererParaLancamento;
 import com.mvc.amigodoprof.model.cellrenderer.HeaderRendererDoProf;
 

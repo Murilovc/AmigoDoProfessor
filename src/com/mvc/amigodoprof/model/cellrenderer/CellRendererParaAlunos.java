@@ -22,8 +22,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.MenuAluno;
-import com.mvc.amigodoprof.gui.MenuTurma;
+import com.mvc.amigodoprof.gui.menu.MenuAluno;
+import com.mvc.amigodoprof.gui.menu.MenuTurma;
 
 
 

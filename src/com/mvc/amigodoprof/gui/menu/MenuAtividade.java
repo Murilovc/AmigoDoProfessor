@@ -1,36 +1,52 @@
-package com.mvc.amigodoprof.gui;
+package com.mvc.amigodoprof.gui.menu;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.mvc.amigodoprof.controle.ControleAtividade;
 import com.mvc.amigodoprof.entidade.Aluno;
-import com.mvc.amigodoprof.entidade.Resolucao;
+import com.mvc.amigodoprof.entidade.Atividade;
+import com.mvc.amigodoprof.entidade.Aula;
+import com.mvc.amigodoprof.gui.ModoDeAcesso;
+import com.mvc.amigodoprof.gui.TabelaDoProf;
+import com.mvc.amigodoprof.gui.UtilidadesGUI;
 
-public class MenuResolucao extends MenuBase{
+public class MenuAtividade extends MenuBase{
+	
+	Desktop estePC = Desktop.getDesktop();
+	
+	public void abrirArquivoComProgramaPadrao() {
+		try {
+			estePC.open(new File("./Teste de Software.pdf"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private TabelaDoProf tabela;
 	
-	private Aluno aluno;
+	private Aula aula;
 	
 	private JScrollPane jcp;
 	
 	
-	public MenuResolucao (MenuBase menuPai, Aluno aluno) {
+	public MenuAtividade (MenuBase menuPai, Aula aula) {
 		super(ModoDeAcesso.RESTRITO, menuPai);
 		super.configuracaoInicial(this);
 		
-		this.aluno = aluno;
+		this.aula = aula;
 		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
@@ -45,7 +61,7 @@ public class MenuResolucao extends MenuBase{
 		/*
 		 * Mexendo em componentes herdados de MenuBase
 		 * */
-		JLabel labelPesquisarPor = new JLabel("                    Pesquisar resolução por:");
+		JLabel labelPesquisarPor = new JLabel("                    Pesquisar atividade por:");
 		JLabel labelDigiteAqui =   new JLabel("Digite na caixa ao lado e pressione Enter...");
 		
 		super.boxSelecao.addItem("Id");	
@@ -62,7 +78,7 @@ public class MenuResolucao extends MenuBase{
 		JPanel painelSuperiorProprio = UtilidadesGUI.
 				criarJPanelSemBorda(null, new BorderLayout(), UtilidadesGUI.getCorTema1());
 		
-		JLabel labelInfo = new JLabel("Lista de atividades entregues pelo aluno");
+		JLabel labelInfo = new JLabel("Lista de atividades");
 		labelInfo = UtilidadesGUI.estilizarLabel(labelInfo, "Arial", 14, new Dimension(400,40));
 		labelInfo.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -74,53 +90,22 @@ public class MenuResolucao extends MenuBase{
 		/*
 		 * Agora criando e adicionando componentes da própria classe
 		 * */
-		
-		JLabel nomeAluno = UtilidadesGUI.
-				estilizarLabel(new JLabel("Nome: "), "Arial", 14, new Dimension(200,30));
-		JTextField campoNome = new JTextField(aluno.getNome());
-		campoNome.setEditable(false);
-		campoNome.setPreferredSize(new Dimension(200,30));
-		JLabel numeroAluno = UtilidadesGUI.
-				estilizarLabel(new JLabel("Nº: "), "Arial", 14, new Dimension(200,30));
-		JTextField campoNumero = new JTextField(String.valueOf(aluno.getNumeroChamada()));
-		campoNumero.setPreferredSize(new Dimension(200,30));
-		campoNumero.setEditable(false);
-		JLabel turmaAluno = UtilidadesGUI.
-				estilizarLabel(new JLabel("Turma: "), "Arial", 14, new Dimension(200,30));
-		JTextField campoTurma = new JTextField(aluno.getTurma().toString());
-		campoTurma.setPreferredSize(new Dimension(200,30));
-		campoTurma.setEditable(false);
-		JPanel painelLabelAluno = UtilidadesGUI.
-				criarJPanelSemBorda(new Dimension(200, 150), new FlowLayout(FlowLayout.LEFT), Color.WHITE);
-		
-		painelLabelAluno.add(nomeAluno);
-		painelLabelAluno.add(campoNome);
-		painelLabelAluno.add(numeroAluno);
-		painelLabelAluno.add(campoNumero);
-		painelLabelAluno.add(turmaAluno);
-		painelLabelAluno.add(campoTurma);
-		
 
-		
-		
-		
-
-		
-		List<Resolucao> listaResolucoes = aluno.getListaResolucao();
+		List<Atividade> listaAtividades = ControleAtividade.pesquisarPorTurma(aula.getTurma());
 		
 		tabela = new TabelaDoProf();
 		
-		carregarTabela(listaResolucoes);
+		//carregarTabela(listaAtividades);
 		
-		jcp = new JScrollPane(tabela);
+		//jcp = new JScrollPane(tabela);
 		
-		this.add(jcp);
-		this.add(painelLabelAluno, BorderLayout.EAST);
+		//this.add(jcp);
+		//this.add(painelLabelAluno, BorderLayout.EAST);
 		
 	}
 	
-	private void carregarTabela(List<Resolucao> listaResolucoes) {
-		//TableModelResolucao tmf = new TableModelResolucao(listaResolucoes);
+	private void carregarTabela(List<Atividade> listaAtividades) {
+		//TableModelResolucao tmf = new TableModelResolucao(listaAtividades);
 		
 //		ColumnModelDoProf cm = new ColumnModelDoProf(
 //				tmf.getAlinhamento(),
@@ -149,8 +134,9 @@ public class MenuResolucao extends MenuBase{
 	}
 	
 	@Override
-	protected void buscarPor() {
+	public void buscarPor() {
 		
 		
 	}
+	
 }

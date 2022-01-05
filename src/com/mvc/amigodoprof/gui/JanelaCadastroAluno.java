@@ -18,6 +18,8 @@ import com.mvc.amigodoprof.controle.ControleTurma;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Turma;
 import com.mvc.amigodoprof.gui.JanelaCadastroTurma.AcaoSalvarEdicao;
+import com.mvc.amigodoprof.gui.menu.MenuAluno;
+import com.mvc.amigodoprof.gui.menu.MenuBase;
 
 public class JanelaCadastroAluno extends JDialog{
 	
