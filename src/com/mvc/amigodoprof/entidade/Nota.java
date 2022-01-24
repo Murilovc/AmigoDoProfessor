@@ -17,10 +17,10 @@ public class Nota {
 	@Column(name="id_nota")
 	private long idNota;
 	
-	@Column
+	@Column(nullable=true)
 	private double notaLancada;
 	
-	/*B1, B2, B3, B4 e Final*/
+	/*B1, B2, B3, B4, Final ou personalizado*/
 	@Column
 	private String bimestre;
 	

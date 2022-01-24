@@ -1,15 +1,20 @@
 package com.mvc.amigodoprof.gui.menu;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,18 +27,14 @@ import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.gui.ModoDeAcesso;
 import com.mvc.amigodoprof.gui.TabelaDoProf;
 import com.mvc.amigodoprof.gui.UtilidadesGUI;
+import com.mvc.amigodoprof.gui.menu.MenuAluno.AcaoVerHistoricoFrequencia;
+import com.mvc.amigodoprof.gui.menu.MenuAluno.AcaoVerResolucoes;
+import com.mvc.amigodoprof.model.column.ColumnModelParaAtividade;
+import com.mvc.amigodoprof.model.table.TableModelAtividade;
 
 public class MenuAtividade extends MenuBase{
 	
 	Desktop estePC = Desktop.getDesktop();
-	
-	public void abrirArquivoComProgramaPadrao() {
-		try {
-			estePC.open(new File("./Teste de Software.pdf"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	private TabelaDoProf tabela;
 	
@@ -41,6 +42,9 @@ public class MenuAtividade extends MenuBase{
 	
 	private JScrollPane jcp;
 	
+	List<Atividade> listaAtividades;
+	List<JButton> listaRegistrarResolucoes;
+	List<JButton> listaVerAtividades;
 	
 	public MenuAtividade (MenuBase menuPai, Aula aula) {
 		super(ModoDeAcesso.RESTRITO, menuPai);
@@ -53,8 +57,6 @@ public class MenuAtividade extends MenuBase{
 		adicionarComponentes();
 		
 	}
-	
-	
 	
 	private void adicionarComponentes() {
 		
@@ -91,34 +93,53 @@ public class MenuAtividade extends MenuBase{
 		 * Agora criando e adicionando componentes da própria classe
 		 * */
 
-		List<Atividade> listaAtividades = ControleAtividade.pesquisarPorTurma(aula.getTurma());
+		listaAtividades = ControleAtividade.pesquisarPorTurma(aula.getTurma());
+		
+		listaAtividades.add(new Atividade());
+		
+		listaRegistrarResolucoes = new ArrayList<JButton>();
+		listaVerAtividades = new ArrayList<JButton>();
+		
+		for(int i = 0; i < listaAtividades.size(); i++) {
+			listaRegistrarResolucoes.add(new JButton(new AcaoRegistrarResolucoes(i)));
+			listaVerAtividades.add(new JButton(new AcaoVerAtividade(i)));
+		}
 		
 		tabela = new TabelaDoProf();
 		
-		//carregarTabela(listaAtividades);
+		carregarTabela(listaAtividades, listaRegistrarResolucoes, listaVerAtividades);
 		
-		//jcp = new JScrollPane(tabela);
+		jcp = new JScrollPane(tabela);
 		
-		//this.add(jcp);
-		//this.add(painelLabelAluno, BorderLayout.EAST);
+		this.add(jcp);
+		
 		
 	}
 	
-	private void carregarTabela(List<Atividade> listaAtividades) {
-		//TableModelResolucao tmf = new TableModelResolucao(listaAtividades);
+	private void carregarTabela(List<Atividade> listaAtividades, List<JButton> listaVerResolucoes, List<JButton> listaVerArquivos) {
 		
-//		ColumnModelDoProf cm = new ColumnModelDoProf(
-//				tmf.getAlinhamento(),
-//				tmf.getAlinhamento().length,
-//				20,
-//				new Color(122, 255, 135),
-//				tmf,
-//				200);
-//		
-//		tabela.setEnabled(true);
-//		tabela.setModel(tmf);
-//		tabela.setColumnModel(cm);
+		TableModelAtividade tma = new TableModelAtividade(listaAtividades, listaVerResolucoes, listaVerArquivos);
+		
+		ColumnModelParaAtividade cma = new ColumnModelParaAtividade(
+				tma.getAlinhamento(),
+				tma.getAlinhamento().length,
+				20,
+				new Color(122, 255, 135),
+				tma,
+				200);
+		
+		tabela.setEnabled(true);
+		tabela.setModel(tma);
+		tabela.setColumnModel(cma);
 		tabela.addMouseListener(new HabilitarEdicaoExclusao());
+	}
+	
+	private void desativarBotoes() {
+
+	}
+	
+	private void ativarBotoes() {
+
 	}
 	
 	protected class HabilitarEdicaoExclusao extends MouseAdapter{
@@ -126,6 +147,27 @@ public class MenuAtividade extends MenuBase{
 		public void mousePressed(MouseEvent e) {
 			if (tabela.getSelectedRow() >= 0) {
 				
+				ativarBotoes();
+				
+				int coluna = tabela.getSelectedColumn();
+				int linha = tabela.getSelectedRow();
+
+				if(coluna == 4) {
+					JButton botaoResolucao = listaRegistrarResolucoes.get(linha);
+					((AcaoRegistrarResolucoes) botaoResolucao.getAction()).abrirJanela();
+					
+					tabela.clearSelection();
+					desativarBotoes();
+				}
+				
+				if(coluna == 5) {
+					JButton botaoVerAtividade = listaVerAtividades.get(linha);
+					
+					((AcaoVerAtividade) botaoVerAtividade.getAction()).abrirJanela();
+					
+					tabela.clearSelection();
+					desativarBotoes();
+				}
 
 				
 
@@ -136,6 +178,58 @@ public class MenuAtividade extends MenuBase{
 	@Override
 	public void buscarPor() {
 		
+		
+	}
+	
+	public void abrirArquivoComProgramaPadrao() {
+		try {
+			estePC.open(new File("./Teste de Software.pdf"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private class AcaoRegistrarResolucoes extends AbstractAction {
+		
+		int linha;
+		
+		public AcaoRegistrarResolucoes(int linha){
+			super("Registrar entregas");
+			
+			this.linha = linha;
+		}
+		
+		public void abrirJanela() {
+			//JanelaRegistroResolucao jrr = new JanelaRegistroResolucao();
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//JanelaRegistroResolucao jrr = new JanelaRegistroResolucao();
+			
+		}
+		
+	}
+	
+	private class AcaoVerAtividade extends AbstractAction {
+
+		int linha;
+		
+		public AcaoVerAtividade(int linha){
+			super("Abrir");
+			
+			this.linha = linha;
+		}
+		
+		public void abrirJanela() {
+			abrirArquivoComProgramaPadrao();
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			abrirArquivoComProgramaPadrao();
+			
+		}
 		
 	}
 	

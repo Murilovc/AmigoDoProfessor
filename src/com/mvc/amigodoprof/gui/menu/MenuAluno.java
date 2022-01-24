@@ -289,8 +289,8 @@ public class MenuAluno extends MenuBase {
 		
 		Aluno aluno = ControleAluno.pesquisarAlunoPorId(id);
 		
-		//MenuAtividade mt = new MenuAtividade(MenuAluno.this, aluno);
-		//mt.setVisible(true);
+		MenuResolucao mf = new MenuResolucao(MenuAluno.this, aluno);
+		mf.setVisible(true);
 		MenuAluno.this.setVisible(false);
 		
 	}
@@ -313,11 +313,20 @@ public class MenuAluno extends MenuBase {
 				
 				int coluna = tabela.getSelectedColumn();
 				int linha = tabela.getSelectedRow();
-				if(coluna == 3 || coluna == 4) {
+
+				if(coluna == 3) {
+					JButton botaoResolucao = listaBotaoResolucao.get(linha);
+					((AcaoVerResolucoes) botaoResolucao.getAction()).abrirJanela(linha);
+					
+					tabela.clearSelection();
+					desativarBotoes();
+				}
+				
+				if(coluna == 4) {
 					JButton botaoFreq = listaBotaoFreq.get(linha);
-					JButton botaoAtividade = listaBotaoResolucao.get(linha);
+					
 					((AcaoVerHistoricoFrequencia) botaoFreq.getAction()).abrirJanela(linha);
-					((AcaoVerResolucoes) botaoAtividade.getAction()).abrirJanela(linha);
+					
 					tabela.clearSelection();
 					desativarBotoes();
 				}

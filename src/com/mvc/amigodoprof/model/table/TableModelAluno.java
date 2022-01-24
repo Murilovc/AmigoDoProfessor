@@ -84,7 +84,7 @@ public class TableModelAluno extends AbstractTableModel {
 				nome = "Turma"; 
 				break;
 			case 3: 
-				nome = "Atv. entregues"; 
+				nome = "Resoluções"; 
 				break;
 			case 4:
 				nome = "Frequência";

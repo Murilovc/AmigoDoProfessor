@@ -1,78 +1,64 @@
 package com.mvc.amigodoprof.model.table;
 
-import java.util.*;
+import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
-import com.mvc.amigodoprof.entidade.Atividade;
+import com.mvc.amigodoprof.entidade.Frequencia;
+import com.mvc.amigodoprof.entidade.Resolucao;
 import com.mvc.amigodoprof.gui.Alinhamento;
 
-
-@SuppressWarnings("serial")
-public class TableModelAtividade extends AbstractTableModel {
-	
-	List<Atividade> listaAtividades;
-	List<JButton> listaBotoesResolucoes;
-	List<JButton> listaBotoesVerArquivo;
+public class TableModelResolucao extends AbstractTableModel{
+	List<Resolucao> listaResolucoes;
 	
 	private Alinhamento[] alinhamento = { Alinhamento.CENTRO, Alinhamento.CENTRO,
-										  Alinhamento.CENTRO, Alinhamento.CENTRO,
 										  Alinhamento.CENTRO, Alinhamento.CENTRO};
 	
-	public TableModelAtividade(List<Atividade> atividades,
-			List<JButton> botoesResolucao, List<JButton> botoesVerArquivo) {
+	public TableModelResolucao(List<Resolucao> resolucoes) {
 		
-		this.listaAtividades = atividades;
-		
-		this.listaBotoesResolucoes = botoesResolucao;
-		
-		this.listaBotoesVerArquivo = botoesVerArquivo;
+		this.listaResolucoes = resolucoes;
 		
 	}
 	
 	@Override
 	public int getRowCount() {
-		return listaAtividades.size();
+		return listaResolucoes.size();
 	}
 
 	@Override
 	public int getColumnCount() {		
-		return 6;	
+		return 4;	
 	}
 	
 	@Override	
 	public Object getValueAt(int indiceLinha, int indiceColuna) {		
 
-		Atividade atividade;
+		Resolucao resolucao;
 		Object dado = null;
 		
-		atividade = listaAtividades.get(indiceLinha);
+		resolucao = listaResolucoes.get(indiceLinha);
 		
 		switch(indiceColuna) {
 			
 			case 0: 
-				dado = atividade.getIdAtividade();
+				dado = resolucao.getIdResolucao();
 				break;
 			case 1:  
-//				String dataString = atividade.getAula().getData().toString();
-//				String dataDia = dataString.substring(8,10);
-//				String dataMes = dataString.substring(5,7);
-//				String dataAno = dataString.substring(0,4);
-				dado = "09/05/1999";//dataDia+"/"+dataMes+"/"+dataAno;
+				String dataString = "";//frequencia.getAula().getData().toString();
+				String dataDia = dataString.substring(8,10);
+				String dataMes = dataString.substring(5,7);
+				String dataAno = dataString.substring(0,4);
+				dado = dataDia+"/"+dataMes+"/"+dataAno;
 				break;
 			case 2: 
-				dado = atividade.getValorMaximo();
-				break;
+//				if(frequencia.isPresente() == true) {
+//					dado = "Presente";
+//				} else {
+//					dado = "Ausente";
+//				}
+//				break;
 			case 3:
-				dado = atividade.getDescricao();
-				break;
-			case 4: 
-				dado = listaBotoesResolucoes.get(indiceLinha);
-				break;
-			case 5: 
-				dado = listaBotoesVerArquivo.get(indiceLinha);
-				break;
+				dado = resolucao.getValorAlcancado();
 
 		}
 		return dado;		
@@ -96,20 +82,20 @@ public class TableModelAtividade extends AbstractTableModel {
 				nome = "Id"; 
 				break;
 			case 1: 
-				nome = "Aula";//vai ser exibida a data da aula 
+				//pendente ou entregue
+				nome = "Status";//vai ser exibida a data da aula 
 				break;
 			case 2: 
-				nome = "Valor"; 
+				nome = "Pontuação"; 
 				break;
-			case 3:
-				nome = "Descrição";
+			case 3: 
+				nome = "Atividade"; 
 				break;
-			case 4:
-				nome = "Resoluções";
+			case 4: 
+				nome = "Aluno"; 
 				break;
 			case 5:
-				nome = "Arquivo";
-				break;
+				nome = "Nota";
 
 		}		
 		return nome; 	
@@ -132,13 +118,6 @@ public class TableModelAtividade extends AbstractTableModel {
 				break;
 			case 3:
 				obj = String.class;
-				break;
-			case 4:
-				obj = JButton.class;
-				break;
-			case 5:
-				obj = JButton.class;
-				break;
 			default: 
 				obj = null; 
 				break;
@@ -157,6 +136,3 @@ public class TableModelAtividade extends AbstractTableModel {
 	
 	
 }
-
-
-

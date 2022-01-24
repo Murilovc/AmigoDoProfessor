@@ -36,7 +36,13 @@ public class Resolucao {
 	private Nota nota;
 
 	
+	public boolean isEntregue() {
+		return entregue;
+	}
 	
+	public void setEntregue(boolean entregue) {
+		this.entregue = entregue;
+	}
 	
 	
 	public long getIdResolucao() {

@@ -64,6 +64,7 @@ public class MenuTurma extends MenuBase {
 	public MenuBase menuPai;
 	
 	List<JButton> listaBotoes;
+	List<JButton> listaBotoesAtividade;
 	
 	
 	public MenuTurma(ModoDeAcesso modo, MenuBase menuPai, long idTurma) {
@@ -218,14 +219,19 @@ public class MenuTurma extends MenuBase {
 		
 		List<Aula> listaAulas = ControleAula.pesquisarAulaPorTurma(turma);
 		listaBotoes = new ArrayList<JButton>();
+		listaBotoesAtividade = new ArrayList<JButton>();
 		
 		for(int i = 0; i < listaAulas.size(); i++) {
 			listaBotoes.add(new JButton(new AcaoLancarNaTabela(i)));
 		}
 		
+		for(int i = 0; i < listaAulas.size(); i++) {
+			listaBotoesAtividade.add(new JButton(new AcaoVerAtividades(i)));
+		}
+		
 		tabela = new TabelaDoProf();
 		
-		carregarTabela(listaAulas, listaBotoes);
+		carregarTabela(listaAulas, listaBotoes, listaBotoesAtividade);
 		
 		jcp = new JScrollPane(tabela);
 
@@ -255,9 +261,10 @@ public class MenuTurma extends MenuBase {
 		botaoVerFrequencias.setEnabled(true);
 	}
 	
-	public void carregarTabela(List<Aula> listaAulas, List<JButton> listaBotoes) {
+	public void carregarTabela(List<Aula> listaAulas,
+			List<JButton> listaBotoes, List<JButton> listaBotoesAtividades) {
 		
-		TableModelAula tmt = new TableModelAula(listaAulas, listaBotoes);
+		TableModelAula tmt = new TableModelAula(listaAulas, listaBotoes, listaBotoesAtividades);
 		
 
 		ColumnModelParaAula ca = new ColumnModelParaAula(tmt.getAlinhamento(),
@@ -284,6 +291,16 @@ public class MenuTurma extends MenuBase {
 		jlf.setVisible(true);
 	}
 	
+	public void abrirJanelaListaAtividades(int linha) {
+		long id = Long.valueOf(String.valueOf(tabela.getValueAt(linha, 0)));
+		
+		Aula aula = ControleAula.pesquisarAulaPorId(id);
+		
+		MenuAtividade ma = new MenuAtividade(MenuTurma.this, aula);
+		ma.setVisible(true);
+		MenuTurma.this.setVisible(false);
+	}
+	
 	
 	@Override
 	public void buscarPor() {
@@ -294,6 +311,7 @@ public class MenuTurma extends MenuBase {
 		
 		List<Aula> listaAulas = new ArrayList<Aula>();
 		listaBotoes = new ArrayList<JButton>();
+		listaBotoesAtividade = new ArrayList<JButton>();
 		Aula aula;
 		
 		if(stringPesquisada.equals("") && tipoPesquisa < 2) {
@@ -301,8 +319,9 @@ public class MenuTurma extends MenuBase {
 			listaAulas = ControleAula.pesquisarAulaPorTurma(turma);
 			for(int i = 0; i < listaAulas.size(); i++) {
 				listaBotoes.add(new JButton(new AcaoLancarNaTabela(i)));
+				listaBotoesAtividade.add(new JButton(new AcaoVerAtividades(i)));
 			}
-			carregarTabela(listaAulas, listaBotoes);
+			carregarTabela(listaAulas, listaBotoes, listaBotoesAtividade);
 			return;
 		}
 		
@@ -329,10 +348,12 @@ public class MenuTurma extends MenuBase {
 				break;
 		}
 		listaBotoes = new ArrayList<JButton>();
+		listaBotoesAtividade = new ArrayList<JButton>();
 		for(int i = 0; i < listaAulas.size(); i++) {
 			listaBotoes.add(new JButton(new AcaoLancarNaTabela(i)));
+			listaBotoesAtividade.add(new JButton(new AcaoVerAtividades(i)));
 		}
-		carregarTabela(listaAulas, listaBotoes);
+		carregarTabela(listaAulas, listaBotoes, listaBotoesAtividade);
 		
 	}
 	
@@ -350,9 +371,19 @@ public class MenuTurma extends MenuBase {
 				
 				int coluna = tabela.getSelectedColumn();
 				int linha = tabela.getSelectedRow();
+				
+				/*Aqui eu faço passando a linha no abrirJanela()*/
 				if(coluna == 3) {
 					JButton botao = listaBotoes.get(linha);
 					((AcaoLancarNaTabela) botao.getAction()).abrirJanela(linha);
+					tabela.clearSelection();
+					desativarBotoes();
+				}
+				
+				/*Aqui eu faço sem passar a linha no abrirJanela()*/
+				if(coluna == 4) {
+					JButton botaoAtv = listaBotoesAtividade.get(linha);
+					((AcaoVerAtividades) botaoAtv.getAction()).abrirJanela();
 					tabela.clearSelection();
 					desativarBotoes();
 				}
@@ -450,10 +481,12 @@ public class MenuTurma extends MenuBase {
 			Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
 			List<Aula> listaAulas = ControleAula.pesquisarAulaPorTurma(turma);
 			List<JButton> listaBotoes = new ArrayList<JButton>();
+			List<JButton> listaBotoesAtividade = new ArrayList<JButton>();
 			for(int i = 0; i < listaAulas.size(); i++) {
 				listaBotoes.add(new JButton(new AcaoLancarNaTabela(i)));
+				listaBotoesAtividade.add(new JButton(new AcaoVerAtividades(i)));
 			}
-			carregarTabela(listaAulas, listaBotoes);
+			carregarTabela(listaAulas, listaBotoes, listaBotoesAtividade);
 		}
 		
 	}
@@ -500,13 +533,6 @@ public class MenuTurma extends MenuBase {
 		
 	}
 	
-	
-	
-	
-	
-	
-
-	
 	protected class AcaoVerAlunos extends AbstractAction {
 
 		public AcaoVerAlunos() {
@@ -526,35 +552,26 @@ public class MenuTurma extends MenuBase {
 		
 	}
 	
-	protected class AcaoVerListaFrequencia extends AbstractAction {
-
-		
-		public AcaoVerListaFrequencia() {
-			super("Ver lista frequência");
-			putValue(MNEMONIC_KEY, KeyEvent.VK_B);
-			putValue(SHORT_DESCRIPTION, "Ver lista de frequência desta aula");
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			/* XXX */
-			
-		}
-		
-	}
 	
 	protected class AcaoVerAtividades extends AbstractAction {
 
+		private int linha;
 		
-		public AcaoVerAtividades() {
-			super("Ver atividades");
+		public AcaoVerAtividades(int linha) {
+			super("Ver");
+			
+			this.linha = linha;
 			putValue(MNEMONIC_KEY, KeyEvent.VK_E);
 			putValue(SHORT_DESCRIPTION, "Ver atividades da aula");
 		}
 		
+		public void abrirJanela() {
+			abrirJanelaListaAtividades(linha);
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//JanelaGerenciarTurma jgt = new JanelaGerenciarTurma();
+			abrirJanelaListaAtividades(linha);
 			
 		}
 		

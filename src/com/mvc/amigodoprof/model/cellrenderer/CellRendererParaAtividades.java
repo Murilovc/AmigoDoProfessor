@@ -11,35 +11,19 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.menu.MenuTurma;
 
-
-
-/**
- * @author Murilo Vieira
- * Baseado nas funções encontradas em:
- * https://www.guj.com.br/t/colorir-apenas-uma-celula-do-jtable/30998/9
- * Criadas por: 
- * @author fredferrao
- *
- */
-
-@SuppressWarnings("serial")
-public class CellRendererParaAulas extends DefaultTableCellRenderer{
-    
+public class CellRendererParaAtividades extends DefaultTableCellRenderer{
     private int tamanhoLetra;
     private Color corTema;
-    private MenuTurma mt;
 	
 	Alinhamento alinhamento;
     
     
-    public CellRendererParaAulas(int tamanhoLetra, Color corTema, Alinhamento alinhamento, MenuTurma mt) {
+    public CellRendererParaAtividades(int tamanhoLetra, Color corTema, Alinhamento alinhamento) {
         
 		super();
         this.tamanhoLetra = tamanhoLetra;
         this.corTema = corTema;
-        this.mt = mt;
         
     	switch(alinhamento) {
 			
@@ -60,7 +44,7 @@ public class CellRendererParaAulas extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna == 3 || coluna == 4) {
+    	if(coluna == 4 || coluna == 5) {
     		JButton botao = (JButton)valor;
 
     		return botao;
@@ -93,5 +77,4 @@ public class CellRendererParaAulas extends DefaultTableCellRenderer{
 
         return label;       
     } 
-	
 }

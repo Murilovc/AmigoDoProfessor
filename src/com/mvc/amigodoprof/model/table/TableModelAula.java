@@ -1,34 +1,31 @@
 package com.mvc.amigodoprof.model.table;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
 import com.mvc.amigodoprof.entidade.Aula;
-import com.mvc.amigodoprof.entidade.Turma;
 import com.mvc.amigodoprof.gui.Alinhamento;
-import com.mvc.amigodoprof.gui.menu.MenuTurma;
+
 
 public class TableModelAula extends AbstractTableModel {
 
 	List<Aula> listaAulas;
 	List<JButton> listaBotoes;
+	List<JButton> listaBotoesAtividades;
 	
 	private Alinhamento[] alinhamento = {Alinhamento.ESQUERDA,Alinhamento.CENTRO,
 			 					 		 Alinhamento.CENTRO,  Alinhamento.CENTRO, Alinhamento.CENTRO};
 	
-	public TableModelAula(List<Aula> aulas, List<JButton> listaBotoes) {
+	public TableModelAula(List<Aula> aulas, List<JButton> listaBotoes,
+			List<JButton> listaBotoesAtividades) {
+		
 		this.listaAulas = aulas;
-		//Aula aula = new Aula();
-		//aula.setIdAula(78964123L);
-		//listaAulas.add(aula);
 		
 		this.listaBotoes = listaBotoes;
 		
-
+		this.listaBotoesAtividades = listaBotoesAtividades;
 	}
 	
 	@Override
@@ -64,14 +61,18 @@ public class TableModelAula extends AbstractTableModel {
 				dado = aula.getConteudo();
 				break;
 			case 3:
-				dado = listaBotoes.get(indiceLinha);
+				JButton b = listaBotoes.get(indiceLinha);
+				if(aula.isFrequenciaLancada()) {
+					b.setText("Lançada");
+				} else {
+					b.setText("Pendente");
+				}
+				dado = b;
 				break;
 			case 4:
-				if(aula.isFrequenciaLancada() == true) {
-					dado = "Lançada";
-				} else {
-					dado = "Pendente";
-				}
+				/*Colocar o botao ver atividade aqui*/
+				JButton c = listaBotoesAtividades.get(indiceLinha);
+				dado = c;
 				break;
 
 		}
@@ -94,10 +95,10 @@ public class TableModelAula extends AbstractTableModel {
 				nome = "Conteúdo"; 
 				break;
 			case 3: 
-				nome = "Lista frequência"; 
+				nome = "Frequência"; 
 				break;
 			case 4:
-				nome = "Status";
+				nome = "Atividades";
 				break;
 
 		}		
@@ -123,7 +124,7 @@ public class TableModelAula extends AbstractTableModel {
 				obj = JButton.class;
 				break;
 			case 4:
-				obj = String.class;
+				obj = JButton.class;
 				break;
 			default: 
 				obj = null; 
