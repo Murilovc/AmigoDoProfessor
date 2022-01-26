@@ -3,20 +3,20 @@ package com.mvc.amigodoprof.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.awt.Dialog.ModalityType;
 
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import com.mvc.amigodoprof.entidade.Aula;
-import com.mvc.amigodoprof.gui.menu.MenuBase;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import com.mvc.amigodoprof.entidade.Aula;
+import com.mvc.amigodoprof.gui.menu.MenuBase;
 
 public class JanelaCadastroAtividade extends JDialog{
 	
@@ -24,6 +24,7 @@ public class JanelaCadastroAtividade extends JDialog{
 	private JTextField tf1;
 	private JTextField tf2;
 	private JComboBox<String> cbBimestre;
+	private JTextArea tadescricao;
 	
 	private Aula aula;
 
@@ -33,13 +34,13 @@ public class JanelaCadastroAtividade extends JDialog{
 		this.aula = aula;
 		
 		this.setTitle("Cadastro / Edição de Atividade");
-		this.setSize(new Dimension(428, 205));
+		this.setSize(new Dimension(428, 291));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 414, 169);
+		panel.setBounds(0, 0, 412, 256);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -63,15 +64,15 @@ public class JanelaCadastroAtividade extends JDialog{
 		tf2.setEditable(false);
 		
 		JButton btnEscolherArquivo = new JButton("Escolher arquivo");
-		btnEscolherArquivo.setBounds(144, 135, 124, 23);
+		btnEscolherArquivo.setBounds(144, 221, 124, 23);
 		panel.add(btnEscolherArquivo);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(278, 135, 124, 23);
+		btnCancelar.setBounds(278, 221, 124, 23);
 		panel.add(btnCancelar);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(10, 135, 124, 23);
+		btnSalvar.setBounds(10, 221, 124, 23);
 		panel.add(btnSalvar);
 		
 		JLabel lblBimestre = new JLabel("Bimestre: ");
@@ -86,6 +87,16 @@ public class JanelaCadastroAtividade extends JDialog{
 		cbBimestre.addItem("5");
 		cbBimestre.setBounds(236, 91, 58, 22);
 		panel.add(cbBimestre);
+		
+		JLabel lblDescricao = new JLabel("Descrição:");
+		lblDescricao.setBounds(10, 123, 80, 14);
+		panel.add(lblDescricao);
+		
+		tadescricao = new JTextArea();
+		JScrollPane scroll = new JScrollPane(tadescricao);
+		scroll.setBounds(10, 148, 392, 62);
+		panel.add(scroll);
+		
 	}
 	
 	private class AcaoEscolherArquivo extends AbstractAction {
