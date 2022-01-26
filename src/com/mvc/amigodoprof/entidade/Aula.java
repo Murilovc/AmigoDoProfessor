@@ -135,5 +135,18 @@ public class Aula {
 		this.turma = turma;
 	}
 	
+	/*Sobreescrita de toString()*/
+	@Override
+	public String toString() {
+		String dataString = this.getData().toString();
+		String dataDia = dataString.substring(8,10);
+		String dataMes = dataString.substring(5,7);
+		String dataAno = dataString.substring(0,4);
+		String aula  = dataDia+"/"+dataMes+"/"+dataAno;
+		
+		return aula;
+		
+	}
+	
 	
 }

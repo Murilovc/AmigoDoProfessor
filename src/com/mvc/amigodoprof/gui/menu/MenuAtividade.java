@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,6 +25,7 @@ import com.mvc.amigodoprof.controle.ControleAtividade;
 import com.mvc.amigodoprof.entidade.Aluno;
 import com.mvc.amigodoprof.entidade.Atividade;
 import com.mvc.amigodoprof.entidade.Aula;
+import com.mvc.amigodoprof.gui.JanelaCadastroAtividade;
 import com.mvc.amigodoprof.gui.ModoDeAcesso;
 import com.mvc.amigodoprof.gui.TabelaDoProf;
 import com.mvc.amigodoprof.gui.UtilidadesGUI;
@@ -105,6 +107,29 @@ public class MenuAtividade extends MenuBase{
 			listaVerAtividades.add(new JButton(new AcaoVerAtividade(i)));
 		}
 		
+		JButton botaoCadastrarAtv = new JButton(new AcaoCadastrarAtividade());
+		botaoCadastrarAtv = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoCadastrarAtv, "Arial", 14);
+		
+		JButton botaoEditarAtv = new JButton();
+		botaoEditarAtv = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoEditarAtv, "Arial", 14);
+		
+		JButton botaoExcluirAtv = new JButton();
+		botaoExcluirAtv = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoExcluirAtv, "Arial", 14);
+		
+		JPanel painelLateral = UtilidadesGUI.
+				criarJPanelSemBorda(
+						new Dimension(155,40), new FlowLayout(FlowLayout.CENTER), new Color(183,216,226));
+		
+		JLabel labelBotoes = new JLabel("Gerenciamento");
+		labelBotoes.setFont(new Font("Arial", Font.BOLD, 14));
+		JLabel labelBotoes2 = new JLabel("de atividades");
+		labelBotoes2.setFont(new Font("Arial", Font.BOLD, 14));
+		painelLateral.add(labelBotoes);
+		painelLateral.add(labelBotoes2);
+		painelLateral.add(botaoCadastrarAtv);
+		painelLateral.add(botaoEditarAtv);
+		painelLateral.add(botaoExcluirAtv);
+		
 		tabela = new TabelaDoProf();
 		
 		carregarTabela(listaAtividades, listaRegistrarResolucoes, listaVerAtividades);
@@ -112,6 +137,7 @@ public class MenuAtividade extends MenuBase{
 		jcp = new JScrollPane(tabela);
 		
 		this.add(jcp);
+		this.add(painelLateral, BorderLayout.WEST);
 		
 		
 	}
@@ -181,12 +207,51 @@ public class MenuAtividade extends MenuBase{
 		
 	}
 	
-	public void abrirArquivoComProgramaPadrao() {
+	public void abrirArquivoComProgramaPadrao(int linha) {
+		
+		long id = (long) tabela.getValueAt(linha, 0);
+		
+		Atividade atividade = ControleAtividade.pesquisarAtividadePorId(id);
 		try {
-			estePC.open(new File("./Teste de Software.pdf"));
+			estePC.open(new File("./"+atividade.getArquivo()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private class AcaoCadastrarAtividade extends AbstractAction {
+
+		public AcaoCadastrarAtividade() {
+			super("Cadastrar");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JanelaCadastroAtividade jca = new JanelaCadastroAtividade(MenuAtividade.this, aula);
+			jca.setVisible(true);
+			
+		}
+		
+	}
+	
+	private class AcaoEditarAtividade extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class AcaoExcluirAtividade extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 	private class AcaoRegistrarResolucoes extends AbstractAction {
@@ -222,12 +287,12 @@ public class MenuAtividade extends MenuBase{
 		}
 		
 		public void abrirJanela() {
-			abrirArquivoComProgramaPadrao();
+			abrirArquivoComProgramaPadrao(linha);
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			abrirArquivoComProgramaPadrao();
+			abrirArquivoComProgramaPadrao(linha);
 			
 		}
 		

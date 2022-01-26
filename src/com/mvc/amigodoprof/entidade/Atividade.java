@@ -29,6 +29,9 @@ public class Atividade {
 	@Column(nullable=true)
 	private String arquivo;
 	
+	@Column
+	private String bimestre;
+	
 	@ManyToOne
 	@JoinColumn(name="fk_aula")
 	private Aula aula;
