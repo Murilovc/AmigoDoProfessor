@@ -68,6 +68,15 @@ public final class UtilidadesGUI {
 		return label;
 	}
 	
+	public static JLabel padronizarLabel(JLabel label, String nomeFonte, int tamanhoFonte, Dimension margem) {
+		
+		Font fonte = new Font(nomeFonte, Font.BOLD, tamanhoFonte);
+		label.setPreferredSize(margem);
+		label.setFont(fonte);
+		
+		return label;
+	}
+	
 	public static JPanel criarJPanelSemBorda(Dimension tamanho, LayoutManager layout, Color cor) {
 		JPanel painel = new JPanel(layout);
 		painel.setBackground(cor);

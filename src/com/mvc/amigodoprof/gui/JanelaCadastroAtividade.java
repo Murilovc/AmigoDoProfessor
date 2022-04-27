@@ -9,12 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.mvc.amigodoprof.controle.ControleAtividade;
 import com.mvc.amigodoprof.entidade.Aula;
 import com.mvc.amigodoprof.gui.menu.MenuBase;
 
@@ -27,11 +29,17 @@ public class JanelaCadastroAtividade extends JDialog{
 	private JTextArea tadescricao;
 	
 	private Aula aula;
+	
+	JFrame pai;
+	
+	private String caminhoArquivo;
 
 	public JanelaCadastroAtividade(MenuBase pai, Aula aula) {
 		super(pai, ModalityType.APPLICATION_MODAL);
 		
 		this.aula = aula;
+		
+		this.pai = pai;
 		
 		this.setTitle("Cadastro / Edição de Atividade");
 		this.setSize(new Dimension(428, 291));
@@ -63,15 +71,15 @@ public class JanelaCadastroAtividade extends JDialog{
 		tf2.setColumns(10);
 		tf2.setEditable(false);
 		
-		JButton btnEscolherArquivo = new JButton("Escolher arquivo");
+		JButton btnEscolherArquivo = new JButton(new AcaoEscolherArquivo());
 		btnEscolherArquivo.setBounds(144, 221, 124, 23);
 		panel.add(btnEscolherArquivo);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton(new AcaoCancelar());
 		btnCancelar.setBounds(278, 221, 124, 23);
 		panel.add(btnCancelar);
 		
-		JButton btnSalvar = new JButton("Salvar");
+		JButton btnSalvar = new JButton(new AcaoSalvar());
 		btnSalvar.setBounds(10, 221, 124, 23);
 		panel.add(btnSalvar);
 		
@@ -101,13 +109,53 @@ public class JanelaCadastroAtividade extends JDialog{
 	
 	private class AcaoEscolherArquivo extends AbstractAction {
 
+		public AcaoEscolherArquivo() {
+			super("Escolher arquivo");
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser seletor = new JFileChooser();
 			seletor.showOpenDialog(JanelaCadastroAtividade.this);
 			File arquivo = seletor.getSelectedFile();
-			arquivo.toString();
+			caminhoArquivo = arquivo.toString();
 			
+		}
+		
+	}
+	
+	private class AcaoSalvar extends AbstractAction {
+
+		public AcaoSalvar() {
+			super("Salvar");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAtividade.
+				cadastrarAtividade(
+						tf1.getText(),
+						tadescricao.getText(),
+						caminhoArquivo, aula);
+			
+			
+			pai.setVisible(true);
+			JanelaCadastroAtividade.this.setVisible(false);
+			
+		}
+		
+	}
+	
+	private class AcaoCancelar extends AbstractAction {
+
+		public AcaoCancelar() {
+			super("Cancelar");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			pai.setVisible(true);
+			JanelaCadastroAtividade.this.setVisible(false);
 		}
 		
 	}

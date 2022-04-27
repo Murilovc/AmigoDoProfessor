@@ -117,10 +117,11 @@ public abstract class MenuBase extends JFrame{
 		/*Características de todos os menus*/
 		menu.setVisible(false);
 		menu.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		menu.setPreferredSize(new Dimension(1280,720));
+		menu.setPreferredSize(new Dimension(1920,1280));
+		menu.setResizable(false);
 		menu.setExtendedState(MAXIMIZED_BOTH);
 		menu.setLayout(new BorderLayout());
-		menu.pack();
+		//menu.pack();
 		
 		/*Barra de menu de todos os menus da aplicação*/
 		menuBar = new JMenuBar();

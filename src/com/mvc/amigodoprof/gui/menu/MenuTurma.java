@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
 import com.mvc.amigodoprof.controle.ControleAula;
@@ -122,19 +123,19 @@ public class MenuTurma extends MenuBase {
 		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
 		
 		JLabel labelNome = new JLabel(turma.toString());
-		labelNome = UtilidadesGUI.estilizarLabel(labelNome, "Arial", 20, new Dimension(120,30));
+		labelNome = UtilidadesGUI.padronizarLabel(labelNome, "Arial", 20, new Dimension(120,30));
 		
 		JLabel labelTurno = new JLabel("Turno: "+turma.getTurno());
-		labelTurno = UtilidadesGUI.estilizarLabel(labelTurno, "Arial", 20, new Dimension(180,30));
+		labelTurno = UtilidadesGUI.padronizarLabel(labelTurno, "Arial", 20, new Dimension(180,30));
 		
 		JLabel labelAnoLetivo = new JLabel("Ano letivo: "+turma.getAnoLetivo());
-		labelAnoLetivo = UtilidadesGUI.estilizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
+		labelAnoLetivo = UtilidadesGUI.padronizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
 		
 		JPanel painelSuperiorProprio2 = UtilidadesGUI.
-				criarJPanelSemBorda(null, new FlowLayout(), Color.WHITE);
+				criarJPanelSemBorda(null, new FlowLayout(), UtilidadesGUI.getCorTema2());
 		painelSuperiorProprio2.setBorder(new TitledBorder(
-				null, "Informações da turma: ", TitledBorder.LEFT, TitledBorder.LEFT,
-				new Font("Arial", Font.BOLD, 12), Color.GREEN));
+				new SoftBevelBorder(SoftBevelBorder.RAISED), "Informações da turma: ", TitledBorder.LEFT, TitledBorder.BELOW_TOP,
+				new Font("Arial", Font.BOLD, 12), Color.BLUE));
 		
 		
 		painelSuperiorProprio2.add(labelNome);
