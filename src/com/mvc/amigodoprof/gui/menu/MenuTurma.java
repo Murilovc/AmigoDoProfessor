@@ -132,15 +132,12 @@ public class MenuTurma extends MenuBase {
 		labelAnoLetivo = UtilidadesGUI.padronizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
 		
 		JPanel painelSuperiorProprio2 = UtilidadesGUI.
-<<<<<<< Updated upstream
+
 				criarJPanelSemBorda(null, new FlowLayout(), UtilidadesGUI.getCorTema2());
 		painelSuperiorProprio2.setBorder(new TitledBorder(
 				new SoftBevelBorder(SoftBevelBorder.RAISED), "Informações da turma: ", TitledBorder.LEFT, TitledBorder.BELOW_TOP,
 				new Font("Arial", Font.BOLD, 12), Color.BLUE));
-=======
-				criarJPanelSemBorda(null, new FlowLayout(), Color.WHITE);
 
->>>>>>> Stashed changes
 		
 		
 		painelSuperiorProprio2.add(labelNome);
