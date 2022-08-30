@@ -37,12 +37,10 @@ import com.mvc.amigodoprof.gui.JanelaLancamentoFrequencia;
 import com.mvc.amigodoprof.gui.ModoDeAcesso;
 import com.mvc.amigodoprof.gui.TabelaDoProf;
 import com.mvc.amigodoprof.gui.UtilidadesGUI;
-import com.mvc.amigodoprof.model.cellrenderer.CellRendererDoProf;
-import com.mvc.amigodoprof.model.cellrenderer.CellRendererParaAulas;
-import com.mvc.amigodoprof.model.column.ColumnModelDoProf;
 import com.mvc.amigodoprof.model.column.ColumnModelParaAula;
 import com.mvc.amigodoprof.model.table.TableModelAula;
-import com.mvc.amigodoprof.model.table.TableModelTurma;
+import com.mvc.amigodoprof.controle.ControleAluno;
+import com.mvc.amigodoprof.entidade.Aluno;
 
 public class MenuTurma extends MenuBase {
 	
@@ -290,7 +288,9 @@ public class MenuTurma extends MenuBase {
 		
 		Turma turma = ControleTurma.pesquisarTurmaPorId(entidadeAtual);
 		
-		JanelaLancamentoFrequencia jlf = new JanelaLancamentoFrequencia(this, aula, turma.getListaAlunos());
+		List<Aluno> listaAlunos = ControleAluno.pesquisarAlunoPorTurma(turma);
+		
+		JanelaLancamentoFrequencia jlf = new JanelaLancamentoFrequencia(this, aula, listaAlunos);
 		jlf.setVisible(true);
 	}
 	
