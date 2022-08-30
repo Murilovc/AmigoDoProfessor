@@ -132,10 +132,15 @@ public class MenuTurma extends MenuBase {
 		labelAnoLetivo = UtilidadesGUI.padronizarLabel(labelAnoLetivo, "Arial", 20, new Dimension(180,30));
 		
 		JPanel painelSuperiorProprio2 = UtilidadesGUI.
+<<<<<<< Updated upstream
 				criarJPanelSemBorda(null, new FlowLayout(), UtilidadesGUI.getCorTema2());
 		painelSuperiorProprio2.setBorder(new TitledBorder(
 				new SoftBevelBorder(SoftBevelBorder.RAISED), "Informações da turma: ", TitledBorder.LEFT, TitledBorder.BELOW_TOP,
 				new Font("Arial", Font.BOLD, 12), Color.BLUE));
+=======
+				criarJPanelSemBorda(null, new FlowLayout(), Color.WHITE);
+
+>>>>>>> Stashed changes
 		
 		
 		painelSuperiorProprio2.add(labelNome);
@@ -160,12 +165,12 @@ public class MenuTurma extends MenuBase {
 		labelPlanejamento.setFont(new Font("Arial", Font.BOLD, 17));
 		
 		areaPlanejamento = new JTextArea();
-		areaPlanejamento.setPreferredSize(new Dimension(270,440));
+		areaPlanejamento.setPreferredSize(new Dimension(250,700));
 		areaPlanejamento.setFont(new Font("Arial", Font.BOLD+Font.ITALIC, 20));
 		
 		JScrollPane scrollPlanejamento = new JScrollPane(areaPlanejamento);
 		scrollPlanejamento.setViewportView(areaPlanejamento);
-		scrollPlanejamento.setPreferredSize(new Dimension(280,410));
+		scrollPlanejamento.setPreferredSize(new Dimension(280,375));
 		
 		botaoEditarPlanejamento = new JButton(new AcaoEditarPlanejamento());
 		botaoEditarPlanejamento = UtilidadesGUI.
@@ -177,7 +182,7 @@ public class MenuTurma extends MenuBase {
 		
 		
 		JPanel painelLateralEsquerdo = UtilidadesGUI.
-				criarJPanelSemBorda(new Dimension(280,680), new FlowLayout(), UtilidadesGUI.getCorTema1());
+				criarJPanelSemBorda(new Dimension(280,650), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelLateralEsquerdo.add(botaoAdicionarAula);
 		painelLateralEsquerdo.add(botaoEditarAula);
@@ -208,7 +213,7 @@ public class MenuTurma extends MenuBase {
 		
 		
 		JPanel painelLateralDireito = UtilidadesGUI.
-				criarJPanelSemBorda(new Dimension(150,680), new FlowLayout(), UtilidadesGUI.getCorTema1());
+				criarJPanelSemBorda(new Dimension(150,650), new FlowLayout(), UtilidadesGUI.getCorTema1());
 		
 		painelLateralDireito.add(label);
 		painelLateralDireito.add(botaoVerAlunos);

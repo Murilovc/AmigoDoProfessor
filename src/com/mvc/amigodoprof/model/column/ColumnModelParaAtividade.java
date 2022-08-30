@@ -44,21 +44,24 @@ public class ColumnModelParaAtividade extends DefaultTableColumnModel{
     		
     		switch(i) {
         		case 0:
-        			tc.setPreferredWidth((int) (pontoLargura*2.90f));
+        			tc.setPreferredWidth((int) (pontoLargura*4.90f));
         			break;
         		case 1:
         			tc.setPreferredWidth((int) (pontoLargura*12.42f));
         			break;
         		case 2:
-        			tc.setPreferredWidth((int) (pontoLargura*13.26f));
+        			tc.setPreferredWidth((int) (pontoLargura*8.26f));
         			break;
         		case 3:
-        			tc.setPreferredWidth((int) (pontoLargura*50));
+        			tc.setPreferredWidth((int) (pontoLargura*8.42f));
         			break;
         		case 4:
-        			tc.setPreferredWidth((int) (pontoLargura*12.42f));
+        			tc.setPreferredWidth((int) (pontoLargura*50));
         			break;
         		case 5:
+        			tc.setPreferredWidth((int) (pontoLargura*11.86f));
+        			break;
+        		case 6:
         			tc.setPreferredWidth((int) (pontoLargura*8.86f));
         			break;
             }

@@ -87,4 +87,14 @@ public class Atividade {
 		this.resolucao = resolucao;
 	}
 
+	public String getBimestre() {
+		return this.bimestre;
+		
+	}
+	
+	public void setBimestre(String bimestre) {
+		this.bimestre = bimestre;
+		
+	}
+
 }

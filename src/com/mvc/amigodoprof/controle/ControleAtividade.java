@@ -26,7 +26,7 @@ public class ControleAtividade {
 	}
 	
 	
-	public static void cadastrarAtividade(String valor, String descricao, String caminhoArquivo, Aula aula) {
+	public static void cadastrarAtividade(String valor, String bimestre, String descricao, String caminhoArquivo, Aula aula) {
 		
 		Atividade atividade = new Atividade();
 		
@@ -34,16 +34,18 @@ public class ControleAtividade {
 		atividade.setValorMaximo(valorDouble);
 		atividade.setDescricao(descricao);
 		atividade.setArquivo(caminhoArquivo);
+		atividade.setBimestre(bimestre);
 		atividade.setAula(aula);
 		
 		
 		GerenteAtividade.adicionar(atividade);
 	}
 
-	public static void editarAtividade(Atividade atividade, String valor, String descricao) {
+	public static void editarAtividade(Atividade atividade, String valor, String bimestre, String descricao) {
 		
 		double valorDouble = Double.valueOf(valor);
 		atividade.setValorMaximo(valorDouble);
+		atividade.setBimestre(bimestre);
 		atividade.setDescricao(descricao);
 		
 		GerenteAtividade.atualizar(atividade);

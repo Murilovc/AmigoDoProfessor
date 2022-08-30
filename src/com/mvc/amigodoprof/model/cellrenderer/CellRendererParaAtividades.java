@@ -44,7 +44,7 @@ public class CellRendererParaAtividades extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable tabela, 
             Object valor, boolean isSelected, boolean hasFocus, int linha, int coluna){
     	
-    	if(coluna == 4 || coluna == 5) {
+    	if(coluna == 5 || coluna == 6) {
     		JButton botao = (JButton)valor;
 
     		return botao;

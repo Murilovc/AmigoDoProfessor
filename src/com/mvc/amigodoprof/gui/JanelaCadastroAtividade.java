@@ -3,6 +3,9 @@ package com.mvc.amigodoprof.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -16,8 +19,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+<<<<<<< Updated upstream
 import com.mvc.amigodoprof.controle.ControleAtividade;
+=======
+import com.mvc.amigodoprof.controle.ControleAluno;
+import com.mvc.amigodoprof.controle.ControleAtividade;
+import com.mvc.amigodoprof.entidade.Atividade;
+>>>>>>> Stashed changes
 import com.mvc.amigodoprof.entidade.Aula;
+import com.mvc.amigodoprof.gui.menu.MenuAtividade;
 import com.mvc.amigodoprof.gui.menu.MenuBase;
 
 public class JanelaCadastroAtividade extends JDialog{
@@ -29,14 +39,20 @@ public class JanelaCadastroAtividade extends JDialog{
 	private JTextArea tadescricao;
 	
 	private Aula aula;
+<<<<<<< Updated upstream
 	
 	JFrame pai;
 	
 	private String caminhoArquivo;
+=======
+	private String nomeArquivo;
+	private MenuAtividade pai;
+	private Atividade atividade;
+>>>>>>> Stashed changes
 
-	public JanelaCadastroAtividade(MenuBase pai, Aula aula) {
+	public JanelaCadastroAtividade(MenuAtividade pai, Aula aula, ModoDeAcesso modo, Atividade atividade) {
 		super(pai, ModalityType.APPLICATION_MODAL);
-		
+		this.pai = pai;
 		this.aula = aula;
 		
 		this.pai = pai;
@@ -105,12 +121,30 @@ public class JanelaCadastroAtividade extends JDialog{
 		scroll.setBounds(10, 148, 392, 62);
 		panel.add(scroll);
 		
+		if(modo == ModoDeAcesso.CADASTRO) {
+			this.setTitle("Cadastro de atividades");
+		}
+		else {
+			this.atividade = atividade;
+			btnEscolherArquivo.setEnabled(false);
+			btnSalvar.setAction(new AcaoSalvarEdicao());
+			
+			tf1.setText(String.valueOf(atividade.getValorMaximo()));
+			tf2.setText(atividade.getAula().toString());
+			tadescricao.setText(atividade.getDescricao());
+			cbBimestre.setSelectedItem(atividade.getBimestre());
+		}
+		
 	}
 	
 	private class AcaoEscolherArquivo extends AbstractAction {
 
 		public AcaoEscolherArquivo() {
+<<<<<<< Updated upstream
 			super("Escolher arquivo");
+=======
+			super("Anexar arquivo");
+>>>>>>> Stashed changes
 		}
 		
 		@Override
@@ -141,6 +175,75 @@ public class JanelaCadastroAtividade extends JDialog{
 			
 			pai.setVisible(true);
 			JanelaCadastroAtividade.this.setVisible(false);
+			
+			
+			try {
+				Files.copy(arquivo.toPath(), Paths.get("./"+arquivo.getName()));
+				nomeArquivo = arquivo.getName();
+			} catch (IOException e1) {
+				
+				e1.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	private class AcaoSalvar extends AbstractAction {
+
+		public AcaoSalvar() {
+			super("Salvar");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAtividade.cadastrarAtividade(
+					tf1.getText(),//valor
+					(String)cbBimestre.getSelectedItem(),
+					tadescricao.getText(),
+					nomeArquivo,
+					aula);
+
+			pai.buscarPor();
+
+			JanelaCadastroAtividade.this.dispose();
+			
+		}
+		
+	}
+	
+	private class AcaoSalvarEdicao extends AbstractAction {
+
+		public AcaoSalvarEdicao() {
+			super("Salvar");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ControleAtividade.editarAtividade(
+					atividade,
+					tf1.getText(),//valor
+					(String)cbBimestre.getSelectedItem(),
+					tadescricao.getText()
+					);
+
+			pai.buscarPor();
+
+			JanelaCadastroAtividade.this.dispose();
+			
+		}
+		
+	}
+	
+	private class AcaoCancelar extends AbstractAction{
+
+		public AcaoCancelar() {
+			super("Cancelar");
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JanelaCadastroAtividade.this.dispose();
 			
 		}
 		

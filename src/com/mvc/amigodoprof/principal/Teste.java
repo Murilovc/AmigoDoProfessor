@@ -14,7 +14,7 @@ public class Teste {
 	
 	/* O primeiro parâmetro é o nome do usuário do SGBD.
 	 * O segundo parâmetro é a senha que vc escolheu pro SGBD*/
-	GerenteBase.setarUserSenha("root", "".toCharArray());//"gulky471quatro".toCharArray());
+	GerenteBase.setarUserSenha("root", "gulky471quatro".toCharArray());//"gulky471quatro".toCharArray());
 	
 	SwingUtilities.invokeLater(new Runnable() { 
 		public void run() { 

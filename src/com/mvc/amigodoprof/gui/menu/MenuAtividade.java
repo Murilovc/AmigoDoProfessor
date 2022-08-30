@@ -97,8 +97,6 @@ public class MenuAtividade extends MenuBase{
 
 		listaAtividades = ControleAtividade.pesquisarPorTurma(aula.getTurma());
 		
-		listaAtividades.add(new Atividade());
-		
 		listaRegistrarResolucoes = new ArrayList<JButton>();
 		listaVerAtividades = new ArrayList<JButton>();
 		
@@ -110,10 +108,10 @@ public class MenuAtividade extends MenuBase{
 		JButton botaoCadastrarAtv = new JButton(new AcaoCadastrarAtividade());
 		botaoCadastrarAtv = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoCadastrarAtv, "Arial", 14);
 		
-		JButton botaoEditarAtv = new JButton();
+		JButton botaoEditarAtv = new JButton(new AcaoEditarAtividade());
 		botaoEditarAtv = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoEditarAtv, "Arial", 14);
 		
-		JButton botaoExcluirAtv = new JButton();
+		JButton botaoExcluirAtv = new JButton(new AcaoExcluirAtividade());
 		botaoExcluirAtv = UtilidadesGUI.estilizarBotaoComBordaPadrao(botaoExcluirAtv, "Arial", 14);
 		
 		JPanel painelLateral = UtilidadesGUI.
@@ -178,7 +176,7 @@ public class MenuAtividade extends MenuBase{
 				int coluna = tabela.getSelectedColumn();
 				int linha = tabela.getSelectedRow();
 
-				if(coluna == 4) {
+				if(coluna == 5) {
 					JButton botaoResolucao = listaRegistrarResolucoes.get(linha);
 					((AcaoRegistrarResolucoes) botaoResolucao.getAction()).abrirJanela();
 					
@@ -186,7 +184,7 @@ public class MenuAtividade extends MenuBase{
 					desativarBotoes();
 				}
 				
-				if(coluna == 5) {
+				if(coluna == 6) {
 					JButton botaoVerAtividade = listaVerAtividades.get(linha);
 					
 					((AcaoVerAtividade) botaoVerAtividade.getAction()).abrirJanela();
@@ -203,7 +201,17 @@ public class MenuAtividade extends MenuBase{
 	
 	@Override
 	public void buscarPor() {
+		List<Atividade> listaAtividades = ControleAtividade.pesquisarPorTurma(aula.getTurma());
 		
+		listaRegistrarResolucoes = new ArrayList<JButton>();
+		listaVerAtividades = new ArrayList<JButton>();
+		
+		for(int i = 0; i < listaAtividades.size(); i++) {
+			listaRegistrarResolucoes.add(new JButton(new AcaoRegistrarResolucoes(i)));
+			listaVerAtividades.add(new JButton(new AcaoVerAtividade(i)));
+		}
+		
+		carregarTabela(listaAtividades, listaRegistrarResolucoes, listaVerAtividades);
 		
 	}
 	
@@ -227,7 +235,8 @@ public class MenuAtividade extends MenuBase{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JanelaCadastroAtividade jca = new JanelaCadastroAtividade(MenuAtividade.this, aula);
+			JanelaCadastroAtividade jca = new JanelaCadastroAtividade(
+					MenuAtividade.this, aula, ModoDeAcesso.CADASTRO, null);
 			jca.setVisible(true);
 			
 		}
@@ -236,20 +245,37 @@ public class MenuAtividade extends MenuBase{
 	
 	private class AcaoEditarAtividade extends AbstractAction {
 
+		public AcaoEditarAtividade() {
+			super("Edição");
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			
+			long idAtividade = (long) tabela.getValueAt(tabela.getSelectedRow(), 0);
+			Atividade atividade = ControleAtividade.pesquisarAtividadePorId(idAtividade);
+			JanelaCadastroAtividade jca = new JanelaCadastroAtividade(
+					MenuAtividade.this, aula, ModoDeAcesso.EDICAO, atividade);
+			jca.setVisible(true);
 		}
 		
 	}
 	
 	private class AcaoExcluirAtividade extends AbstractAction {
 
+		public AcaoExcluirAtividade() {
+			super("Excluir");
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			
+			long idAtividade = (long) tabela.getValueAt(tabela.getSelectedRow(), 0);
+			Atividade atividade = ControleAtividade.pesquisarAtividadePorId(idAtividade);
+			
+			ControleAtividade.apagarAtividade(atividade);
+			
+			MenuAtividade.this.buscarPor();
 		}
 		
 	}
@@ -259,7 +285,7 @@ public class MenuAtividade extends MenuBase{
 		int linha;
 		
 		public AcaoRegistrarResolucoes(int linha){
-			super("Registrar entregas");
+			super("Registrar");
 			
 			this.linha = linha;
 		}

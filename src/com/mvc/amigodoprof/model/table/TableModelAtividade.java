@@ -18,7 +18,8 @@ public class TableModelAtividade extends AbstractTableModel {
 	
 	private Alinhamento[] alinhamento = { Alinhamento.CENTRO, Alinhamento.CENTRO,
 										  Alinhamento.CENTRO, Alinhamento.CENTRO,
-										  Alinhamento.CENTRO, Alinhamento.CENTRO};
+										  Alinhamento.CENTRO, Alinhamento.CENTRO,
+										  Alinhamento.CENTRO};
 	
 	public TableModelAtividade(List<Atividade> atividades,
 			List<JButton> botoesResolucao, List<JButton> botoesVerArquivo) {
@@ -38,7 +39,7 @@ public class TableModelAtividade extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {		
-		return 6;	
+		return 7;	
 	}
 	
 	@Override	
@@ -55,22 +56,21 @@ public class TableModelAtividade extends AbstractTableModel {
 				dado = atividade.getIdAtividade();
 				break;
 			case 1:  
-//				String dataString = atividade.getAula().getData().toString();
-//				String dataDia = dataString.substring(8,10);
-//				String dataMes = dataString.substring(5,7);
-//				String dataAno = dataString.substring(0,4);
-				dado = "09/05/1999";//dataDia+"/"+dataMes+"/"+dataAno;
+				dado = atividade.getAula().toString();
 				break;
 			case 2: 
+				dado = atividade.getBimestre();
+				break;
+			case 3: 
 				dado = atividade.getValorMaximo();
 				break;
-			case 3:
+			case 4:
 				dado = atividade.getDescricao();
 				break;
-			case 4: 
+			case 5: 
 				dado = listaBotoesResolucoes.get(indiceLinha);
 				break;
-			case 5: 
+			case 6: 
 				dado = listaBotoesVerArquivo.get(indiceLinha);
 				break;
 
@@ -99,15 +99,18 @@ public class TableModelAtividade extends AbstractTableModel {
 				nome = "Aula";//vai ser exibida a data da aula 
 				break;
 			case 2: 
+				nome = "Bimestre"; 
+				break;
+			case 3: 
 				nome = "Valor"; 
 				break;
-			case 3:
+			case 4:
 				nome = "Descrição";
 				break;
-			case 4:
+			case 5:
 				nome = "Resoluções";
 				break;
-			case 5:
+			case 6:
 				nome = "Arquivo";
 				break;
 
@@ -134,9 +137,12 @@ public class TableModelAtividade extends AbstractTableModel {
 				obj = String.class;
 				break;
 			case 4:
-				obj = JButton.class;
+				obj = String.class;
 				break;
 			case 5:
+				obj = JButton.class;
+				break;
+			case 6:
 				obj = JButton.class;
 				break;
 			default: 

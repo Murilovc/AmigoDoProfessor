@@ -1,5 +1,6 @@
 package com.mvc.amigodoprof.model.table;
 
+import java.awt.Color;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -64,8 +65,10 @@ public class TableModelAula extends AbstractTableModel {
 				JButton b = listaBotoes.get(indiceLinha);
 				if(aula.isFrequenciaLancada()) {
 					b.setText("Lançada");
+					b.setBackground(new Color(108, 235, 108));
 				} else {
 					b.setText("Pendente");
+					b.setBackground(new Color(235, 110, 123));
 				}
 				dado = b;
 				break;
